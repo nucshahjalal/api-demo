@@ -49,3 +49,4 @@ Route::get('/product/edit/{id}', [ProductController::class, 'editForm'])->name('
 Route::get('/product/view/{id}', [ProductController::class, 'view'])->name('product.view');
 Route::post('/product/update', [ProductController::class, 'update'])->name('product.update');
 Route::get('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+

@@ -33,61 +33,61 @@
             </div>
         </div>
     <div class="main-content">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="card stretch stretch-full">
-                        <div class="card-body">
-                            <form action="{{ url('employee/save') }}" method="POST">
-                                @csrf
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card stretch stretch-full">
+                    <div class="card-body">
+                        <form action="{{ url('employee/save') }}" method="POST">
+                            @csrf
 
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
-                                        <label class="form-label">Emp ID <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" name="emp_id"  value="{{ old('emp_id') }}" id="emp_id" placeholder="Emp ID">
-                                    </div>
-                                    @error('emp_id')
-                                        <div style="color: red">{{ $message }}</div>
-                                    @enderror 
+                            <div class="row">
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Employee ID <span class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" name="emp_id"  value="{{ old('emp_id') }}" id="emp_id" placeholder="Employee ID">
                                 </div>
-                        
-                                <div class="row">     
-                                    <div class="col-lg-6 mb-3">
-                                        <label class="form-label"> Name </label>
-                                        <input class="form-control" type="text" name="name"  value="{{ old('name') }}" id="name" placeholder="Name">
-                                    </div>
-                                     @error('name')
-                                        <div style="color: red">{{ $message }}</div>
-                                    @enderror
+                                @error('emp_id')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror 
+                            </div>
+                    
+                            <div class="row">     
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label"> Name </label>
+                                    <input class="form-control" type="text" name="name"  value="{{ old('name') }}" id="name" placeholder="Name">
                                 </div>
+                                    @error('name')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-                                <div class="row">      
-                                    <div class="col-lg-6 mb-3">
-                                        <label class="form-label">Designation </label>
-                                        <input class="form-control" type="text" name="designation"  value="{{ old('designation') }}" id="designation" placeholder="Designation">
-                                    </div>
-                                    @error('designation')
-                                        <div style="color: red">{{ $message }}</div>
-                                    @enderror 
+                            <div class="row">      
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Designation </label>
+                                    <input class="form-control" type="text" name="designation"  value="{{ old('designation') }}" id="designation" placeholder="Designation">
                                 </div>
+                                @error('designation')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror 
+                            </div>
 
-                                <div class="row">     
-                                    <div class="col-lg-6 mb-3">
-                                        <label class="form-label">Phone </label>
-                                        <input class="form-control" type="number" name="phone"  value="{{ old('phone') }}" id="phone" placeholder="Phone">
-                                    </div>
-                                    @error('phone')
-                                        <div style="color: red">{{ $message }}</div>
-                                    @enderror      
+                            <div class="row">     
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Phone </label>
+                                    <input class="form-control" type="number" name="phone"  value="{{ old('phone') }}" id="phone" placeholder="Phone">
                                 </div>
-                                
-                                <button type="submit" class="btn btn-sm btn-success"> Submit</button>
-                            </form>
-                        </div>
+                                @error('phone')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror      
+                            </div>
+                            
+                            <button type="submit" class="btn btn-sm btn-success"> Submit</button>
+                        </form>
                     </div>
                 </div>
-                  
             </div>
+                
         </div>
+    </div>
         <!-- [ page-header ] end -->
         <!-- [ Main Content ] start -->
         <!-- dashboardMainContent -->

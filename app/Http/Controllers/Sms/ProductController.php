@@ -19,6 +19,7 @@ class ProductController extends Controller
     }
 
     public function createForm(){
+
         return view('sms.product.create');
     }
 
@@ -73,7 +74,6 @@ class ProductController extends Controller
      
       if($product->update()){
         return redirect('product/list')->with('success','Product update successfull');
-
       }else{
          return redirect('product/edit/',$request->id)->with('error','Product update failed');
       }

@@ -33,70 +33,70 @@
             </div>
         </div>
     <div class="main-content">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="card stretch stretch-full">
-                        <div class="card-body">
-                            <form action="{{ url('product/save') }}" method="POST">
-                                @csrf
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card stretch stretch-full">
+                    <div class="card-body">
+                        <form action="{{ url('product/save') }}" method="POST">
+                            @csrf
 
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
-                                        <label class="form-label">Engine No <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" name="eng_no"  value="{{ old('eng_no') }}" id="eng_no" placeholder="Engine No">
-                                    </div>
-                                    @error('eng_no')
-                                        <div style="color: red">{{ $message }}</div>
-                                    @enderror 
+                            <div class="row">
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Engine No <span class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" name="eng_no"  value="{{ old('eng_no') }}" id="eng_no" placeholder="Engine No">
                                 </div>
-                        
-                                <div class="row">     
-                                    <div class="col-lg-6 mb-3">
-                                        <label class="form-label"> Chassis No <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" name="chassis_no"  value="{{ old('chassis_no') }}" id="chassis_no" placeholder="Chassis No">
-                                    </div>
-                                     @error('chassis_no')
-                                        <div style="color: red">{{ $message }}</div>
-                                    @enderror
+                                @error('eng_no')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror 
+                            </div>
+                    
+                            <div class="row">     
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label"> Chassis No <span class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" name="chassis_no"  value="{{ old('chassis_no') }}" id="chassis_no" placeholder="Chassis No">
                                 </div>
+                                    @error('chassis_no')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-                                <div class="row">     
-                                    <div class="col-lg-6 mb-3">
-                                        <label class="form-label">Brand </label>
-                                        <select class="form-control" name="brand" id="brand" data-select2-selector="icon">
-                                            <option value="0" data-icon="feather-at-sign">--Select Brand--</option>
-                                            <option value="Yamaha" data-icon="feather-at-sign">Yamaha</option> 
-                                        </select>
-                                    </div>
-                                    @error('brand')
-                                        <div style="color: red">{{ $message }}</div>
-                                    @enderror      
+                            <div class="row">     
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Brand </label>
+                                    <select class="form-control" name="brand" id="brand" data-select2-selector="icon">
+                                        <option value="0" data-icon="feather-at-sign">--Select Brand--</option>
+                                        <option value="Yamaha" data-icon="feather-at-sign">Yamaha</option> 
+                                    </select>
                                 </div>
+                                @error('brand')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror      
+                            </div>
 
-                                <div class="row">     
-                                    <div class="col-lg-6 mb-3">
-                                        <label class="form-label">Model </label>
-                                        <select class="form-control" name="model" id="model" data-select2-selector="icon">
-                                            <option value="0" data-icon="feather-at-sign">--Select Model--</option>
-                                            <option value="FZS-V2 150 CC" data-icon="feather-at-sign">FZS-V2 150 CC</option> 
-                                            <option value="MT 15- 150 CC" data-icon="feather-at-sign">MT 15- 150 CC</option> 
-                                            <option value="FZS-V3 150 CC" data-icon="feather-at-sign">FZS-V3 150 CC</option> 
-                                            <option value="Saluto 125 CC" data-icon="feather-at-sign">Saluto 125 CC</option> 
-                                        </select>
-                                    </div>
-                                    @error('model')
-                                        <div style="color: red">{{ $message }}</div>
-                                    @enderror      
+                            <div class="row">     
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Model </label>
+                                    <select class="form-control" name="model" id="model" data-select2-selector="icon">
+                                        <option value="0" data-icon="feather-at-sign">--Select Model--</option>
+                                        <option value="FZS-V2 150 CC" data-icon="feather-at-sign">FZS-V2 150 CC</option> 
+                                        <option value="MT 15- 150 CC" data-icon="feather-at-sign">MT 15- 150 CC</option> 
+                                        <option value="FZS-V3 150 CC" data-icon="feather-at-sign">FZS-V3 150 CC</option> 
+                                        <option value="Saluto 125 CC" data-icon="feather-at-sign">Saluto 125 CC</option> 
+                                    </select>
                                 </div>
-                                
-                                <button type="submit" class="btn btn-sm btn-success"> Submit</button>
-                            </form>
-                        </div>
+                                @error('model')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror      
+                            </div>
+                            
+                            <button type="submit" class="btn btn-sm btn-success"> Submit</button>
+                        </form>
                     </div>
                 </div>
-                  
             </div>
+                
         </div>
+    </div>
         <!-- [ page-header ] end -->
         <!-- [ Main Content ] start -->
         <!-- dashboardMainContent -->

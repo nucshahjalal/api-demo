@@ -66,7 +66,6 @@ class EmployeeController extends Controller
      
       if($employee->update()){
         return redirect('employee/list')->with('success','Employee update successfull');
-
       }else{
          return redirect('employee/edit/',$request->id)->with('error','Employee update failed');
       }
