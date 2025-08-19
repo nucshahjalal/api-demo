@@ -47,7 +47,7 @@
                                 <select class="form-control" name="emp_id" id="emp_id" data-select2-selector="icon">
                                     <option value="">--Select--</option> 
                                     @foreach($employees as $obj) 
-                                        <option value="{{ $obj->id }}" {{ $vehicle->emp_id == $obj->id  ? 'selected' : ''}}> {{ $obj->emp_id . '[' . $obj->name . ']' }} </option>
+                                        <option value="{{ $obj->id }}" {{ $vehicle->emp_id == $obj->id  ? 'selected' : ''}}> {{ 'ID='. $obj->emp_id . '[' . $obj->name . ']' }} </option>
                                     @endforeach 
                                 </select>
                             </div>
@@ -62,7 +62,7 @@
                                 <select class="form-control" name="product_id" id="product_id" data-select2-selector="icon">
                                     <option value="">--Select--</option> 
                                     @foreach($products as $obj) 
-                                        <option value="{{ $obj->id }}" {{ $vehicle->product_id == $obj->id  ? 'selected' : ''}}> {{ $obj->id . '[' . $obj->model . ']' }} </option>
+                                        <option value="{{ $obj->id }}" {{ $vehicle->product_id == $obj->id  ? 'selected' : ''}}> {{ 'ID='. $obj->id . '[' . $obj->model . ']' }} </option>
                                     @endforeach 
                                 </select>
                             </div>
@@ -110,8 +110,11 @@
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label">MC Status </label>
                                 <select class="form-control" name="mc_status" id="mc_status" data-select2-selector="icon">
-                                    <option value="0" data-icon="feather-at-sign">--Select --</option>
-                                    <option value="Good" data-icon="feather-at-sign">Good</option> 
+                                    @php $status = get_mc_status(); @endphp
+                                    <option value=""> --Select-- </option>
+                                    @foreach($status as $key => $value)
+                                        <option value="{{ $key }}" {{ $key == $vehicle->mc_status ? 'selected' : '' }}> {{ $value }}</option>
+                                    @endforeach 
                                 </select>
                             </div>
                             @error('mc_status')

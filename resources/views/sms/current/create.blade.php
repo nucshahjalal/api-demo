@@ -8,7 +8,7 @@
        <div class="page-header">
             <div class="page-header-left d-flex align-items-center">                    
                 <ul class="breadcrumb">
-                        <h3 style="text-align: center !important;"> Manage Vehicle Information</h3>
+                    <h3 style="text-align: center !important;"> Manage Vehicle Information</h3>
                 </ul>
             </div>
             <div class="page-header-right ms-auto">
@@ -46,7 +46,7 @@
                                     <select class="form-control" name="emp_id" id="emp_id" data-select2-selector="icon">
                                         <option value="">--Select--</option> 
                                         @foreach($employees as $obj) 
-                                            <option value="{{ $obj->id }} "> {{ $obj->emp_id . '[' . $obj->name . ']' }} </option>
+                                            <option value="{{ $obj->id }} "> {{ 'ID='. $obj->emp_id . '[' . $obj->name . ']' }} </option>
                                         @endforeach 
                                     </select>
                                 </div>
@@ -61,7 +61,7 @@
                                     <select class="form-control" name="product_id" id="product_id" data-select2-selector="icon">
                                         <option value="">--Select--</option> 
                                         @foreach($products as $obj) 
-                                            <option value="{{ $obj->id }} "> {{ $obj->id . '[' . $obj->model . ']' }} </option>
+                                            <option value="{{ $obj->id }} "> {{ 'ID='. $obj->id . '[' . $obj->model . ']' }} </option>
                                         @endforeach 
                                     </select>
                                 </div>
@@ -109,8 +109,11 @@
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">MC Status </label>
                                     <select class="form-control" name="mc_status" id="mc_status" data-select2-selector="icon">
-                                        <option value="0" data-icon="feather-at-sign">--Select --</option>
-                                        <option value="Good" data-icon="feather-at-sign">Good</option> 
+                                        @php $status = get_mc_status(); @endphp
+                                        <option value=""> --Select-- </option>
+                                        @foreach($status as $key => $value)
+                                            <option value="{{ $key }}"> {{ $value }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 @error('mc_status')

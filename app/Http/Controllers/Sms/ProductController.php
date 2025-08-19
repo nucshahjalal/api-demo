@@ -28,9 +28,11 @@ class ProductController extends Controller
         $request->validate([
             'eng_no' => ['required','unique:products,eng_no'],
             'chassis_no' => ['required','unique:products,chassis_no'],
+            'registration_number' => ['required','unique:products,registration_number'],
        ], [
             'eng_no.unique' => 'Engine no is already taken.',
-            'chassis_no.unique' => 'Chassis no is required.',
+            'chassis_no.unique' => 'Chassis no is already taken.',
+            'registration_number.unique' => 'Registration number is already taken.',
             'eng_no.required' => 'Engine no is required.',
             'chassis_no.required' => 'Chassis no is required.',
         ]);
@@ -65,9 +67,14 @@ class ProductController extends Controller
                 'required',
                 Rule::unique('products', 'chassis_no')->ignore($product->id),
             ],
+            'registration_number' => [
+                'required',
+                Rule::unique('products', 'registration_number')->ignore($product->id),
+            ],
         ], [
             'eng_no.unique'   => 'Engine no is already taken.',
             'chassis_no.unique'   => 'Chassis no is already taken.',
+            'registration_number.unique'   => 'Registration number is already taken.',
         ]);
 
        $product->status = $request->status;

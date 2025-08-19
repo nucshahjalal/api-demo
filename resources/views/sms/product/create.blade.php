@@ -101,7 +101,7 @@
 
                             <div class="row">     
                                 <div class="col-lg-6 mb-3">
-                                    <label class="form-label"> Registration Number</label>
+                                    <label class="form-label"> Registration Number <span class="text-danger">*</span></label>
                                     <input class="form-control" type="text" name="registration_number"  value="{{ old('registration_number') }}" id="registration_number" placeholder="Registration Number">
                                 </div>
                                     @error('registration_number')

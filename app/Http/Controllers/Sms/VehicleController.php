@@ -13,8 +13,24 @@ class VehicleController extends Controller
     public function index(Request $request){
 
         $filter = $request->filter;
-        $this->data['vehicles'] = Current::getCurrentList($filter);
+        $this->data['vehicles'] = Current::getVehicleList($filter);
         return view('sms.current.index', $this->data);
+    }
+
+    public function oldVehicle(Request $request){
+
+        $filter = $request->filter;
+        $this->data['vehicles'] = Current::getOldVehicleList($filter);
+        return view('sms.current.oldVehicle', $this->data);
+    }
+
+    public function empWiseVehicle(Request $request){
+
+        //$filter = $request->filter;
+        $emp_id = $request->emp_id;
+        $this->data['employees'] = Employee::where(['status'=>1])->get();
+        $this->data['vehicles'] = Current::getEmpWiseVehicleList($emp_id);
+        return view('sms.current.empWiseVehicle', $this->data);
     }
 
     public function createForm(){
@@ -31,8 +47,8 @@ class VehicleController extends Controller
             'emp_id' => ['required'],
             'product_id' => ['required'],
        ], [
-            'emp_id.required' => 'Employee id is required.',
-            'product_id.required' => 'Product id is required.',
+            'emp_id.required' => 'Employee name is required.',
+            'product_id.required' => 'Product name is required.',
         ]);
         
         $current  = Current::create($request->all());
@@ -62,8 +78,8 @@ class VehicleController extends Controller
                 'emp_id' => ['required'],
                 'product_id' => ['required'],
         ], [
-                'emp_id.required' => 'Employee id is required.',
-                'product_id.required' => 'Product id is required.',
+                'emp_id.required' => 'Employee name is required.',
+                'product_id.required' => 'Product name is required.',
         ]);
 
       $current->fill($request->all());

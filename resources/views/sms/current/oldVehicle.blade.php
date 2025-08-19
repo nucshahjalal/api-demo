@@ -1,5 +1,5 @@
 @extends('backend.app')
-@section('page_title','Vehicle List')
+@section('page_title','Old Vehicle List')
 @section('content')
 
 <main class="nxl-container">
@@ -7,16 +7,13 @@
         <!-- [ page-header ] start -->
     <div class="page-header d-flex align-items-center justify-content-between">
     <div class="page-header-left d-flex align-items-center gap-2">
-        <a href="{{ url('product/list') }}" class="btn btn-sm btn-secondary">
-            <i class="bi bi-list"></i> List
-        </a>
-        <a href="{{ url('vehicle/create') }}" class="btn btn-sm btn-success">
-            <i class="bi bi-plus"></i> Add
-        </a>
+        <ul class="breadcrumb">
+            <h3 style="text-align: center !important;"> Manage Old Vehicle Information</h3>
+        </ul>
     </div>
 
     <div class="page-header-right ms-auto">
-        <form method="get" action="{{ url('vehicle/list') }}">
+        <form method="get" action="{{ url('old-vehicle/list') }}">
             @csrf
             <div class="d-flex align-items-center gap-2">
                 <input class="form-control" type="text" name="filter" 
@@ -49,7 +46,6 @@
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Receive Date</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Total Duration</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">MC Status</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,11 +61,6 @@
                                 <td>{{ $obj->receive_date }}</td>
                                 <td>{{ $obj->total_duration }}</td>
                                 <td>{{ $obj->mc_status }}</td>
-                                <td>
-                                    <a class="btn btn-sm btn-primary" href="{{ url('vehicle/view', $obj->id) }}"> <i class="bi bi-eye"></i> View</a>
-                                    <a class="btn btn-sm btn-info" href="{{ url('vehicle/edit', $obj->id) }}"><i class="bi bi-pencil-square"></i> Edit</a>
-                                    <a class="btn btn-sm btn-danger" href="{{ url('vehicle/delete', $obj->id) }}" onclick="javascript: return confirm('are you sure delete?')"><i class="bi bi-trash"></i> Delete</a>
-                                </td>
                             </tr>
                             @empty
                             <tr>

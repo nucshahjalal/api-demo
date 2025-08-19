@@ -49,10 +49,10 @@
                             <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.list')}}">Current Vehicle List</a></li>
                         </ul>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('product.list')}}">Old Vehicle Lis</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('old-vehicle.list')}}">Old Vehicle List</a></li>
                         </ul>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('product.list')}}">Employee Wise Vehicle List</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('emp-wise-vehicle.list')}}">Employee Wise Vehicle List</a></li>
                         </ul>
                         <ul class="nxl-submenu">
                             <li class="nxl-item"><a class="nxl-link" href="{{route('product.list')}}">Chassis Wise Vehicle List</a></li>
