@@ -1,7 +1,7 @@
 <nav class="nxl-navigation">
         <div class="navbar-wrapper">
             <div class="m-header">
-                <a href="index.html" class="b-brand">
+                <a href="#" class="b-brand">
                     <!-- ========   change your logo hear   ============ -->
                     <img src="{{asset('backend/assets/images/logo.jpg')}}" alt="" class="logo logo-lg" />
                     <img src="{{asset('backend/assets/images/logo-abbr.png')}}" alt="" class="logo logo-sm" />
@@ -43,9 +43,6 @@
                             <span class="nxl-mtext">Vehicle</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('portfolio.list')}}">Portfolio List</a></li>
-                        </ul>
-                        <ul class="nxl-submenu">
                             <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.list')}}">Current Vehicle List</a></li>
                         </ul>
                         <ul class="nxl-submenu">
@@ -56,6 +53,16 @@
                         </ul>
                         <ul class="nxl-submenu">
                             <li class="nxl-item"><a class="nxl-link" href="{{route('product.list')}}">Chassis Wise Vehicle List</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-cast"></i></span>
+                            <span class="nxl-mtext">Portfolio</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('portfolio.list')}}">Portfolio List</a></li>
                         </ul>
                     </li>
 

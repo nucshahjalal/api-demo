@@ -44,79 +44,79 @@
                         <div class="row">     
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label">Employee Name <span class="text-danger">*</span></label>
-                                <select class="form-control" name="emp_id" id="emp_id" data-select2-selector="icon" readonly>
+                                <select  class="form-control" name="emp_id" id="emp_id" data-select2-selector="icon" readonly>
                                     <option value="">--Select--</option> 
                                     @foreach($employees as $obj) 
-                                        <option value="{{ $obj->id }}" {{ $vehicle->emp_id == $obj->id  ? 'selected' : ''}}> {{ $obj->emp_id . '[' . $obj->name . ']' }} </option>
+                                        <option  value="{{ $obj->id }}" {{ $vehicle->emp_id == $obj->id  ? 'selected' : ''}}> {{  $obj->name . '[' . 'Employee ID='. $obj->emp_id .']' }} </option>
                                     @endforeach 
                                 </select>
+                                 @error('emp_id')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('emp_id')
-                                <div style="color: red">{{ $message }}</div>
-                            @enderror      
-                        </div>
-
-                        <div class="row">     
                             <div class="col-lg-6 mb-3">
-                                <label class="form-label">Product Name <span class="text-danger">*</span></label>
+                                <label class="form-label">Product <span class="text-danger">*</span></label>
                                 <select class="form-control" name="product_id" id="product_id" data-select2-selector="icon" readonly>
                                     <option value="">--Select--</option> 
                                     @foreach($products as $obj) 
-                                        <option value="{{ $obj->id }}" {{ $vehicle->product_id == $obj->id  ? 'selected' : ''}}> {{ $obj->id . '[' . $obj->model . ']' }} </option>
+                                        <option value="{{ $obj->id }}" {{ $vehicle->product_id == $obj->id  ? 'selected' : ''}}> {{ $obj->model . '[' . $obj->chassis_no .']' }} </option>
                                     @endforeach 
                                 </select>
+                                @error('product_id')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror 
                             </div>
-                            @error('product_id')
-                                <div style="color: red">{{ $message }}</div>
-                            @enderror      
+                                 
                         </div>
 
                         <div class="row">     
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label">Portfolio </label>
-                                <select class="form-control" name="portfolio" id="portfolio" data-select2-selector="icon" readonly>
+                                <select class="form-control" name="portfolio_id" id="portfolio_id" data-select2-selector="icon" readonly>
                                     <option value="">--Select--</option> 
                                     @foreach($portfolios as $obj) 
-                                        <option value="{{ $obj->id }}" {{ $vehicle->portfolio == $obj->id  ? 'selected' : ''}}> {{ $obj->name }} </option>
+                                        <option value="{{ $obj->id }}" {{ $vehicle->portfolio_id == $obj->id  ? 'selected' : ''}}> {{ $obj->name }} </option>
                                     @endforeach 
                                 </select>
+                                @error('portfolio_id')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror  
                             </div>
-                            @error('portfolio')
-                                <div style="color: red">{{ $message }}</div>
-                            @enderror      
-                        </div>
-
-                        <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label">Location </label>
                                 <input class="form-control" type="text" name="location"  value="{{ $vehicle->location }}" id="location" placeholder="Location" readonly>
-                            </div>
-                            @error('location')
-                                <div style="color: red">{{ $message }}</div>
-                            @enderror 
+                                <div>
+                                    @error('location')
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror 
+                                </div>
+                            </div>    
                         </div>
-                
+
                         <div class="row">     
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label"> Receive Date </label>
                                 <input class="form-control" type="text" name="receive_date"  value="{{ $vehicle->receive_date }}" id="edit_receive_date" placeholder="Receive Date" readonly>
+                                <div>
+                                    @error('receive_date')
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
-                                @error('receive_date')
-                                <div style="color: red">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="row">     
                             <div class="col-lg-6 mb-3">
-                                <label class="form-label">MC Status </label>
-                                <select class="form-control" name="mc_status" id="mc_status" data-select2-selector="icon" readonly>
-                                    <option value="0" data-icon="feather-at-sign">--Select --</option>
-                                    <option value="Good" data-icon="feather-at-sign">Good</option> 
+                                <label class="form-label">Motor Cycle Status </label>
+                                <select  class="form-control" name="mc_status" id="mc_status" data-select2-selector="icon" readonly>
+                                    @php $status = get_mc_status(); @endphp
+                                    <option value=""> --Select-- </option>
+                                    @foreach($status as $key => $value)
+                                        <option  value="{{ $key }}" {{ $key == $vehicle->mc_status ? 'selected' : '' }}> {{ $value }}</option>
+                                    @endforeach 
                                 </select>
+                                @error('mc_status')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror 
                             </div>
-                            @error('mc_status')
-                                <div style="color: red">{{ $message }}</div>
-                            @enderror      
+                               
                         </div>
 
                         </form>

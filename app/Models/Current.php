@@ -16,11 +16,12 @@ class Current extends Model
         $currents = Current::from('currents as C')
             ->join('employees AS E', 'E.id', '=', 'C.emp_id')
             ->join('products AS P', 'P.id', '=', 'C.product_id')
+            ->join('portfolios AS Port', 'Port.id', '=', 'C.portfolio_id')
             ->where(function($query) use ($filter) {
                 $query->where('E.name', 'like', '%'.$filter.'%')
                     ->orWhere('P.brand', 'like', '%'.$filter.'%')
                     ->orWhere('P.model', 'like', '%'.$filter.'%')
-                    ->orWhere('C.portfolio', 'like', '%'.$filter.'%')
+                    ->orWhere('C.portfolio_id', 'like', '%'.$filter.'%')
                     ->orWhere('C.location', 'like', '%'.$filter.'%');
             })
             ->orderBy('C.id', 'desc')
@@ -29,20 +30,29 @@ class Current extends Model
                 'E.name as emp_name',
                 'P.brand as brand_name',
                 'P.model as model_name',
+                'Port.name as portfolio_name',
                 'P.registration_date as reg_date',
                 'C.receive_date',
             ]);
 
             // Add duration for each record
             foreach ($currents as $current) {
-                $start = \Carbon\Carbon::parse($current->reg_date);
-                $end   = \Carbon\Carbon::parse($current->receive_date);
+                $receive_date = \Carbon\Carbon::parse($current->receive_date);
+                $registration_date = \Carbon\Carbon::parse($current->reg_date);
+                $end = now();
 
-                if ($end && $start) {
-                    $diff = $start->diff($end);
-                    $current->total_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
+                if ($end && $receive_date) {
+                    $diff = $receive_date->diff($end);
+                    $current->total_receive_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
                 } else {
-                    $current->total_duration = null; 
+                    $current->total_receive_duration = null; 
+                }
+
+                if ($end && $registration_date) {
+                    $diff = $registration_date->diff($end);
+                    $current->total_reg_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
+                } else {
+                    $current->total_reg_duration = null; 
                 }
             }
 
@@ -87,6 +97,7 @@ class Current extends Model
 
         return $currents;
     }
+
     public static function getEmpWiseVehicleList($empName = null)
     {
         $currents = Current::from('currents as C')

@@ -109,4 +109,17 @@ class VehicleController extends Controller
             return redirect('vehicle/list')->with('error','Vehicle delete failed');
         }
     } 
+
+    public function updateStatus(Request $request)
+    {
+        $current = Current::find($request->id);
+
+        if (!$current) {
+            return response()->json(['success' => 'Data not found'], 404);
+        }
+
+        $current->status = 1;
+        $current->transfer_at = now();
+        $current->save();
+    }
 }

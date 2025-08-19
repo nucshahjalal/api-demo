@@ -71,3 +71,4 @@ Route::get('/vehicle/delete/{id}', [VehicleController::class, 'destroy'])->name(
 
 Route::get('/old-vehicle/list', [VehicleController::class, 'oldVehicle'])->name('old-vehicle.list');
 Route::get('/emp-wise-vehicle/list', [VehicleController::class, 'empWiseVehicle'])->name('emp-wise-vehicle.list');
+Route::post('/vehicle/update-status', [VehicleController::class, 'updateStatus'])->name('vehicle.update-status');
