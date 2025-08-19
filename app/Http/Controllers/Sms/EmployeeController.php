@@ -31,8 +31,8 @@ class EmployeeController extends Controller
             'emp_id.required'   => 'Employee id is required.',
         ]);
         
+        $request->merge(['status'=> 1]);
         $employee  = Employee::create($request->all());
-        $employee->status = 1;
         if($employee){
             return redirect('employee/list')->with('success','Employee create successfull');
         }else{
@@ -42,33 +42,33 @@ class EmployeeController extends Controller
 
     public function editForm(string $id)
     { 
-       $this->data['employee'] = Employee::find($id);
-       return view('sms.employee.edit', $this->data);
+        $this->data['employee'] = Employee::find($id);
+        return view('sms.employee.edit', $this->data);
     }
 
     public function update(Request $request)
     {
     
-    $employee = Employee::findOrFail($request->id);
+        $employee = Employee::findOrFail($request->id);
 
-    $request->validate([
-        'emp_id' => [
-            'required',
-            Rule::unique('employees', 'emp_id')->ignore($employee->id),
-        ],
-        ], [
-        'emp_id.unique'   => 'Employee id is already taken.',
-        'emp_id.required'   => 'Employee id is required.',
-    ]);
+        $request->validate([
+            'emp_id' => [
+                'required',
+                Rule::unique('employees', 'emp_id')->ignore($employee->id),
+            ],
+            ], [
+            'emp_id.unique'   => 'Employee id is already taken.',
+            'emp_id.required'   => 'Employee id is required.',
+        ]);
 
-      $employee->status = $request->status;
-      $employee->fill($request->all());
-     
-      if($employee->update()){
-        return redirect('employee/list')->with('success','Employee update successfull');
-      }else{
-         return redirect('employee/edit/',$request->id)->with('error','Employee update failed');
-      }
+        $employee->status = $request->status;
+        $employee->fill($request->all());
+        
+        if($employee->update()){
+            return redirect('employee/list')->with('success','Employee update successfull');
+        }else{
+            return redirect('employee/edit/',$request->id)->with('error','Employee update failed');
+        }
     }
 
     public function view(string $id)

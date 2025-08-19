@@ -1,5 +1,5 @@
 @extends('backend.app')
-@section('page_title','Product List')
+@section('page_title','Vehicle List')
 @section('content')
 
 <main class="nxl-container">
@@ -10,13 +10,13 @@
         <a href="{{ url('product/list') }}" class="btn btn-sm btn-secondary">
             <i class="bi bi-list"></i> List
         </a>
-        <a href="{{ url('product/create') }}" class="btn btn-sm btn-success">
+        <a href="{{ url('vehicle/create') }}" class="btn btn-sm btn-success">
             <i class="bi bi-plus"></i> Add
         </a>
     </div>
 
     <div class="page-header-right ms-auto">
-        <form method="get" action="{{ url('product/list') }}">
+        <form method="get" action="{{ url('vehicle/list') }}">
             @csrf
             <div class="d-flex align-items-center gap-2">
                 <input class="form-control" type="text" name="filter" 
@@ -41,32 +41,30 @@
                         <thead>
                             <tr class="border-b">
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col" >SL No</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Engine No</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Chassis No</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Brand</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Model</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Date</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Number</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Status</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Employee Name</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Brand Name</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Portfolio</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Location</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Receive Date</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">MC Status</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @forelse ($products as $obj)
+                            @forelse ($vehicles as $obj)
                             <tr>
-                                <td>{{ $loop->index + $products->firstItem() }}</td>
-                                <td>{{ $obj->eng_no }}</td>
-                                <td>{{ $obj->chassis_no }}</td>
-                                <td>{{ $obj->brand }}</td>
-                                <td>{{ $obj->model }}</td>
-                                <td>{{ $obj->registration_date }}</td>
-                                <td>{{ $obj->registration_number }}</td>
-                                <td>{{ $obj->status ? 'Active' : 'InActive' }}</td>
+                                <td>{{ $loop->index + $vehicles->firstItem() }}</td>
+                                <td>{{ $obj->emp_name }}</td>
+                                <td>{{ $obj->brand_name }}</td>
+                                <td>{{ $obj->portfolio }}</td>
+                                <td>{{ $obj->location }}</td>
+                                <td>{{ $obj->receive_date }}</td>
+                                <td>{{ $obj->mc_status }}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-primary" href="{{ url('product/view', $obj->id) }}"> <i class="bi bi-eye"></i> View</a>
-                                    <a class="btn btn-sm btn-info" href="{{ url('product/edit', $obj->id) }}"><i class="bi bi-pencil-square"></i> Edit</a>
-                                    <a class="btn btn-sm btn-danger" href="{{ url('product/delete', $obj->id) }}" onclick="javascript: return confirm('are you sure delete?')"><i class="bi bi-trash"></i> Delete</a>
+                                    <a class="btn btn-sm btn-primary" href="{{ url('vehicle/view', $obj->id) }}"> <i class="bi bi-eye"></i> View</a>
+                                    <a class="btn btn-sm btn-info" href="{{ url('vehicle/edit', $obj->id) }}"><i class="bi bi-pencil-square"></i> Edit</a>
+                                    <a class="btn btn-sm btn-danger" href="{{ url('vehicle/delete', $obj->id) }}" onclick="javascript: return confirm('are you sure delete?')"><i class="bi bi-trash"></i> Delete</a>
                                 </td>
                             </tr>
                             @empty
@@ -76,7 +74,7 @@
                         @endforelse
                     </tbody>
                 </table>
-                    {!! $products->withQueryString()->links('pagination::bootstrap-5') !!}
+                    {!! $vehicles->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
             </div>
         </div>

@@ -92,6 +92,26 @@
 
                         <div class="row">     
                             <div class="col-lg-6 mb-3">
+                                <label class="form-label"> Registration Date</label>
+                                <input class="form-control" type="text" name="registration_date"  value="{{ $product->registration_date }}" id="edit_registration_date" placeholder="Registration Date" readonly>
+                            </div>
+                                @error('registration_date')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="row">     
+                            <div class="col-lg-6 mb-3">
+                                <label class="form-label"> Registration Number</label>
+                                <input class="form-control" type="text" name="registration_number"  value="{{ $product->registration_number }}" id="registration_number" placeholder="Registration Number" readonly>
+                            </div>
+                                @error('registration_number')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="row">     
+                            <div class="col-lg-6 mb-3">
                                 <label class="form-label">Status </label>
                                 <select class="form-control" name="status" id="status" data-select2-selector="icon" readonly>
                                     <option value="1" {{ ($product->status ?? '') == '1' ? 'selected' : '' }} data-icon="feather-at-sign">Active</option>

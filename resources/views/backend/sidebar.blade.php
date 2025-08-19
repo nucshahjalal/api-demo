@@ -37,6 +37,27 @@
                             <li class="nxl-item"><a class="nxl-link" href="{{route('product.list')}}">Product List</a></li>
                         </ul>
                     </li>
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-cast"></i></span>
+                            <span class="nxl-mtext">Vehicle</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('portfolio.list')}}">Portfolio List</a></li>
+                        </ul>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.list')}}">Current Vehicle List</a></li>
+                        </ul>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('product.list')}}">Old Vehicle Lis</a></li>
+                        </ul>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('product.list')}}">Employee Wise Vehicle List</a></li>
+                        </ul>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('product.list')}}">Chassis Wise Vehicle List</a></li>
+                        </ul>
+                    </li>
 
                     
 

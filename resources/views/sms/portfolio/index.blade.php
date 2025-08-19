@@ -1,5 +1,5 @@
 @extends('backend.app')
-@section('page_title','Employee List')
+@section('page_title','Portfolio List')
 @section('content')
 
 <main class="nxl-container">
@@ -7,16 +7,16 @@
         <!-- [ page-header ] start -->
     <div class="page-header d-flex align-items-center justify-content-between">
         <div class="page-header-left d-flex align-items-center gap-2">
-            <a href="{{ url('employee/list') }}" class="btn btn-sm btn-secondary">
+            <a href="{{ url('portfolio/list') }}" class="btn btn-sm btn-secondary">
                 <i class="bi bi-list"></i> List
             </a>
-            <a href="{{ url('employee/create') }}" class="btn btn-sm btn-success">
+            <a href="{{ url('portfolio/create') }}" class="btn btn-sm btn-success">
                 <i class="bi bi-plus"></i> Add
             </a>
         </div>
 
         <div class="page-header-right ms-auto">
-            <form method="get" action="{{ url('employee/list') }}">
+            <form method="get" action="{{ url('portfolio/list') }}">
                 @csrf
                 <div class="d-flex align-items-center gap-2">
                     <input class="form-control" type="text" name="filter" 
@@ -41,29 +41,20 @@
                         <thead>
                             <tr class="border-b">
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col" >SL No</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Employee ID</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Name</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Designation</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Phone</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Portfolio</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Status</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($employees as $obj)
+                            @forelse ($portfolios as $obj)
                             <tr>
-                                <td>{{ $loop->index + $employees->firstItem() }}</td>
-                                <td>{{ $obj->emp_id }}</td>
+                                <td>{{ $loop->index + $portfolios->firstItem() }}</td>
                                 <td>{{ $obj->name }}</td>
-                                <td>{{ $obj->designation }}</td>
-                                <td>{{ $obj->phone }}</td>
-                                <td>{{ $obj->portfolio }}</td>
                                 <td>{{ $obj->status ? 'Active' : 'InActive' }}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-primary" href="{{ url('employee/view', $obj->id) }}"> <i class="bi bi-eye"></i> View</a>
-                                    <a class="btn btn-sm btn-info" href="{{ url('employee/edit', $obj->id) }}"><i class="bi bi-pencil-square"></i> Edit</a>
-                                    <a class="btn btn-sm btn-danger" href="{{ url('employee/delete', $obj->id) }}" onclick="javascript: return confirm('are you sure delete?')"><i class="bi bi-trash"></i> Delete</a>
+                                    <a class="btn btn-sm btn-info" href="{{ url('portfolio/edit', $obj->id) }}"><i class="bi bi-pencil-square"></i> Edit</a>
+                                    <a class="btn btn-sm btn-danger" href="{{ url('portfolio/delete', $obj->id) }}" onclick="javascript: return confirm('are you sure delete?')"><i class="bi bi-trash"></i> Delete</a>
                                 </td>
                             </tr>
                             @empty
@@ -73,7 +64,7 @@
                         @endforelse
                     </tbody>
                 </table>
-                    {!! $employees->withQueryString()->links('pagination::bootstrap-5') !!}
+                    {!! $portfolios->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
             </div>
         </div>

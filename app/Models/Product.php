@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public static function getProducteList($filter) {
+    public static function getProductList($filter) {
         
         $products = Employee::from('products as P')
                     ->where('P.eng_no', 'like', '%'.$filter.'%')

@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function index(Request $request){
 
         $filter = $request->filter;
-        $this->data['products'] = Product::getProducteList($filter);
+        $this->data['products'] = Product::getProductList($filter);
         return view('sms.product.index', $this->data);
     }
 
@@ -35,8 +35,9 @@ class ProductController extends Controller
             'chassis_no.required' => 'Chassis no is required.',
         ]);
         
+        $request->merge(['status'=> 1]);
         $product  = Product::create($request->all());
-        $product->status = 1;
+        
         if($product){
             return redirect('product/list')->with('success','Product create successfull');
         }else{
@@ -53,30 +54,30 @@ class ProductController extends Controller
     public function update(Request $request)
     {
     
-    $product = Product::findOrFail($request->id);
+        $product = Product::findOrFail($request->id);
 
-    $request->validate([
-        'eng_no' => [
-            'required',
-            Rule::unique('products', 'eng_no')->ignore($product->id),
-        ],
-        'chassis_no' => [
-            'required',
-            Rule::unique('products', 'chassis_no')->ignore($product->id),
-        ],
-    ], [
-        'eng_no.unique'   => 'Engine no is already taken.',
-        'chassis_no.unique'   => 'Chassis no is already taken.',
-    ]);
+        $request->validate([
+            'eng_no' => [
+                'required',
+                Rule::unique('products', 'eng_no')->ignore($product->id),
+            ],
+            'chassis_no' => [
+                'required',
+                Rule::unique('products', 'chassis_no')->ignore($product->id),
+            ],
+        ], [
+            'eng_no.unique'   => 'Engine no is already taken.',
+            'chassis_no.unique'   => 'Chassis no is already taken.',
+        ]);
 
-      $product->status = $request->status;
-      $product->fill($request->all());
+       $product->status = $request->status;
+       $product->fill($request->all());
      
-      if($product->update()){
-        return redirect('product/list')->with('success','Product update successfull');
-      }else{
-         return redirect('product/edit/',$request->id)->with('error','Product update failed');
-      }
+       if($product->update()){
+            return redirect('product/list')->with('success','Product update successfull');
+       }else{
+            return redirect('product/edit/',$request->id)->with('error','Product update failed');
+        }
     }
 
     public function view(string $id)

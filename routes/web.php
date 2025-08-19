@@ -6,6 +6,8 @@ use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Sms\EmployeeController;
 use App\Http\Controllers\Sms\ProductController;
+use App\Http\Controllers\Sms\VehicleController;
+use App\Http\Controllers\Sms\PortfolioController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -49,4 +51,21 @@ Route::get('/product/edit/{id}', [ProductController::class, 'editForm'])->name('
 Route::get('/product/view/{id}', [ProductController::class, 'view'])->name('product.view');
 Route::post('/product/update', [ProductController::class, 'update'])->name('product.update');
 Route::get('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+//sms portfolio
+Route::get('/portfolio/list', [PortfolioController::class, 'index'])->name('portfolio.list');
+Route::get('/portfolio/create', [PortfolioController::class, 'createForm'])->name('portfolio.create');
+Route::post('/portfolio/save', [PortfolioController::class, 'store'])->name('portfolio.save');
+Route::get('/portfolio/edit/{id}', [PortfolioController::class, 'editForm'])->name('portfolio.edit');
+Route::post('/portfolio/update', [PortfolioController::class, 'update'])->name('portfolio.update');
+Route::get('/portfolio/delete/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
+
+//sms vehicle
+Route::get('/vehicle/list', [VehicleController::class, 'index'])->name('vehicle.list');
+Route::get('/vehicle/create', [VehicleController::class, 'createForm'])->name('vehicle.create');
+Route::post('/vehicle/save', [VehicleController::class, 'store'])->name('vehicle.save');
+Route::get('/vehicle/edit/{id}', [VehicleController::class, 'editForm'])->name('vehicle.edit');
+Route::get('/vehicle/view/{id}', [VehicleController::class, 'view'])->name('vehicle.view');
+Route::post('/vehicle/update', [VehicleController::class, 'update'])->name('vehicle.update');
+Route::get('/vehicle/delete/{id}', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
 

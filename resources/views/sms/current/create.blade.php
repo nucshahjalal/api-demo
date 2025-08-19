@@ -1,5 +1,5 @@
 @extends('backend.app')
-@section('page_title','Create Product')
+@section('page_title','Create Vehicle')
 @section('content')
 
 <main class="nxl-container">
@@ -8,7 +8,7 @@
        <div class="page-header">
             <div class="page-header-left d-flex align-items-center">                    
                 <ul class="breadcrumb">
-                        <h3 style="text-align: center !important;"> Manage Product Information</h3>
+                        <h3 style="text-align: center !important;"> Manage Vehicle Information</h3>
                 </ul>
             </div>
             <div class="page-header-right ms-auto">
@@ -20,7 +20,7 @@
                         </a>
                     </div>
                     <div class="d-flex align-items-center gap-2 page-header-right-items-wrapper">
-                        <a href="{{ url('product/list') }}" class="btn btn-sm btn-primary w-100 text-white fw-bold">
+                        <a href="{{ url('vehicle/list') }}" class="btn btn-sm btn-primary w-100 text-white fw-bold">
                             ← Back
                         </a>
                     </div>
@@ -37,78 +37,87 @@
             <div class="col-xl-12">
                 <div class="card stretch stretch-full">
                     <div class="card-body">
-                        <form action="{{ url('product/save') }}" method="POST">
+                        <form action="{{ route('vehicle.save') }}" method="POST">
                             @csrf
+
+                            <div class="row">     
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Employee Name <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="emp_id" id="emp_id" data-select2-selector="icon">
+                                        <option value="">--Select--</option> 
+                                        @foreach($employees as $obj) 
+                                            <option value="{{ $obj->id }} "> {{ $obj->emp_id . '[' . $obj->name . ']' }} </option>
+                                        @endforeach 
+                                    </select>
+                                </div>
+                                @error('emp_id')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror      
+                            </div>
+
+                            <div class="row">     
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Product Name <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="product_id" id="product_id" data-select2-selector="icon">
+                                        <option value="">--Select--</option> 
+                                        @foreach($products as $obj) 
+                                            <option value="{{ $obj->id }} "> {{ $obj->id . '[' . $obj->model . ']' }} </option>
+                                        @endforeach 
+                                    </select>
+                                </div>
+                                @error('product_id')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror      
+                            </div>
+
+                            <div class="row">     
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Portfolio </label>
+                                    <select class="form-control" name="portfolio" id="portfolio" data-select2-selector="icon">
+                                       <option value="">--Select--</option> 
+                                        @foreach($portfolios as $obj) 
+                                            <option value="{{ $obj->name }} "> {{ $obj->name }} </option>
+                                        @endforeach 
+                                    </select>
+                                </div>
+                                @error('portfolio')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror      
+                            </div>
 
                             <div class="row">
                                 <div class="col-lg-6 mb-3">
-                                    <label class="form-label">Engine No <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="eng_no"  value="{{ old('eng_no') }}" id="eng_no" placeholder="Engine No">
+                                    <label class="form-label">Location </label>
+                                    <input class="form-control" type="text" name="location"  value="{{ old('location') }}" id="location" placeholder="Location">
                                 </div>
-                                @error('eng_no')
+                                @error('location')
                                     <div style="color: red">{{ $message }}</div>
                                 @enderror 
                             </div>
                     
                             <div class="row">     
                                 <div class="col-lg-6 mb-3">
-                                    <label class="form-label"> Chassis No <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="chassis_no"  value="{{ old('chassis_no') }}" id="chassis_no" placeholder="Chassis No">
+                                    <label class="form-label"> Receive Date </label>
+                                    <input class="form-control" type="text" name="receive_date"  value="{{ old('receive_date') }}" id="add_receive_date" placeholder="Receive Date">
                                 </div>
-                                    @error('chassis_no')
+                                    @error('receive_date')
                                     <div style="color: red">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="row">     
                                 <div class="col-lg-6 mb-3">
-                                    <label class="form-label">Brand </label>
-                                    <select class="form-control" name="brand" id="brand" data-select2-selector="icon">
-                                        <option value="0" data-icon="feather-at-sign">--Select Brand--</option>
-                                        <option value="Yamaha" data-icon="feather-at-sign">Yamaha</option> 
+                                    <label class="form-label">MC Status </label>
+                                    <select class="form-control" name="mc_status" id="mc_status" data-select2-selector="icon">
+                                        <option value="0" data-icon="feather-at-sign">--Select --</option>
+                                        <option value="Good" data-icon="feather-at-sign">Good</option> 
                                     </select>
                                 </div>
-                                @error('brand')
+                                @error('mc_status')
                                     <div style="color: red">{{ $message }}</div>
                                 @enderror      
                             </div>
 
-                            <div class="row">     
-                                <div class="col-lg-6 mb-3">
-                                    <label class="form-label">Model </label>
-                                    <select class="form-control" name="model" id="model" data-select2-selector="icon">
-                                        <option value="0" data-icon="feather-at-sign">--Select Model--</option>
-                                        <option value="FZS-V2 150 CC" data-icon="feather-at-sign">FZS-V2 150 CC</option> 
-                                        <option value="MT 15- 150 CC" data-icon="feather-at-sign">MT 15- 150 CC</option> 
-                                        <option value="FZS-V3 150 CC" data-icon="feather-at-sign">FZS-V3 150 CC</option> 
-                                        <option value="Saluto 125 CC" data-icon="feather-at-sign">Saluto 125 CC</option> 
-                                    </select>
-                                </div>
-                                @error('model')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror      
-                            </div>
-
-                            <div class="row">     
-                                <div class="col-lg-6 mb-3">
-                                    <label class="form-label"> Registration Date</label>
-                                    <input class="form-control" type="text" name="registration_date"  value="{{ old('registration_date') }}" id="add_registration_date" placeholder="Registration Date">
-                                </div>
-                                    @error('registration_date')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="row">     
-                                <div class="col-lg-6 mb-3">
-                                    <label class="form-label"> Registration Number</label>
-                                    <input class="form-control" type="text" name="registration_number"  value="{{ old('registration_number') }}" id="registration_number" placeholder="Registration Number">
-                                </div>
-                                    @error('registration_number')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            
                             <div class="row">    
                                 <div class="col-lg-12 mb-7 ">
                                     <button  type="submit" class="btn btn-success">Submit</button>
@@ -146,7 +155,7 @@
 
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
-        flatpickr("#add_registration_date", {
+        flatpickr("#add_receive_date", {
             dateFormat: "Y-m-d", 
             altInput: true,
             altFormat: "F j, Y",

@@ -67,6 +67,12 @@
                             </div>
                             <div class="row">     
                                 <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Portfolio </label>
+                                    <input class="form-control" type="text" name="portfolio"  value="{{ $employee->portfolio }}" id="portfolio" placeholder="Portfolio" readonly>
+                                </div>      
+                            </div>
+                            <div class="row">     
+                                <div class="col-lg-6 mb-3">
                                     <label class="form-label">Status </label>
                                     <select class="form-control" name="status" id="status" data-select2-selector="icon" readonly>
                                         <option value="1" {{ ($employee->status ?? '') == '1' ? 'selected' : '' }} data-icon="feather-at-sign">Active</option>

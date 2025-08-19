@@ -32,6 +32,7 @@
                 </div>
             </div>
         </div>
+
     <div class="main-content">
         <div class="row">
             <div class="col-xl-12">
@@ -83,6 +84,16 @@
 
                             <div class="row">     
                                 <div class="col-lg-6 mb-3">
+                                    <label class="form-label">Portfolio </label>
+                                    <input class="form-control" type="text" name="portfolio"  value="{{ $employee->portfolio }}" id="portfolio" placeholder="Portfolio">
+                                </div>
+                                @error('portfolio')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror      
+                            </div>
+
+                            <div class="row">     
+                                <div class="col-lg-6 mb-3">
                                     <label class="form-label">Status </label>
                                     <select class="form-control" name="status" id="status" data-select2-selector="icon">
                                         <option value="1" {{ ($employee->status ?? '') == '1' ? 'selected' : '' }} data-icon="feather-at-sign">Active</option>
@@ -94,7 +105,11 @@
                                 @enderror      
                             </div>
                             
-                            <button type="submit" class="btn btn-sm btn-success"> Update</button>
+                            <div class="row">    
+                                <div class="col-lg-12 mb-7 ">
+                                    <button  type="submit" class="btn btn-success">Update</button>
+                                </div> 
+                            </div>
                         </form>
                     </div>
                 </div>
