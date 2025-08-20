@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-    <h2>Current Vehicle List</h2>
+    <h2>Ongoing Vehicle List</h2>
     <table >
         <thead>
             <tr>
@@ -22,6 +22,7 @@
                 <th>Engine No</th>
                 <th>Chassis No</th>
                 <th>Registration No</th>
+                <th>Portfolio</th>
                 <th>Location</th>
                 <th>Receive Date</th>
                 <th>Usage Duration</th>
@@ -40,6 +41,7 @@
                 <td>{{ $obj->eng_no }}</td>
                 <td>{{ $obj->chassis_no }}</td>
                 <td>{{ $obj->registration_number }}</td>
+                <td>{{ $obj->portfolio_name }}</td>
                 <td>{{ $obj->location }}</td>
                 <td>{{ $obj->receive_date }}</td>
                 <td>{{ $obj->total_receive_duration }}</td>

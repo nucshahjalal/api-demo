@@ -8,6 +8,7 @@ use App\Http\Controllers\Sms\EmployeeController;
 use App\Http\Controllers\Sms\ProductController;
 use App\Http\Controllers\Sms\VehicleController;
 use App\Http\Controllers\Sms\PortfolioController;
+use App\Http\Controllers\Sms\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -71,8 +72,8 @@ Route::get('/vehicle/delete/{id}', [VehicleController::class, 'destroy'])->name(
 
 Route::get('/vehicle/transfer/{id}', [VehicleController::class, 'transferForm'])->name('transfer.create');
 Route::post('/vehicle/transfer', [VehicleController::class, 'vehicleTransfer'])->name('vehicle.transfer');
-Route::get('/vehicle/export', [VehicleController::class, 'export'])->name('vehicle.export');
-Route::get('/vehicle/download-pdf', [VehicleController::class, 'pdfDownload'])->name('vehicle.download-pdf');
+Route::get('/vehicle/export', [ReportController::class, 'ongoindDownloadExcel'])->name('vehicle.export');
+Route::get('/vehicle/download-pdf', [ReportController::class, 'ongoindDownloadPdf'])->name('vehicle.download-pdf');
 
 Route::get('/transfer-vehicle/list', [VehicleController::class, 'transferVehicle'])->name('transfer-vehicle.list');
 Route::get('/emp-wise-vehicle/list', [VehicleController::class, 'empWiseVehicle'])->name('emp-wise-vehicle.list');

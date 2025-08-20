@@ -7,12 +7,6 @@
         <!-- [ page-header ] start -->
     <div class="page-header d-flex align-items-center justify-content-between">
     <div class="page-header-left d-flex align-items-center gap-2">
-        <a href="{{ url('vehicle/list') }}" class="btn btn-sm btn-secondary">
-            <i class="bi bi-list"></i> List
-        </a>
-        <a href="{{ url('vehicle/create') }}" class="btn btn-sm btn-success">
-            <i class="bi bi-plus"></i> Add
-        </a>
         <a href="{{ url('vehicle/export') }}" class="btn btn-sm btn-info">
             <i class="bi bi-file-earmark-excel"></i> Export Excel
         </a>
@@ -37,7 +31,7 @@
 
 </div>
 
-<div class="main-content">   
+<div class="main-content">  
     <div class="row">
         <div class="col-xl-12">
             <div class="card stretch stretch-full">
@@ -46,6 +40,9 @@
                 <div class="table-responsive">
                     <table  class="table table-hover mb-0">
                         <thead>
+                            <a href="{{ url('vehicle/create') }}" class="btn btn-sm btn-success me-4">
+                                <i class="bi bi-plus"></i> Add New
+                            </a>
                             <tr class="border-b">
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col" >SL No</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Employee Name</th>
