@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use App\Exports\CurrentExport;
 
-class VehicleController extends Controller
+class ReportController extends Controller
 {
     public $data = array();
 

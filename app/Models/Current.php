@@ -124,15 +124,6 @@ class Current extends Model
         return $currents;
     }
 
-    public static function getProductList(){
-        
-         $currents = Current::from('currents as C')
-                    ->join('products AS P', 'P.id', '=', 'C.product_id')
-                    ->where('C.status', 0)
-                    ->get(['P.*']);
-        return $currents;
-    }
-
     public static function getEmpWiseVehicleList($empName = null)
     {
         $currents = Current::from('currents as C')

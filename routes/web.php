@@ -69,8 +69,10 @@ Route::get('/vehicle/view/{id}', [VehicleController::class, 'view'])->name('vehi
 Route::post('/vehicle/update', [VehicleController::class, 'update'])->name('vehicle.update');
 Route::get('/vehicle/delete/{id}', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
 
-Route::get('/vehicle/transfer', [VehicleController::class, 'transferForm'])->name('transfer.create');
+Route::get('/vehicle/transfer/{id}', [VehicleController::class, 'transferForm'])->name('transfer.create');
 Route::post('/vehicle/transfer', [VehicleController::class, 'vehicleTransfer'])->name('vehicle.transfer');
+Route::get('/vehicle/export', [VehicleController::class, 'export'])->name('vehicle.export');
+Route::get('/vehicle/download-pdf', [VehicleController::class, 'pdfDownload'])->name('vehicle.download-pdf');
 
 Route::get('/transfer-vehicle/list', [VehicleController::class, 'transferVehicle'])->name('transfer-vehicle.list');
 Route::get('/emp-wise-vehicle/list', [VehicleController::class, 'empWiseVehicle'])->name('emp-wise-vehicle.list');

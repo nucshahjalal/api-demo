@@ -43,10 +43,10 @@
                             <span class="nxl-mtext">Vehicle</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.list')}}">Current Vehicle List</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.list')}}">Ongoing Vehicle List</a></li>
                         </ul>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('transfer-vehicle.list')}}">Transfer Vehicle List</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('transfer-vehicle.list')}}">Transfered Vehicle List</a></li>
                         </ul>
                         <ul class="nxl-submenu">
                             <li class="nxl-item"><a class="nxl-link" href="{{route('emp-wise-vehicle.list')}}">Employee Wise Vehicle List</a></li>

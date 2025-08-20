@@ -13,6 +13,13 @@
         <a href="{{ url('vehicle/create') }}" class="btn btn-sm btn-success">
             <i class="bi bi-plus"></i> Add
         </a>
+        <a href="{{ url('vehicle/export') }}" class="btn btn-sm btn-info">
+            <i class="bi bi-file-earmark-excel"></i> Export Excel
+        </a>
+
+        <a href="{{ url('vehicle/download-pdf') }}" class="btn btn-sm btn-dark">
+            <i class="bi bi-file-earmark-pdf"></i> Download PDF
+        </a>
     </div>
 
     <div class="page-header-right ms-auto">
@@ -46,7 +53,8 @@
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Brand Name</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Engine No</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Chassis No</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Number</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration No</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Portfolio</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Location</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Receive Date</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Usage Duration</th>
@@ -67,6 +75,7 @@
                                 <td>{{ $obj->eng_no }}</td>
                                 <td>{{ $obj->chassis_no }}</td>
                                 <td>{{ $obj->registration_number }}</td>
+                                <td>{{ $obj->portfolio_name }}</td>
                                 <td>{{ $obj->location }}</td>
                                 <td>{{ $obj->receive_date }}</td>
                                 <td>{{ $obj->total_receive_duration }}</td>
@@ -115,7 +124,7 @@
 
 <script type="text/javascript">
     
-    function updateStatus(id) {
+function updateStatus(id) {
     $.ajax({
         url: "/vehicle/update-status/",
         type: "POST",
@@ -124,22 +133,11 @@
             id: id
         },
         success: function (response) {
-            window.location.href = "{{ url('vehicle/transfer') }}";
-            // Show success alert
-            // Swal.fire({
-            //     icon: 'success',
-            //   //  title: 'Approved',
-            //   //  text: 'Vehicle has been updated successfully.',
-            //     timer: 2000,
-            //     showConfirmButton: false
-            // }).then(() => {
-            //     // Redirect after alert closes
-            //     window.location.href = "{{ url('vehicle/transfer') }}";
-            // });
+             window.location.href = "{{ url('vehicle/transfer') }}/" + id;
+           // window.location.href = "{{ url('vehicle/transfer') }}";
         },
         error: function (xhr) {
             console.error(xhr.responseText);
-            // Show error alert
             Swal.fire({
                 icon: 'error',
                 title: 'Error!',

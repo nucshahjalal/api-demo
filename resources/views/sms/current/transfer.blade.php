@@ -56,9 +56,9 @@
 
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Product <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="product_id" id="product_id" data-select2-selector="icon">
+                                    <select readonly class="form-control" name="product_id" id="product_id" data-select2-selector="icon">
                                         @foreach($products as $obj) 
-                                            <option value="{{ $obj->id }} "> {{ $obj->model . '[' . $obj->chassis_no .']' }} </option>
+                                            <option  hidden value="{{ $obj->id }}" {{ $vehicle->product_id == $obj->id  ? 'selected' : ''}}> {{ $obj->model . '[' . $obj->chassis_no .']' }} </option>
                                         @endforeach 
                                     </select>
                                     @error('product_id')
