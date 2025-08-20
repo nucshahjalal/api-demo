@@ -1,5 +1,5 @@
 @extends('backend.app')
-@section('page_title','Create Vehicle')
+@section('page_title','Vehicle Transfer')
 @section('content')
 
 <main class="nxl-container">
@@ -8,7 +8,7 @@
        <div class="page-header">
             <div class="page-header-left d-flex align-items-center">                    
                 <ul class="breadcrumb">
-                    <h3 style="text-align: center !important;"> Manage Vehicle Information</h3>
+                    <h3 style="text-align: center !important;"> Manage Vehicle Transfer</h3>
                 </ul>
             </div>
             <div class="page-header-right ms-auto">
@@ -37,7 +37,7 @@
             <div class="col-xl-12">
                 <div class="card stretch stretch-full">
                     <div class="card-body">
-                        <form action="{{ route('vehicle.save') }}" method="POST">
+                        <form action="{{ route('vehicle.transfer') }}" method="POST">
                             @csrf
 
                             <div class="row">     
@@ -57,7 +57,6 @@
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Product <span class="text-danger">*</span></label>
                                     <select class="form-control" name="product_id" id="product_id" data-select2-selector="icon">
-                                        <option value="">--Select--</option> 
                                         @foreach($products as $obj) 
                                             <option value="{{ $obj->id }} "> {{ $obj->model . '[' . $obj->chassis_no .']' }} </option>
                                         @endforeach 

@@ -17,16 +17,15 @@ class VehicleController extends Controller
         return view('sms.current.index', $this->data);
     }
 
-    public function oldVehicle(Request $request){
+    public function transferVehicle(Request $request){
 
         $filter = $request->filter;
-        $this->data['vehicles'] = Current::getOldVehicleList($filter);
-        return view('sms.current.oldVehicle', $this->data);
+        $this->data['vehicles'] = Current::getTransferList($filter);
+        return view('sms.current.transferVehicle', $this->data);
     }
 
     public function empWiseVehicle(Request $request){
 
-        //$filter = $request->filter;
         $emp_id = $request->emp_id;
         $this->data['employees'] = Employee::where(['status'=>1])->get();
         $this->data['vehicles'] = Current::getEmpWiseVehicleList($emp_id);
@@ -41,14 +40,26 @@ class VehicleController extends Controller
         return view('sms.current.create', $this->data);
     }
 
+    public function transferForm(){
+
+        $this->data['employees'] = Current::getEmployeeList();
+        //$this->data['products'] = Current::getProductList();
+        $this->data['products'] = Product::where(['status'=>1])->get();
+      //  $this->data['currentProductId'] = $this->data['products']->id;
+        $this->data['portfolios'] = Portfolio::where(['status'=>1])->get();
+        return view('sms.current.transfer', $this->data);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'emp_id' => ['required'],
             'product_id' => ['required'],
+            'portfolio_id' => ['required'],
        ], [
             'emp_id.required' => 'Employee name is required.',
             'product_id.required' => 'Product name is required.',
+            'portfolio_id.required' => 'Portfolio name is required.',
         ]);
         
         $current  = Current::create($request->all());
@@ -77,9 +88,11 @@ class VehicleController extends Controller
         $request->validate([
                 'emp_id' => ['required'],
                 'product_id' => ['required'],
+                'portfolio_id' => ['required'],
         ], [
                 'emp_id.required' => 'Employee name is required.',
                 'product_id.required' => 'Product name is required.',
+                'portfolio_id.required' => 'Portfolio name is required.',
         ]);
 
       $current->fill($request->all());
@@ -89,6 +102,28 @@ class VehicleController extends Controller
       }else{
          return redirect('vehicle/edit/',$request->id)->with('error','Vehicle update failed');
       }
+    }
+
+    public function vehicleTransfer(Request $request)
+    {
+    
+        $request->validate([
+                'product_id' => ['required'],
+                'emp_id' => ['required'],
+                'portfolio_id' => ['required'],
+        ], [
+                'emp_id.required' => 'Employee name is required.',
+                'product_id.required' => 'Product name is required.',
+                'portfolio_id.required' => 'Portfolio name is required.',
+        ]);
+
+        $current  = Current::create($request->all());
+
+        if($current){
+            return redirect('vehicle/list')->with('success','Vehicle create successfull');
+        }else{
+            return redirect('vehicle/create')->with('error','Vehicle create failed');
+        }
     }
 
     public function view(string $id)

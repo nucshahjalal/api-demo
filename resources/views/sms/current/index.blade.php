@@ -7,7 +7,7 @@
         <!-- [ page-header ] start -->
     <div class="page-header d-flex align-items-center justify-content-between">
     <div class="page-header-left d-flex align-items-center gap-2">
-        <a href="{{ url('product/list') }}" class="btn btn-sm btn-secondary">
+        <a href="{{ url('vehicle/list') }}" class="btn btn-sm btn-secondary">
             <i class="bi bi-list"></i> List
         </a>
         <a href="{{ url('vehicle/create') }}" class="btn btn-sm btn-success">
@@ -42,8 +42,11 @@
                             <tr class="border-b">
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col" >SL No</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Employee Name</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Model Name</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Brand Name</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Portfolio</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Engine No</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Chassis No</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Number</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Location</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Receive Date</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Usage Duration</th>
@@ -59,8 +62,11 @@
                             <tr>
                                 <td>{{ $loop->index + $vehicles->firstItem() }}</td>
                                 <td>{{ $obj->emp_name }}</td>
+                                <td>{{ $obj->model_name }}</td>
                                 <td>{{ $obj->brand_name }}</td>
-                                <td>{{ $obj->portfolio_name }}</td>
+                                <td>{{ $obj->eng_no }}</td>
+                                <td>{{ $obj->chassis_no }}</td>
+                                <td>{{ $obj->registration_number }}</td>
                                 <td>{{ $obj->location }}</td>
                                 <td>{{ $obj->receive_date }}</td>
                                 <td>{{ $obj->total_receive_duration }}</td>
@@ -70,11 +76,7 @@
                                 <td>
                                     <a class="btn btn-sm btn-primary" href="{{ url('vehicle/view', $obj->id) }}"> <i class="bi bi-eye"></i> View</a>
                                     <a class="btn btn-sm btn-info" href="{{ url('vehicle/edit', $obj->id) }}"><i class="bi bi-pencil-square"></i> Edit</a>
-                                    @if($obj->status == 0)
-                                        <a  href="javascript:void(0);" onclick="updateStatus({{ $obj->id }})" class="btn btn-sm btn-danger"><i class="bi bi-arrow-left-right"></i> Transfer</a>
-                                    @else
-                                        <a class="btn btn-sm btn-success" href="{{ url('vehicle/create') }}"> <i class="bi bi-plus"></i> Add</a>
-                                    @endif
+                                    <a  href="javascript:void(0);" onclick="updateStatus({{ $obj->id }})" class="btn btn-sm btn-danger"><i class="bi bi-arrow-left-right"></i> Transfer</a>
                                 </td>
                             </tr>
                             @empty
@@ -114,36 +116,39 @@
 <script type="text/javascript">
     
     function updateStatus(id) {
-        $.ajax({
-            url: "/vehicle/update-status/",
-            type: "POST",
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                id: id
-            },
-            success: function (response) {
-                // Show success alert
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Approved',
-                    text: 'Vehicle has been updated successfully.',
-                    timer: 2000,
-                    showConfirmButton: false
-                }).then(() => {
-                    location.reload();
-                });
-            },
-            error: function (xhr) {
-                console.error(xhr.responseText);
-                // Show error alert
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Failed to vehicle status.',
-                });
-            }
-        });
-    }
+    $.ajax({
+        url: "/vehicle/update-status/",
+        type: "POST",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            id: id
+        },
+        success: function (response) {
+            window.location.href = "{{ url('vehicle/transfer') }}";
+            // Show success alert
+            // Swal.fire({
+            //     icon: 'success',
+            //   //  title: 'Approved',
+            //   //  text: 'Vehicle has been updated successfully.',
+            //     timer: 2000,
+            //     showConfirmButton: false
+            // }).then(() => {
+            //     // Redirect after alert closes
+            //     window.location.href = "{{ url('vehicle/transfer') }}";
+            // });
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+            // Show error alert
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Failed to update vehicle status.',
+            });
+        }
+    });
+}
+     
 </script>
 
 @endsection

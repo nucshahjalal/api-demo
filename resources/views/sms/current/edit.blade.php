@@ -47,7 +47,7 @@
                                 <select  class="form-control" name="emp_id" id="emp_id" data-select2-selector="icon" readonly>
                                     <option value="">--Select--</option> 
                                     @foreach($employees as $obj) 
-                                        <option  value="{{ $obj->id }}" {{ $vehicle->emp_id == $obj->id  ? 'selected' : ''}}> {{  $obj->name . '[' . 'Employee ID='. $obj->emp_id .']' }} </option>
+                                        <option  value="{{ $obj->id }}" {{ $vehicle->emp_id == $obj->id  ? 'selected' : ''}}> {{  $obj->name . '[' . $obj->emp_id .']' }} </option>
                                     @endforeach 
                                 </select>
                                  @error('emp_id')
@@ -71,7 +71,7 @@
 
                         <div class="row">     
                             <div class="col-lg-6 mb-3">
-                                <label class="form-label">Portfolio </label>
+                                <label class="form-label">Portfolio <span class="text-danger">*</span></label>
                                 <select class="form-control" name="portfolio_id" id="portfolio_id" data-select2-selector="icon">
                                     <option value="">--Select--</option> 
                                     @foreach($portfolios as $obj) 
