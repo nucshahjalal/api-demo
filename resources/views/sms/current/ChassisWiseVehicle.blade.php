@@ -7,11 +7,11 @@
         <!-- [ page-header ] start -->
     <div class="page-header d-flex align-items-center justify-content-between">
     <div class="page-header-left d-flex align-items-center gap-2">
-        <a href="{{ url('chassis-wise-vehicle/export') }}" class="btn btn-sm btn-info">
+        <a href="#" id="download_excel" class="btn btn-sm btn-info">
             <i class="bi bi-file-earmark-excel"></i> Export Excel
         </a>
 
-        <a href="{{ url('chassis-wise-vehicle/download-pdf') }}" class="btn btn-sm btn-dark">
+        <a href="#"id="download_pdf" class="btn btn-sm btn-dark">
             <i class="bi bi-file-earmark-pdf"></i> Download PDF
         </a>
     </div>
@@ -23,7 +23,7 @@
                 <select class="form-control form-control-lg" name="product_id" id="product_id" data-select2-selector="icon">
                     <option value="">--Select--</option> 
                     @foreach($products as $obj) 
-                        <option value="{{ $obj->id }}">{{ $obj->model . '(' . $obj->chassis_no .')' }}</option>
+                        <option value="{{ $obj->id }}"  {{ request('product_id') == $obj->id ? 'selected' : '' }}>{{ $obj->model . '(' . $obj->chassis_no .')' }}</option>
                     @endforeach 
                 </select>
                 <div class="col-auto">
@@ -112,5 +112,19 @@
         text-transform: capitalize;
     }
 </style>
+
+<script type="text/javascript">
+    document.getElementById('download_pdf').addEventListener('click', function(e) {
+        e.preventDefault();
+        var productId = document.getElementById('product_id').value;
+        window.location.href = "{{ url('chassis-wise-vehicle/download-pdf') }}" + "?product_id=" + productId;
+    });
+
+    document.getElementById('download_excel').addEventListener('click', function(e) {
+        e.preventDefault();
+        var productId = document.getElementById('product_id').value;
+        window.location.href = "{{ url('chassis-wise-vehicle/export') }}" + "?product_id=" + productId;
+    });
+</script>
 
 @endsection

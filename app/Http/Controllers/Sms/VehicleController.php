@@ -32,11 +32,11 @@ class VehicleController extends Controller
         return view('sms.current.empWiseVehicle', $this->data);
     }
 
-     public function chassisWiseVehicle(Request $request){
+    public function chassisWiseVehicle(Request $request){
 
         $product = $request->product_id;
         $this->data['products'] = Product::where(['status'=>1])->get();
-        $this->data['vehicles'] = Current::chassisEmpWiseVehicleList($product);
+        $this->data['vehicles'] = Current::chassisWiseVehicleList($product);
         return view('sms.current.ChassisWiseVehicle', $this->data);
     }
 

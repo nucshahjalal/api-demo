@@ -21,40 +21,42 @@ class ReportController extends Controller
 
     public function ongoingDownloadExcel(Request $request)
     {
-        $fileName = 'ongoing-vehicle.xls';
+        $fileName = 'ongoing-vehicle.xls'; 
 
         $filter = $request->filter;
         $vehicles = Current::getVehicleList($filter);
 
-        header('Content-Type: text/csv');
+        header('Content-Type: text/csv; charset=UTF-8');
         header("Content-Disposition: attachment; filename=\"$fileName\"");
         header('Cache-Control: max-age=0');
 
         $file = fopen('php://output', 'w');
 
-        fputcsv($file, 
-        []
-        // ['Employee Name', 'Brand Name','Brand Name','Engine No','Chassis No',
-       //'Registration No','Portfolio','Location','Receive Date','Usage Duration','Registration Date','Registration Duration','Motor Cycle Status']
-    );
-
-    foreach ($vehicles as $vehicle) {
+        fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+        fputcsv($file, []);
         fputcsv($file, [
-            $vehicle->emp_name,
-            $vehicle->model_name,
-            $vehicle->brand_name,
-            $vehicle->eng_no,
-            $vehicle->chassis_no,
-            $vehicle->registration_number,
-            $vehicle->portfolio_name,
-            $vehicle->location,
-            $vehicle->receive_date,
-            $vehicle->total_receive_duration,
-            $vehicle->reg_date,
-            $vehicle->total_reg_duration,
-            $vehicle->mc_status,
+            'Employee Name', 'Brand Name','Model Name','Engine No','Chassis No',
+            'Registration No','Portfolio','Location','Receive Date','Usage Duration',
+            'Registration Date','Registration Duration','Motor Cycle Status'
         ]);
-    }
+        
+        foreach ($vehicles as $vehicle) {
+            fputcsv($file, [
+                $vehicle->emp_name,
+                $vehicle->brand_name,
+                $vehicle->model_name,
+                $vehicle->eng_no,
+                $vehicle->chassis_no,
+                $vehicle->registration_number,
+                $vehicle->portfolio_name,
+                $vehicle->location,
+                $vehicle->receive_date,
+                $vehicle->total_receive_duration,
+                $vehicle->reg_date,
+                $vehicle->total_reg_duration,
+                $vehicle->mc_status,
+            ]);
+        }
 
         fclose($file);
         exit;
@@ -73,137 +75,156 @@ class ReportController extends Controller
         $fileName = 'transfer-vehicle.xls';
 
         $filter = $request->filter;
-        $vehicles = Current::getVehicleList($filter);
+        $vehicles = Current::getTransferList($filter);
 
-        header('Content-Type: text/csv');
+        header('Content-Type: text/csv; charset=UTF-8');
         header("Content-Disposition: attachment; filename=\"$fileName\"");
         header('Cache-Control: max-age=0');
 
         $file = fopen('php://output', 'w');
-
-        fputcsv($file, 
-        []
-        // ['Employee Name', 'Brand Name','Brand Name','Engine No','Chassis No',
-       //'Registration No','Portfolio','Portfolio','Location','Receive Date','Usage Duration','Registration Date','Registration Duration','Motor Cycle Status']
-    );
-
-    foreach ($vehicles as $vehicle) {
+        
+        fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+        fputcsv($file, []);
         fputcsv($file, [
-            $vehicle->emp_name,
-            $vehicle->model_name,
-            $vehicle->brand_name,
-            $vehicle->eng_no,
-            $vehicle->chassis_no,
-            $vehicle->registration_number,
-            $vehicle->portfolio_name,
-            $vehicle->location,
-            $vehicle->receive_date,
-            $vehicle->total_receive_duration,
-            $vehicle->reg_date,
-            $vehicle->total_reg_duration,
-            $vehicle->transfer_at,
+            'Employee Name', 'Brand Name','Model Name','Engine No','Chassis No',
+            'Registration No','Portfolio','Location','Receive Date','Usage Duration',
+            'Registration Date','Registration Duration','Motor Cycle Status','Transfer Date'
         ]);
-    }
+        
+        foreach ($vehicles as $vehicle) {
+            fputcsv($file, [
+                $vehicle->emp_name,
+                $vehicle->brand_name,
+                $vehicle->model_name,
+                $vehicle->eng_no,
+                $vehicle->chassis_no,
+                $vehicle->registration_number,
+                $vehicle->portfolio_name,
+                $vehicle->location,
+                $vehicle->receive_date,
+                $vehicle->total_receive_duration,
+                $vehicle->reg_date,
+                $vehicle->total_reg_duration,
+                $vehicle->transfer_at,
+            ]);
+        }
 
         fclose($file);
         exit;
     }
 
-    public function empWiseDownloadPdf(Request $request){
-
+    public function empWiseDownloadPdf(Request $request)
+    {
         $empName = $request->emp_id;
         $vehicles = Current::getEmpWiseVehicleList($empName);
-        $pdf = Pdf::loadView('sms.report.employeeWisePdf', compact('vehicles'))->setPaper('a4', 'landscape');
+
+        $pdf = Pdf::loadView('sms.report.employeeWisePdf', compact('vehicles'))
+                ->setPaper('a4', 'landscape');
+
         return $pdf->download('employee-wise-report.pdf');
     }
 
     public function empWiseDownloadExcel(Request $request)
     {
-        $fileName = 'employee-wise-vehicle.xls';
+        $fileName = 'employee-wise-vehicle.xls';  
 
-        $employee = $request->emp_id;
-        $vehicles = Current::getEmpWiseVehicleList($employee);
+        $empName = $request->emp_id;
+        $vehicles = Current::getEmpWiseVehicleList($empName);
 
-        header('Content-Type: text/csv');
+        header('Content-Type: text/csv; charset=UTF-8');
         header("Content-Disposition: attachment; filename=\"$fileName\"");
         header('Cache-Control: max-age=0');
 
         $file = fopen('php://output', 'w');
-
-        fputcsv($file, 
-        []
-        // ['Employee Name', 'Brand Name','Brand Name','Engine No','Chassis No',
-       //'Registration No','Portfolio','Location','Receive Date','Usage Duration','Registration Date','Registration Duration','Motor Cycle Status']
-    );
-
-    foreach ($vehicles as $vehicle) {
+        
+        fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+        fputcsv($file, []);
         fputcsv($file, [
-            $vehicle->emp_name,
-            $vehicle->model_name,
-            $vehicle->brand_name,
-            $vehicle->eng_no,
-            $vehicle->chassis_no,
-            $vehicle->registration_number,
-            $vehicle->portfolio_name,
-            $vehicle->location,
-            $vehicle->receive_date,
-            $vehicle->total_receive_duration,
-            $vehicle->reg_date,
-            $vehicle->total_reg_duration,
-            $vehicle->mc_status,
+            'Employee Name', 'Brand Name','Model Name','Engine No','Chassis No',
+            'Registration No','Portfolio','Location','Receive Date','Usage Duration',
+            'Registration Date','Registration Duration','Motor Cycle Status'
         ]);
-    }
+        
+        foreach ($vehicles as $vehicle) {
+            fputcsv($file, [
+                $vehicle->emp_name,
+                $vehicle->brand_name,
+                $vehicle->model_name,
+                $vehicle->eng_no,
+                $vehicle->chassis_no,
+                $vehicle->registration_number,
+                $vehicle->portfolio_name,
+                $vehicle->location,
+                $vehicle->receive_date,
+                $vehicle->total_receive_duration,
+                $vehicle->reg_date,
+                $vehicle->total_reg_duration,
+                $vehicle->mc_status,
+            ]);
+        }
 
         fclose($file);
         exit;
     }
 
-    public function chassisWiseDownloadPdf(Request $request){
+   public function chassisWiseDownloadPdf(Request $request)
+    {
+        $productId = $request->product_id;
 
-        $product = $request->product_id;
-        $vehicles = Current::getEmpWiseVehicleList($product);
-        $pdf = Pdf::loadView('sms.report.chassisWisePdf', compact('vehicles'))->setPaper('a4', 'landscape');
-        return $pdf->download('chassis-wise-report.pdf');
+        $vehicles = Current::chassisWiseVehicleList($productId);
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('sms.report.chassisWisePdf', [
+            'vehicles' => $vehicles,
+        ])->setPaper('a4', 'landscape');
+
+        $fileName = $productId 
+            ? 'chassis-wise-report-' . $productId . '.pdf'
+            : 'chassis-wise-report.pdf';
+
+        return $pdf->download($fileName);
     }
-
+    
     public function chassisWiseDownloadExcel(Request $request)
     {
-        $fileName = 'chassis-wise-vehicle.xls';
+        $fileName = 'chassis-wise-vehicle.xls';  
 
         $product = $request->product_id;
-        $vehicles = Current::chassisEmpWiseVehicleList($product);
+        $vehicles = Current::chassisWiseVehicleList($product);
 
-        header('Content-Type: text/csv');
+        header('Content-Type: text/csv; charset=UTF-8');
         header("Content-Disposition: attachment; filename=\"$fileName\"");
         header('Cache-Control: max-age=0');
 
         $file = fopen('php://output', 'w');
 
-        fputcsv($file, 
-        []
-        // ['Employee Name', 'Brand Name','Brand Name','Engine No','Chassis No',
-       //'Registration No','Portfolio','Location','Receive Date','Usage Duration','Registration Date','Registration Duration','Motor Cycle Status']
-    );
-
-    foreach ($vehicles as $vehicle) {
+        fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+        fputcsv($file, []);
         fputcsv($file, [
-            $vehicle->emp_name,
-            $vehicle->model_name,
-            $vehicle->brand_name,
-            $vehicle->eng_no,
-            $vehicle->chassis_no,
-            $vehicle->registration_number,
-            $vehicle->portfolio_name,
-            $vehicle->location,
-            $vehicle->receive_date,
-            $vehicle->total_receive_duration,
-            $vehicle->reg_date,
-            $vehicle->total_reg_duration,
-            $vehicle->mc_status,
+            'Employee Name', 'Brand Name','Model Name','Engine No','Chassis No',
+            'Registration No','Portfolio','Location','Receive Date','Usage Duration',
+            'Registration Date','Registration Duration','Motor Cycle Status'
         ]);
-    }
+        
+        foreach ($vehicles as $vehicle) {
+            fputcsv($file, [
+                $vehicle->emp_name,
+                $vehicle->brand_name,
+                $vehicle->model_name,
+                $vehicle->eng_no,
+                $vehicle->chassis_no,
+                $vehicle->registration_number,
+                $vehicle->portfolio_name,
+                $vehicle->location,
+                $vehicle->receive_date,
+                $vehicle->total_receive_duration,
+                $vehicle->reg_date,
+                $vehicle->total_reg_duration,
+                $vehicle->mc_status,
+            ]);
+        }
 
         fclose($file);
         exit;
     }
+    
 }

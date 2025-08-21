@@ -55,6 +55,18 @@
                             <li class="nxl-item"><a class="nxl-link" href="{{route('chassis-wise-vehicle.list')}}">Chassis Wise Vehicle List</a></li>
                         </ul>
                     </li>
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="feather-cast"></i></span>
+                            <span class="nxl-mtext">Ownership</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.list')}}">Eligible User</a></li>
+                        </ul>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('transfer-vehicle.list')}}">Assign Vehicle</a></li>
+                        </ul>
+                    </li>
                     
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">

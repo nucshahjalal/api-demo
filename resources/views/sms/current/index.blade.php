@@ -16,19 +16,25 @@
         </a>
     </div>
 
-    <div class="page-header-right ms-auto">
-        <form method="get" action="{{ url('vehicle/list') }}">
-            @csrf
-            <div class="d-flex align-items-center gap-2">
-                <input class="form-control" type="text" name="filter" 
-                    value="{{ request('filter') }}" id="filter" placeholder="Search...">
-                <div class="col-auto">
-                    <button class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Search</button>
+    <div class="page-header-left d-flex align-items-center gap-2">
+        <div class="page-header-right ms-auto">
+            <form method="get" action="{{ url('vehicle/list') }}">
+                @csrf
+                <div class="d-flex align-items-center gap-2">
+                    <input class="form-control" type="text" name="filter" 
+                        value="{{ request('filter') }}" id="filter" placeholder="Search...">
+                    <div class="col-auto">
+                        <button class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Search</button>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
+        <a href="{{ url('vehicle/create') }}" class="btn btn-sm  btn-success">
+            <i class="feather-plus me-2"></i>
+            <span>Add New</span>
+        </a>
+    </div>
 </div>
 
 <div class="main-content">  
@@ -40,9 +46,6 @@
                 <div class="table-responsive">
                     <table  class="table table-hover mb-0">
                         <thead>
-                            <a href="{{ url('vehicle/create') }}" class="btn btn-sm btn-success me-4">
-                                <i class="bi bi-plus"></i> Add New
-                            </a>
                             <tr class="border-b">
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col" >SL No</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Employee Name</th>

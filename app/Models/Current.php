@@ -124,19 +124,16 @@ class Current extends Model
         return $currents;
     }
 
-    public static function getEmpWiseVehicleList($empName)
+    public static function getEmpWiseVehicleList($empName = null)
     {
         $currents = Current::from('currents as C')
             ->join('employees AS E', 'E.id', '=', 'C.emp_id')
             ->join('products AS P', 'P.id', '=', 'C.product_id')
             ->join('portfolios AS Port', 'Port.id', '=', 'C.portfolio_id')
             ->when($empName, function ($query, $empName) {
-                if (is_numeric($empName)) {
-                    return $query->where('C.emp_id', $empName);
-                }
-                return $query->where('E.name', 'like', '%' . $empName . '%');
+                return $query->where('C.emp_id', $empName); 
             })
-             ->where('C.emp_id', $empName)
+            ->where('C.emp_id', $empName)
             ->paginate(5, [
                 'C.*',
                 'E.name as emp_name',
@@ -173,7 +170,7 @@ class Current extends Model
         return $currents;
     }
     
-    public static function chassisEmpWiseVehicleList($product)
+    public static function chassisWiseVehicleList($product)
     {
         $currents = Current::from('currents as C')
             ->join('employees AS E', 'E.id', '=', 'C.emp_id')
@@ -185,7 +182,7 @@ class Current extends Model
                 }
                 return $query->where('E.name', 'like', '%' . $product . '%');
             })
-             //->where('P.model', $product)
+            ->where('C.product_id', $product)
             ->paginate(5, [
                 'C.*',
                 'E.name as emp_name',

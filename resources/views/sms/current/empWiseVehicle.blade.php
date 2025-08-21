@@ -7,11 +7,11 @@
         <!-- [ page-header ] start -->
     <div class="page-header d-flex align-items-center justify-content-between">
     <div class="page-header-left d-flex align-items-center gap-2">
-        <a href="{{ url('employee-wise-vehicle/export') }}" class="btn btn-sm btn-info">
+        <a href="#" id="download_excel" class="btn btn-sm btn-info">
             <i class="bi bi-file-earmark-excel"></i> Export Excel
         </a>
 
-        <a href="{{ url('employee-wise-vehicle/download-pdf') }}" class="btn btn-sm btn-dark">
+        <a href="#" id="download_pdf" class="btn btn-sm btn-dark">
             <i class="bi bi-file-earmark-pdf"></i> Download PDF
         </a>
     </div>
@@ -23,11 +23,14 @@
                 <select class="form-control form-control-lg" name="emp_id" id="emp_id" data-select2-selector="icon">
                     <option value="">--Select--</option> 
                     @foreach($employees as $obj) 
-                        <option value="{{ $obj->id }}">{{ $obj->name . '(' . $obj->id . ')' }}</option>
+                        <option value="{{ $obj->id }}" 
+                            {{ request('emp_id') == $obj->id ? 'selected' : '' }}>
+                            {{ $obj->name . '(' . $obj->id . ')' }}
+                        </option>
                     @endforeach 
                 </select>
                 <div class="col-auto">
-                    <button class="btn btn-lg btn-primary"> Submit</button>
+                    <button class="btn btn-lg btn-primary">Submit</button>
                 </div>
             </div>
         </form>
@@ -113,4 +116,17 @@
     }
 </style>
 
+<script type="text/javascript">
+    document.getElementById('download_pdf').addEventListener('click', function(e) {
+        e.preventDefault();
+        var empId = document.getElementById('emp_id').value;
+        window.location.href = "{{ url('employee-wise-vehicle/download-pdf') }}" + "?emp_id=" + empId;
+    });
+
+    document.getElementById('download_excel').addEventListener('click', function(e) {
+        e.preventDefault();
+        var empId = document.getElementById('emp_id').value;
+        window.location.href = "{{ url('employee-wise-vehicle/export') }}" + "?emp_id=" + empId;
+    });
+</script>
 @endsection
