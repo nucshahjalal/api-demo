@@ -1,5 +1,5 @@
 @extends('backend.app')
-@section('page_title','Transfer Vehicle')
+@section('page_title','Chassis Wise Vehicle List')
 @section('content')
 
 <main class="nxl-container">
@@ -7,23 +7,27 @@
         <!-- [ page-header ] start -->
     <div class="page-header d-flex align-items-center justify-content-between">
     <div class="page-header-left d-flex align-items-center gap-2">
-        <a href="{{ url('transfer-vehicle/export') }}" class="btn btn-sm btn-info">
+        <a href="{{ url('chassis-wise-vehicle/export') }}" class="btn btn-sm btn-info">
             <i class="bi bi-file-earmark-excel"></i> Export Excel
         </a>
 
-        <a href="{{ url('transfer-vehicle/download-pdf') }}" class="btn btn-sm btn-dark">
+        <a href="{{ url('chassis-wise-vehicle/download-pdf') }}" class="btn btn-sm btn-dark">
             <i class="bi bi-file-earmark-pdf"></i> Download PDF
         </a>
     </div>
 
     <div class="page-header-right ms-auto">
-        <form method="get" action="{{ url('transfer-vehicle/list') }}">
+        <form method="get" action="{{ url('chassis-wise-vehicle/list') }}">
             @csrf
             <div class="d-flex align-items-center gap-2">
-                <input class="form-control" type="text" name="filter" 
-                    value="{{ request('filter') }}" id="filter" placeholder="Search...">
+                <select class="form-control form-control-lg" name="product_id" id="product_id" data-select2-selector="icon">
+                    <option value="">--Select--</option> 
+                    @foreach($products as $obj) 
+                        <option value="{{ $obj->id }}">{{ $obj->model . '(' . $obj->chassis_no .')' }}</option>
+                    @endforeach 
+                </select>
                 <div class="col-auto">
-                    <button class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Search</button>
+                    <button class="btn btn-lg btn-primary"> Submit</button>
                 </div>
             </div>
         </form>
@@ -47,14 +51,14 @@
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Brand Name</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Engine No</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Chassis No</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Number</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration No</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Portfolio</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Location</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Receive Date</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Usage Duration</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Date</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Duration</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Transfer Date</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Motor Cycle Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,7 +78,7 @@
                                 <td>{{ $obj->total_receive_duration }}</td>
                                 <td>{{ $obj->reg_date }}</td>
                                 <td>{{ $obj->total_reg_duration }}</td>
-                                 <td>{{ date('Y-m-d',strtotime($obj->transfer_at)) }}</td>
+                                <td>{{ $obj->mc_status }}</td>
                             </tr>
                             @empty
                             <tr>

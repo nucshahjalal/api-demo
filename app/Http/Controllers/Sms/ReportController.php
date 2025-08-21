@@ -11,15 +11,15 @@ class ReportController extends Controller
 {
     public $data = array();
 
-    public function ongoindDownloadPdf(Request $request){
+    public function ongoingDownloadPdf(Request $request){
 
         $filter = $request->filter;
         $vehicles = Current::getVehicleList($filter);
-        $pdf = Pdf::loadView('sms.current.ongoingPdf', compact('vehicles'))->setPaper('a4', 'landscape');
-        return $pdf->download('ongoingPdf');
+        $pdf = Pdf::loadView('sms.report.ongoingPdf', compact('vehicles'))->setPaper('a4', 'landscape');
+        return $pdf->download('ongoing-pdf.pdf');
     }
 
-    public function ongoindDownloadExcel(Request $request)
+    public function ongoingDownloadExcel(Request $request)
     {
         $fileName = 'ongoing-vehicle.xls';
 
@@ -56,9 +56,154 @@ class ReportController extends Controller
         ]);
     }
 
-    fclose($file);
-    exit;
+        fclose($file);
+        exit;
     }
 
-    
+    public function transferDownloadPdf(Request $request){
+
+        $filter = $request->filter;
+        $vehicles = Current::getTransferList($filter);
+        $pdf = Pdf::loadView('sms.report.transferPdf', compact('vehicles'))->setPaper('a4', 'landscape');
+        return $pdf->download('transfer-pdf.pdf');
+    }
+
+    public function transferdDownloadExcel(Request $request)
+    {
+        $fileName = 'transfer-vehicle.xls';
+
+        $filter = $request->filter;
+        $vehicles = Current::getVehicleList($filter);
+
+        header('Content-Type: text/csv');
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header('Cache-Control: max-age=0');
+
+        $file = fopen('php://output', 'w');
+
+        fputcsv($file, 
+        []
+        // ['Employee Name', 'Brand Name','Brand Name','Engine No','Chassis No',
+       //'Registration No','Portfolio','Portfolio','Location','Receive Date','Usage Duration','Registration Date','Registration Duration','Motor Cycle Status']
+    );
+
+    foreach ($vehicles as $vehicle) {
+        fputcsv($file, [
+            $vehicle->emp_name,
+            $vehicle->model_name,
+            $vehicle->brand_name,
+            $vehicle->eng_no,
+            $vehicle->chassis_no,
+            $vehicle->registration_number,
+            $vehicle->portfolio_name,
+            $vehicle->location,
+            $vehicle->receive_date,
+            $vehicle->total_receive_duration,
+            $vehicle->reg_date,
+            $vehicle->total_reg_duration,
+            $vehicle->transfer_at,
+        ]);
+    }
+
+        fclose($file);
+        exit;
+    }
+
+    public function empWiseDownloadPdf(Request $request){
+
+        $empName = $request->emp_id;
+        $vehicles = Current::getEmpWiseVehicleList($empName);
+        $pdf = Pdf::loadView('sms.report.employeeWisePdf', compact('vehicles'))->setPaper('a4', 'landscape');
+        return $pdf->download('employee-wise-report.pdf');
+    }
+
+    public function empWiseDownloadExcel(Request $request)
+    {
+        $fileName = 'employee-wise-vehicle.xls';
+
+        $employee = $request->emp_id;
+        $vehicles = Current::getEmpWiseVehicleList($employee);
+
+        header('Content-Type: text/csv');
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header('Cache-Control: max-age=0');
+
+        $file = fopen('php://output', 'w');
+
+        fputcsv($file, 
+        []
+        // ['Employee Name', 'Brand Name','Brand Name','Engine No','Chassis No',
+       //'Registration No','Portfolio','Location','Receive Date','Usage Duration','Registration Date','Registration Duration','Motor Cycle Status']
+    );
+
+    foreach ($vehicles as $vehicle) {
+        fputcsv($file, [
+            $vehicle->emp_name,
+            $vehicle->model_name,
+            $vehicle->brand_name,
+            $vehicle->eng_no,
+            $vehicle->chassis_no,
+            $vehicle->registration_number,
+            $vehicle->portfolio_name,
+            $vehicle->location,
+            $vehicle->receive_date,
+            $vehicle->total_receive_duration,
+            $vehicle->reg_date,
+            $vehicle->total_reg_duration,
+            $vehicle->mc_status,
+        ]);
+    }
+
+        fclose($file);
+        exit;
+    }
+
+    public function chassisWiseDownloadPdf(Request $request){
+
+        $product = $request->product_id;
+        $vehicles = Current::getEmpWiseVehicleList($product);
+        $pdf = Pdf::loadView('sms.report.chassisWisePdf', compact('vehicles'))->setPaper('a4', 'landscape');
+        return $pdf->download('chassis-wise-report.pdf');
+    }
+
+    public function chassisWiseDownloadExcel(Request $request)
+    {
+        $fileName = 'chassis-wise-vehicle.xls';
+
+        $product = $request->product_id;
+        $vehicles = Current::chassisEmpWiseVehicleList($product);
+
+        header('Content-Type: text/csv');
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header('Cache-Control: max-age=0');
+
+        $file = fopen('php://output', 'w');
+
+        fputcsv($file, 
+        []
+        // ['Employee Name', 'Brand Name','Brand Name','Engine No','Chassis No',
+       //'Registration No','Portfolio','Location','Receive Date','Usage Duration','Registration Date','Registration Duration','Motor Cycle Status']
+    );
+
+    foreach ($vehicles as $vehicle) {
+        fputcsv($file, [
+            $vehicle->emp_name,
+            $vehicle->model_name,
+            $vehicle->brand_name,
+            $vehicle->eng_no,
+            $vehicle->chassis_no,
+            $vehicle->registration_number,
+            $vehicle->portfolio_name,
+            $vehicle->location,
+            $vehicle->receive_date,
+            $vehicle->total_receive_duration,
+            $vehicle->reg_date,
+            $vehicle->total_reg_duration,
+            $vehicle->mc_status,
+        ]);
+    }
+
+        fclose($file);
+        exit;
+    }
 }

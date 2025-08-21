@@ -46,7 +46,7 @@
                                     <select class="form-control" name="emp_id" id="emp_id" data-select2-selector="icon">
                                         <option value="">--Select--</option> 
                                         @foreach($employees as $obj) 
-                                            <option value="{{ $obj->id }} "> {{  $obj->name . '[' . $obj->emp_id .']' }} </option>
+                                            <option value="{{ $obj->id }} "> {{  $obj->name . '(' . $obj->emp_id .')' }} </option>
                                         @endforeach 
                                     </select>
                                     @error('emp_id')
@@ -58,7 +58,7 @@
                                     <label class="form-label">Product <span class="text-danger">*</span></label>
                                     <select readonly class="form-control" name="product_id" id="product_id" data-select2-selector="icon">
                                         @foreach($products as $obj) 
-                                            <option  hidden value="{{ $obj->id }}" {{ $vehicle->product_id == $obj->id  ? 'selected' : ''}}> {{ $obj->model . '[' . $obj->chassis_no .']' }} </option>
+                                            <option  hidden value="{{ $obj->id }}" {{ $vehicle->product_id == $obj->id  ? 'selected' : ''}}> {{ $obj->model . '(' . $obj->chassis_no .')' }} </option>
                                         @endforeach 
                                     </select>
                                     @error('product_id')

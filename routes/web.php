@@ -72,9 +72,16 @@ Route::get('/vehicle/delete/{id}', [VehicleController::class, 'destroy'])->name(
 
 Route::get('/vehicle/transfer/{id}', [VehicleController::class, 'transferForm'])->name('transfer.create');
 Route::post('/vehicle/transfer', [VehicleController::class, 'vehicleTransfer'])->name('vehicle.transfer');
-Route::get('/vehicle/export', [ReportController::class, 'ongoindDownloadExcel'])->name('vehicle.export');
-Route::get('/vehicle/download-pdf', [ReportController::class, 'ongoindDownloadPdf'])->name('vehicle.download-pdf');
+Route::get('/vehicle/export', [ReportController::class, 'ongoingDownloadExcel'])->name('vehicle.export');
+Route::get('/vehicle/download-pdf', [ReportController::class, 'ongoingDownloadPdf'])->name('vehicle.download-pdf');
+Route::get('/transfer-vehicle/export', [ReportController::class, 'transferdDownloadExcel'])->name('transfer-vehicle.export');
+Route::get('/transfer-vehicle/download-pdf', [ReportController::class, 'transferDownloadPdf'])->name('transfer-vehicle.download-pdf');
+Route::get('/employee-wise-vehicle/export', [ReportController::class, 'empWiseDownloadExcel'])->name('employee-wise-vehicle.export');
+Route::get('/employee-wise-vehicle/download-pdf', [ReportController::class, 'empWiseDownloadPdf'])->name('employee-wise-vehicle.download-pdf');
+Route::get('/chassis-wise-vehicle/export', [ReportController::class, 'chassisWiseDownloadExcel'])->name('chassis-wise-vehicle.export');
+Route::get('/chassis-wise-vehicle/download-pdf', [ReportController::class, 'chassisWiseDownloadPdf'])->name('chassis-wise-vehicle.download-pdf');
 
 Route::get('/transfer-vehicle/list', [VehicleController::class, 'transferVehicle'])->name('transfer-vehicle.list');
-Route::get('/emp-wise-vehicle/list', [VehicleController::class, 'empWiseVehicle'])->name('emp-wise-vehicle.list');
+Route::get('/employee-wise-vehicle/list', [VehicleController::class, 'empWiseVehicle'])->name('employee-wise-vehicle.list');
+Route::get('/chassis-wise-vehicle/list', [VehicleController::class, 'chassisWiseVehicle'])->name('chassis-wise-vehicle.list');
 Route::post('/vehicle/update-status', [VehicleController::class, 'updateStatus'])->name('vehicle.update-status');
