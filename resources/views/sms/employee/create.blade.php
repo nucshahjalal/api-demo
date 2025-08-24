@@ -44,53 +44,49 @@
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Employee ID <span class="text-danger">*</span></label>
                                     <input class="form-control" type="text" name="emp_id"  value="{{ old('emp_id') }}" id="emp_id" placeholder="Employee ID">
+                                    @error('emp_id')
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('emp_id')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror 
-                            </div>
-                    
-                            <div class="row">     
+                                
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label"> Name </label>
                                     <input class="form-control" type="text" name="name"  value="{{ old('name') }}" id="name" placeholder="Name">
-                                </div>
                                     @error('name')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
-
+                    
                             <div class="row">      
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Designation </label>
                                     <input class="form-control" type="text" name="designation"  value="{{ old('designation') }}" id="designation" placeholder="Designation">
+                                    @error('designation')
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror 
                                 </div>
-                                @error('designation')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror 
-                            </div>
 
-                            <div class="row">     
-                                <div class="col-lg-6 mb-3">
+                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Phone </label>
                                     <input class="form-control" type="number" name="phone"  value="{{ old('phone') }}" id="phone" placeholder="Phone">
+                                    @error('phone')
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('phone')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror      
                             </div>
 
                             <div class="row">     
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Portfolio </label>
                                     <input class="form-control" type="text" name="portfolio"  value="{{ old('portfolio') }}" id="portfolio" placeholder="Portfolio">
-                                </div>
-                                @error('portfolio')
+                                     @error('portfolio')
                                     <div style="color: red">{{ $message }}</div>
-                                @enderror      
+                                        @enderror
+                                </div>
                             </div>
                             
-                            <div class="row">    
+                            <div style="text-align:center;" class="row">      
                                 <div class="col-lg-12 mb-7 ">
                                     <button  type="submit" class="btn btn-success">Submit</button>
                                 </div> 

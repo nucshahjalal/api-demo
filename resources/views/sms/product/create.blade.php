@@ -44,22 +44,19 @@
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Engine No <span class="text-danger">*</span></label>
                                     <input class="form-control" type="text" name="eng_no"  value="{{ old('eng_no') }}" id="eng_no" placeholder="Engine No">
+                                    @error('eng_no')
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror 
                                 </div>
-                                @error('eng_no')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror 
-                            </div>
-                    
-                            <div class="row">     
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label"> Chassis No <span class="text-danger">*</span></label>
                                     <input class="form-control" type="text" name="chassis_no"  value="{{ old('chassis_no') }}" id="chassis_no" placeholder="Chassis No">
-                                </div>
                                     @error('chassis_no')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
-
+                    
                             <div class="row">     
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Brand </label>
@@ -67,13 +64,10 @@
                                         <option value="0" data-icon="feather-at-sign">--Select Brand--</option>
                                         <option value="Yamaha" data-icon="feather-at-sign">Yamaha</option> 
                                     </select>
+                                    @error('brand')
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('brand')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror      
-                            </div>
-
-                            <div class="row">     
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Model </label>
                                     <select class="form-control" name="model" id="model" data-select2-selector="icon">
@@ -83,33 +77,30 @@
                                         <option value="FZS-V3 150 CC" data-icon="feather-at-sign">FZS-V3 150 CC</option> 
                                         <option value="Saluto 125 CC" data-icon="feather-at-sign">Saluto 125 CC</option> 
                                     </select>
+                                    @error('model')
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror 
                                 </div>
-                                @error('model')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror      
                             </div>
 
                             <div class="row">     
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label"> Registration Date</label>
                                     <input class="form-control" type="text" name="registration_date"  value="{{ old('registration_date') }}" id="add_registration_date" placeholder="Registration Date">
-                                </div>
                                     @error('registration_date')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="row">     
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label"> Registration Number <span class="text-danger">*</span></label>
                                     <input class="form-control" type="text" name="registration_number"  value="{{ old('registration_number') }}" id="registration_number" placeholder="Registration Number">
-                                </div>
                                     @error('registration_number')
-                                    <div style="color: red">{{ $message }}</div>
-                                @enderror
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
-                            
-                            <div class="row">    
+
+                            <div style="text-align:center;" class="row">      
                                 <div class="col-lg-12 mb-7 ">
                                     <button  type="submit" class="btn btn-success">Submit</button>
                                 </div> 

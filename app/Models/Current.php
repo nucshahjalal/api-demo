@@ -233,7 +233,7 @@ class Current extends Model
                 ->orWhere('C.location', 'like', '%'.$filter.'%');
         })
         //->where('C.status', 0)            
-       ->where(function($query) {
+       ->where(function($query) { // loan duration count
             $query->where(function($q) {
                 $q->where('C.is_loan', 1) // Cash
                 ->whereDate('C.receive_date', '<=', now()->subYears(6));

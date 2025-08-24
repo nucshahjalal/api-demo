@@ -45,9 +45,9 @@
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label">Employee Name <span class="text-danger">*</span></label>
                                 <select  class="form-control" name="emp_id" id="emp_id" data-select2-selector="icon" readonly>
-                                    <option value="">--Select--</option> 
+                                    <option hidden value="">--Select--</option> 
                                     @foreach($employees as $obj) 
-                                        <option  value="{{ $obj->id }}" {{ $vehicle->emp_id == $obj->id  ? 'selected' : ''}}> {{  $obj->name . '[' . 'Employee ID='. $obj->emp_id .']' }} </option>
+                                        <option hidden value="{{ $obj->id }}" {{ $vehicle->emp_id == $obj->id  ? 'selected' : ''}}> {{  $obj->name . '[' . 'Employee ID='. $obj->emp_id .']' }} </option>
                                     @endforeach 
                                 </select>
                                  @error('emp_id')
@@ -57,9 +57,9 @@
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label">Product <span class="text-danger">*</span></label>
                                 <select class="form-control" name="product_id" id="product_id" data-select2-selector="icon" readonly>
-                                    <option value="">--Select--</option> 
+                                    <option hidden value="">--Select--</option> 
                                     @foreach($products as $obj) 
-                                        <option value="{{ $obj->id }}" {{ $vehicle->product_id == $obj->id  ? 'selected' : ''}}> {{ $obj->model . '[' . $obj->chassis_no .']' }} </option>
+                                        <option hidden value="{{ $obj->id }}" {{ $vehicle->product_id == $obj->id  ? 'selected' : ''}}> {{ $obj->model . '[' . $obj->chassis_no .']' }} </option>
                                     @endforeach 
                                 </select>
                                 @error('product_id')
@@ -73,9 +73,9 @@
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label">Portfolio </label>
                                 <select class="form-control" name="portfolio_id" id="portfolio_id" data-select2-selector="icon" readonly>
-                                    <option value="">--Select--</option> 
+                                    <option hidden value="">--Select--</option> 
                                     @foreach($portfolios as $obj) 
-                                        <option value="{{ $obj->id }}" {{ $vehicle->portfolio_id == $obj->id  ? 'selected' : ''}}> {{ $obj->name }} </option>
+                                        <option hidden value="{{ $obj->id }}" {{ $vehicle->portfolio_id == $obj->id  ? 'selected' : ''}}> {{ $obj->name }} </option>
                                     @endforeach 
                                 </select>
                                 @error('portfolio_id')
@@ -107,9 +107,9 @@
                                 <label class="form-label">Motor Cycle Status </label>
                                 <select  class="form-control" name="mc_status" id="mc_status" data-select2-selector="icon" readonly>
                                     @php $status = get_mc_status(); @endphp
-                                    <option value=""> --Select-- </option>
+                                    <option hidden value=""> --Select-- </option>
                                     @foreach($status as $key => $value)
-                                        <option  value="{{ $key }}" {{ $key == $vehicle->mc_status ? 'selected' : '' }}> {{ $value }}</option>
+                                        <option hidden value="{{ $key }}" {{ $key == $vehicle->mc_status ? 'selected' : '' }}> {{ $value }}</option>
                                     @endforeach 
                                 </select>
                                 @error('mc_status')
@@ -119,6 +119,18 @@
                                
                         </div>
 
+                        <div class="row">     
+                            <div class="col-lg-6 mb-3">
+                                <label class="form-label">is loan? </label>
+                                <select class="form-control" name="is_loan" id="is_loan" data-select2-selector="icon" readonly>
+                                    <option hidden value="0" {{ ($vehicle->is_loan ?? '') == '0' ? 'selected' : '' }} data-icon="feather-at-sign">Loan</option>
+                                    <option hidden value="1" {{ ($vehicle->is_loan ?? '') == '1' ? 'selected' : '' }} data-icon="feather-at-sign">Cash</option> 
+                                </select>
+                            </div>
+                            @error('is_loan')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror      
+                        </div>
                         </form>
                     </div>
                 </div>

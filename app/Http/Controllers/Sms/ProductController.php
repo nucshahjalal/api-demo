@@ -32,7 +32,8 @@ class ProductController extends Controller
        ], [
             'eng_no.unique' => 'Engine no is already taken.',
             'chassis_no.unique' => 'Chassis no is already taken.',
-            'registration_number.unique' => 'Registration number is already taken.',
+            'registration_number.unique' => 'Registration no is already taken.',
+            'registration_number.required' => 'Registration no is required.',
             'eng_no.required' => 'Engine no is required.',
             'chassis_no.required' => 'Chassis no is required.',
         ]);

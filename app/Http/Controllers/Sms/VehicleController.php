@@ -149,16 +149,6 @@ class VehicleController extends Controller
        return view('sms.current.view', $this->data);
     }
 
-    public function destroy( $id)
-    {
-        $current  = Current::find($id);
-        if($current->delete()){
-            return redirect('vehicle/list')->with('success','Vehicle delete successfull');
-        }else{
-            return redirect('vehicle/list')->with('error','Vehicle delete failed');
-        }
-    } 
-
     public function updateStatus(Request $request)
     {
         $current = Current::find($request->id);

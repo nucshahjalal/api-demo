@@ -45,40 +45,34 @@
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Employee ID <span class="text-danger">*</span></label>
                                     <input class="form-control" type="text" name="emp_id"  value="{{ $employee->emp_id }}" id="emp_id" placeholder="Employee ID" readonly>
-                                </div> 
-                            </div>
-                            <div class="row">     
+                                </div>
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label"> Name </label>
                                     <input class="form-control" type="text" name="name"  value="{{$employee->name }}" id="name" placeholder="Name" readonly>
-                                </div>
+                                </div> 
                             </div>
                             <div class="row">      
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Designation </label>
                                     <input class="form-control" type="text" name="designation"  value="{{ $employee->designation }}" id="designation" placeholder="Designation" readonly>
                                 </div> 
-                            </div>
-                            <div class="row">     
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Phone </label>
                                     <input class="form-control" type="number" name="phone"  value="{{ $employee->phone }}" id="phone" placeholder="Phone" readonly>
-                                </div>      
+                                </div> 
                             </div>
                             <div class="row">     
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Portfolio </label>
                                     <input class="form-control" type="text" name="portfolio"  value="{{ $employee->portfolio }}" id="portfolio" placeholder="Portfolio" readonly>
-                                </div>      
-                            </div>
-                            <div class="row">     
+                                </div>
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Status </label>
                                     <select class="form-control" name="status" id="status" data-select2-selector="icon" readonly>
                                         <option value="1" {{ ($employee->status ?? '') == '1' ? 'selected' : '' }} data-icon="feather-at-sign">Active</option>
                                         <option value="0" {{ ($employee->status ?? '') == '0' ? 'selected' : '' }} data-icon="feather-at-sign">In Active</option> 
                                     </select>
-                                </div>      
+                                </div>       
                             </div>
                             
                         </form>

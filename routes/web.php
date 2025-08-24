@@ -68,8 +68,6 @@ Route::post('/vehicle/save', [VehicleController::class, 'store'])->name('vehicle
 Route::get('/vehicle/edit/{id}', [VehicleController::class, 'editForm'])->name('vehicle.edit');
 Route::get('/vehicle/view/{id}', [VehicleController::class, 'view'])->name('vehicle.view');
 Route::post('/vehicle/update', [VehicleController::class, 'update'])->name('vehicle.update');
-Route::get('/vehicle/delete/{id}', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
-
 Route::get('/vehicle/transfer/{id}', [VehicleController::class, 'transferForm'])->name('transfer.create');
 Route::post('/vehicle/transfer', [VehicleController::class, 'vehicleTransfer'])->name('vehicle.transfer');
 
