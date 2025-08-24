@@ -37,7 +37,7 @@ class ReportController extends Controller
         fputcsv($file, [
             'Employee Name', 'Brand Name','Model Name','Engine No','Chassis No',
             'Registration No','Portfolio','Location','Receive Date','Usage Duration',
-            'Registration Date','Registration Duration','Motor Cycle Status'
+            'Is Loan','Registration Date','Registration Duration','Motor Cycle Status'
         ]);
         
         foreach ($vehicles as $vehicle) {
@@ -52,6 +52,7 @@ class ReportController extends Controller
                 $vehicle->location,
                 $vehicle->receive_date,
                 $vehicle->total_receive_duration,
+                $vehicle->is_loan == 0 ? 'Loan' : 'Cash',
                 $vehicle->reg_date,
                 $vehicle->total_reg_duration,
                 $vehicle->mc_status,
@@ -88,7 +89,7 @@ class ReportController extends Controller
         fputcsv($file, [
             'Employee Name', 'Brand Name','Model Name','Engine No','Chassis No',
             'Registration No','Portfolio','Location','Receive Date','Usage Duration',
-            'Registration Date','Registration Duration','Motor Cycle Status','Transfer Date'
+            'Is Loan','Registration Date','Registration Duration','Motor Cycle Status','Transfer Date'
         ]);
         
         foreach ($vehicles as $vehicle) {
@@ -103,6 +104,7 @@ class ReportController extends Controller
                 $vehicle->location,
                 $vehicle->receive_date,
                 $vehicle->total_receive_duration,
+                $vehicle->is_loan == 0 ? 'Loan' : 'Cash',
                 $vehicle->reg_date,
                 $vehicle->total_reg_duration,
                 $vehicle->transfer_at,
@@ -142,7 +144,7 @@ class ReportController extends Controller
         fputcsv($file, [
             'Employee Name', 'Brand Name','Model Name','Engine No','Chassis No',
             'Registration No','Portfolio','Location','Receive Date','Usage Duration',
-            'Registration Date','Registration Duration','Motor Cycle Status'
+            'Is Loan','Registration Date','Registration Duration','Motor Cycle Status'
         ]);
         
         foreach ($vehicles as $vehicle) {
@@ -157,6 +159,7 @@ class ReportController extends Controller
                 $vehicle->location,
                 $vehicle->receive_date,
                 $vehicle->total_receive_duration,
+                $vehicle->is_loan == 0 ? 'Loan' : 'Cash',
                 $vehicle->reg_date,
                 $vehicle->total_reg_duration,
                 $vehicle->mc_status,
@@ -202,7 +205,7 @@ class ReportController extends Controller
         fputcsv($file, [
             'Employee Name', 'Brand Name','Model Name','Engine No','Chassis No',
             'Registration No','Portfolio','Location','Receive Date','Usage Duration',
-            'Registration Date','Registration Duration','Motor Cycle Status'
+            'Is Loan','Registration Date','Registration Duration','Motor Cycle Status'
         ]);
         
         foreach ($vehicles as $vehicle) {
@@ -217,6 +220,7 @@ class ReportController extends Controller
                 $vehicle->location,
                 $vehicle->receive_date,
                 $vehicle->total_receive_duration,
+                $vehicle->is_loan == 0 ? 'Loan' : 'Cash',
                 $vehicle->reg_date,
                 $vehicle->total_reg_duration,
                 $vehicle->mc_status,
@@ -227,4 +231,67 @@ class ReportController extends Controller
         exit;
     }
     
+    public function eligibleUserDownloadPdf(Request $request)
+    {
+        $filter = $request->filter;
+
+        $vehicles = Current::getEligibleUserList($filter);
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('sms.report.eligibleUserPdf', [
+            'vehicles' => $vehicles,
+        ])->setPaper('a4', 'landscape');
+
+        $fileName = $filter 
+            ? 'eligible-user-report-' . $filter . '.pdf'
+            : 'eligible-user-report.pdf';
+
+        return $pdf->download($fileName);
+    }
+
+    public function eligibleUserDownloadExcel(Request $request)
+    {
+        $fileName = 'eligible-user.xls';  
+
+        $filter = $request->filter;
+        $vehicles = Current::getEligibleUserList($filter);
+
+        header('Content-Type: text/csv; charset=UTF-8');
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header('Cache-Control: max-age=0');
+
+        $file = fopen('php://output', 'w');
+
+        fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+        fputcsv($file, []);
+        fputcsv($file, [
+            'Employee Name', 'Brand Name','Model Name','Engine No','Chassis No',
+            'Registration No','Portfolio','Location','Receive Date','Usage Duration',
+            'Is Loan','Registration Date','Registration Duration','Motor Cycle Status'
+        ]);
+        
+        foreach ($vehicles as $vehicle) {
+            fputcsv($file, [
+                $vehicle->emp_name,
+                $vehicle->brand_name,
+                $vehicle->model_name,
+                $vehicle->eng_no,
+                $vehicle->chassis_no,
+                $vehicle->registration_number,
+                $vehicle->portfolio_name,
+                $vehicle->location,
+                $vehicle->receive_date,
+                $vehicle->total_receive_duration,
+                $vehicle->is_loan == 0 ? 'Loan' : 'Cash',
+                $vehicle->reg_date,
+                $vehicle->total_reg_duration,
+                $vehicle->mc_status,
+            ]);
+        }
+
+        fclose($file);
+        exit;
+    }
 }
+
+
+

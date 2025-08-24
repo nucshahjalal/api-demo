@@ -1,5 +1,5 @@
 @extends('backend.app')
-@section('page_title','Employee Wise Vehicle List')
+@section('page_title','Eligible User')
 @section('content')
 
 <main class="nxl-container">
@@ -7,32 +7,33 @@
         <!-- [ page-header ] start -->
     <div class="page-header d-flex align-items-center justify-content-between">
     <div class="page-header-left d-flex align-items-center gap-2">
-        <a href="#" id="download_excel" class="btn btn-sm btn-info">
+        <a href="{{ url('vehicle/eligible-user/export') }}" class="btn btn-sm btn-info">
             <i class="bi bi-file-earmark-excel"></i> Export Excel
         </a>
 
-        <a href="#" id="download_pdf" class="btn btn-sm btn-dark">
+        <a href="{{ url('vehicle/eligible-user/download-pdf') }}" class="btn btn-sm btn-dark">
             <i class="bi bi-file-earmark-pdf"></i> Download PDF
         </a>
     </div>
 
-    <div class="page-header-right ms-auto">
-        <form method="get" action="{{ url('employee-wise-vehicle/list') }}" id="empForm">
-    @csrf
-    <div class="d-flex align-items-center gap-2">
-        <select style="font-size:16px;" class="form-control form-control-lg" name="emp_id" id="emp_id" data-select2-selector="icon">
-            <option style="font-size:15px;" value="">&#128269; -- Select --</option> 
-            @foreach($employees as $obj) 
-                <option style="font-size:15px;" value="{{ $obj->id }}"{{ request('emp_id') == $obj->id ? 'selected' : '' }}>{{ $obj->name }} ({{ $obj->id }})</option>
-            @endforeach 
-        </select>
-    </div>
-</form>
-    </div>
+    <div class="page-header-left d-flex align-items-center gap-2">
+        <div class="page-header-right ms-auto">
+            <form method="get" action="{{ url('vehicle/eligible-user/list') }}">
+                @csrf
+                <div class="d-flex align-items-center gap-2">
+                    <input class="form-control" type="text" name="filter" 
+                        value="{{ request('filter') }}" id="filter" placeholder="Search...">
+                    <div class="col-auto">
+                        <button class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
+    </div>
 </div>
 
-<div class="main-content">   
+<div class="main-content">  
     <div class="row">
         <div class="col-xl-12">
             <div class="card stretch stretch-full">
@@ -53,7 +54,7 @@
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Location</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Receive Date</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Usage Duration</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">is loan?</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Is Loan</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Date</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Duration</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Motor Cycle Status</th>
@@ -74,7 +75,7 @@
                                 <td>{{ $obj->location }}</td>
                                 <td>{{ $obj->receive_date }}</td>
                                 <td>{{ $obj->total_receive_duration }}</td>
-                                <td>{!! $obj->is_loan == '0'? '<span style="color:red;">Loan</span>' : '<span style="color:green;">Cash</span>' !!}</td>
+                                <td>{!! $obj->is_loan == 0 ? '<span style="color:red;">Loan</span>' : '<span style="color:green;">Cash</span>' !!}</td>
                                 <td>{{ $obj->reg_date }}</td>
                                 <td>{{ $obj->total_reg_duration }}</td>
                                 <td>{{ $obj->mc_status }}</td>
@@ -110,25 +111,35 @@
    .btn {
         text-transform: capitalize;
     }
+
 </style>
 
 <script type="text/javascript">
-    document.getElementById('emp_id').addEventListener('change', function() {
-        document.getElementById('empForm').submit();
+    
+function updateStatus(id) {
+    $.ajax({
+        url: "/vehicle/update-status/",
+        type: "POST",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            id: id
+        },
+        success: function (response) {
+             window.location.href = "{{ url('vehicle/transfer') }}/" + id;
+           // window.location.href = "{{ url('vehicle/transfer') }}";
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Failed to update vehicle status.',
+            });
+        }
     });
+}
+     
 </script>
 
-<script type="text/javascript">
-    document.getElementById('download_pdf').addEventListener('click', function(e) {
-        e.preventDefault();
-        var empId = document.getElementById('emp_id').value;
-        window.location.href = "{{ url('employee-wise-vehicle/download-pdf') }}" + "?emp_id=" + empId;
-    });
-
-    document.getElementById('download_excel').addEventListener('click', function(e) {
-        e.preventDefault();
-        var empId = document.getElementById('emp_id').value;
-        window.location.href = "{{ url('employee-wise-vehicle/export') }}" + "?emp_id=" + empId;
-    });
-</script>
 @endsection
+

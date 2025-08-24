@@ -119,6 +119,19 @@
                                     
                             </div>
 
+                            <div class="row">
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-label">is loan? </label>
+                                    <select class="form-control" name="is_loan" id="is_loan" data-select2-selector="icon">
+                                        <option value=""> --Select-- </option>
+                                            <option value="0"> Loan</option>
+                                            <option value="1"> Cash</option>
+                                    </select>
+                                    @error('is_loan')
+                                        <div style="color: red">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                             <div style="text-align:center;" class="row">      
                                 <div class="col-lg-12 mb-7 ">
                                     <button  type="submit" class="btn btn-success">Submit</button>

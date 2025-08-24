@@ -119,6 +119,19 @@
                                
                         </div>
 
+                        <div class="row">     
+                            <div class="col-lg-6 mb-3">
+                                <label class="form-label">is loan? </label>
+                                <select class="form-control" name="is_loan" id="is_loan" data-select2-selector="icon">
+                                    <option value="0" {{ ($vehicle->is_loan ?? '') == '0' ? 'selected' : '' }} data-icon="feather-at-sign">Loan</option>
+                                    <option value="1" {{ ($vehicle->is_loan ?? '') == '1' ? 'selected' : '' }} data-icon="feather-at-sign">Cash</option> 
+                                </select>
+                            </div>
+                            @error('is_loan')
+                                <div style="color: red">{{ $message }}</div>
+                            @enderror      
+                        </div>
+
                             <div style="text-align:center;" class="row">   
                                 <div class="col-lg-12 mb-7 ">
                                     <button  type="submit" class="btn btn-success">Update</button>

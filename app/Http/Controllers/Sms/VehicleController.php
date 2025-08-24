@@ -40,6 +40,13 @@ class VehicleController extends Controller
         return view('sms.current.ChassisWiseVehicle', $this->data);
     }
 
+    public function eligibleUser(Request $request){
+
+        $filter = $request->filter;
+        $this->data['vehicles'] = Current::getEligibleUserList($filter);
+        return view('sms.current.eligibleUser', $this->data);
+    }
+
     public function createForm(){
 
         $this->data['employees'] = Employee::where(['status'=>1])->get();

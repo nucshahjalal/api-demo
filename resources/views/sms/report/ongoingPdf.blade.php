@@ -26,6 +26,7 @@
                 <th>Location</th>
                 <th>Receive Date</th>
                 <th>Usage Duration</th>
+                <th>is loan?</th>
                 <th>Registration Date</th>
                 <th>Registration Duration</th>
                 <th>Motor Cycle Status</th>
@@ -45,6 +46,7 @@
                 <td>{{ $obj->location }}</td>
                 <td>{{ $obj->receive_date }}</td>
                 <td>{{ $obj->total_receive_duration }}</td>
+                <td>{!! $obj->is_loan == 0 ? '<span style="color:red;">Loan</span>' : '<span style="color:green;">Cash</span>' !!}</td>
                 <td>{{ $obj->reg_date }}</td>
                 <td>{{ $obj->total_reg_duration }}</td>
                 <td>{{ $obj->mc_status }}</td>

@@ -35,7 +35,7 @@ require __DIR__.'/auth.php';
 // template dashboard
 //Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('dashboard');
 
-//sms emplyee
+// emplyee
 Route::get('/employee/list', [EmployeeController::class, 'index'])->name('employee.list');
 Route::get('/employee/create', [EmployeeController::class, 'createForm'])->name('employee.create');
 Route::post('/employee/save', [EmployeeController::class, 'store'])->name('employee.save');
@@ -44,7 +44,7 @@ Route::get('/employee/view/{id}', [EmployeeController::class, 'view'])->name('em
 Route::post('/employee/update', [EmployeeController::class, 'update'])->name('employee.update');
 Route::get('/employee/delete/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
 
-//sms product
+// product
 Route::get('/product/list', [ProductController::class, 'index'])->name('product.list');
 Route::get('/product/create', [ProductController::class, 'createForm'])->name('product.create');
 Route::post('/product/save', [ProductController::class, 'store'])->name('product.save');
@@ -53,7 +53,7 @@ Route::get('/product/view/{id}', [ProductController::class, 'view'])->name('prod
 Route::post('/product/update', [ProductController::class, 'update'])->name('product.update');
 Route::get('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
-//sms portfolio
+// portfolio
 Route::get('/portfolio/list', [PortfolioController::class, 'index'])->name('portfolio.list');
 Route::get('/portfolio/create', [PortfolioController::class, 'createForm'])->name('portfolio.create');
 Route::post('/portfolio/save', [PortfolioController::class, 'store'])->name('portfolio.save');
@@ -61,7 +61,7 @@ Route::get('/portfolio/edit/{id}', [PortfolioController::class, 'editForm'])->na
 Route::post('/portfolio/update', [PortfolioController::class, 'update'])->name('portfolio.update');
 Route::get('/portfolio/delete/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
 
-//sms vehicle
+// vehicle
 Route::get('/vehicle/list', [VehicleController::class, 'index'])->name('vehicle.list');
 Route::get('/vehicle/create', [VehicleController::class, 'createForm'])->name('vehicle.create');
 Route::post('/vehicle/save', [VehicleController::class, 'store'])->name('vehicle.save');
@@ -72,6 +72,14 @@ Route::get('/vehicle/delete/{id}', [VehicleController::class, 'destroy'])->name(
 
 Route::get('/vehicle/transfer/{id}', [VehicleController::class, 'transferForm'])->name('transfer.create');
 Route::post('/vehicle/transfer', [VehicleController::class, 'vehicleTransfer'])->name('vehicle.transfer');
+
+Route::get('/transfer-vehicle/list', [VehicleController::class, 'transferVehicle'])->name('transfer-vehicle.list');
+Route::get('/employee-wise-vehicle/list', [VehicleController::class, 'empWiseVehicle'])->name('employee-wise-vehicle.list');
+Route::get('/chassis-wise-vehicle/list', [VehicleController::class, 'chassisWiseVehicle'])->name('chassis-wise-vehicle.list');
+Route::get('/vehicle/eligible-user/list', [VehicleController::class, 'eligibleUser'])->name('vehicle.eligible-user.list');
+Route::post('/vehicle/update-status', [VehicleController::class, 'updateStatus'])->name('vehicle.update-status');
+
+// report print
 Route::get('/vehicle/export', [ReportController::class, 'ongoingDownloadExcel'])->name('vehicle.export');
 Route::get('/vehicle/download-pdf', [ReportController::class, 'ongoingDownloadPdf'])->name('vehicle.download-pdf');
 Route::get('/transfer-vehicle/export', [ReportController::class, 'transferdDownloadExcel'])->name('transfer-vehicle.export');
@@ -80,8 +88,5 @@ Route::get('/employee-wise-vehicle/export', [ReportController::class, 'empWiseDo
 Route::get('/employee-wise-vehicle/download-pdf', [ReportController::class, 'empWiseDownloadPdf'])->name('employee-wise-vehicle.download-pdf');
 Route::get('/chassis-wise-vehicle/export', [ReportController::class, 'chassisWiseDownloadExcel'])->name('chassis-wise-vehicle.export');
 Route::get('/chassis-wise-vehicle/download-pdf', [ReportController::class, 'chassisWiseDownloadPdf'])->name('chassis-wise-vehicle.download-pdf');
-
-Route::get('/transfer-vehicle/list', [VehicleController::class, 'transferVehicle'])->name('transfer-vehicle.list');
-Route::get('/employee-wise-vehicle/list', [VehicleController::class, 'empWiseVehicle'])->name('employee-wise-vehicle.list');
-Route::get('/chassis-wise-vehicle/list', [VehicleController::class, 'chassisWiseVehicle'])->name('chassis-wise-vehicle.list');
-Route::post('/vehicle/update-status', [VehicleController::class, 'updateStatus'])->name('vehicle.update-status');
+Route::get('/vehicle/eligible-user/export', [ReportController::class, 'eligibleUserDownloadExcel'])->name('vehicle.eligible-user.export');
+Route::get('/vehicle/eligible-user/download-pdf', [ReportController::class, 'eligibleUserDownloadPdf'])->name('vehicle.eligible-user.download-pdf');

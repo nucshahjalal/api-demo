@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-    <h2>Employee Wise Vehicle List</h2>
+    <h2>Eligible User List</h2>
     <table >
         <thead>
             <tr>
@@ -26,7 +26,7 @@
                 <th>Location</th>
                 <th>Receive Date</th>
                 <th>Usage Duration</th>
-                <th>is loan?</th>
+                <th>Is Loan</th>
                 <th>Registration Date</th>
                 <th>Registration Duration</th>
                 <th>Motor Cycle Status</th>

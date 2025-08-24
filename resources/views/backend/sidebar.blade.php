@@ -61,10 +61,10 @@
                             <span class="nxl-mtext">Ownership</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.list')}}">Eligible User</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.eligible-user.list')}}">Eligible User</a></li>
                         </ul>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('transfer-vehicle.list')}}">Assign Vehicle</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="">Assign Vehicle</a></li>
                         </ul>
                     </li>
                     

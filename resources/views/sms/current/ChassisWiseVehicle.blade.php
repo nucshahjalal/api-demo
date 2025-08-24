@@ -17,18 +17,15 @@
     </div>
 
     <div class="page-header-right ms-auto">
-        <form method="get" action="{{ url('chassis-wise-vehicle/list') }}">
+        <form method="get" action="{{ url('chassis-wise-vehicle/list') }}" id="empForm">
             @csrf
             <div class="d-flex align-items-center gap-2">
-                <select class="form-control form-control-lg" name="product_id" id="product_id" data-select2-selector="icon">
-                    <option value="">--Select--</option> 
+                <select style="font-size:16px;"  class="form-control form-control-lg" name="product_id" id="product_id" data-select2-selector="icon">
+                    <option  style="font-size:15px;" value="">&#128269; -- Select --</option> 
                     @foreach($products as $obj) 
-                        <option value="{{ $obj->id }}"  {{ request('product_id') == $obj->id ? 'selected' : '' }}>{{ $obj->model . '(' . $obj->chassis_no .')' }}</option>
+                        <option style="font-size:15px;" value="{{ $obj->id }}"  {{ request('product_id') == $obj->id ? 'selected' : '' }}>{{ $obj->model . '(' . $obj->chassis_no .')' }}</option>
                     @endforeach 
                 </select>
-                <div class="col-auto">
-                    <button class="btn btn-lg btn-primary"> Submit</button>
-                </div>
             </div>
         </form>
     </div>
@@ -56,6 +53,7 @@
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Location</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Receive Date</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Usage Duration</th>
+                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">is loan?</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Date</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Duration</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Motor Cycle Status</th>
@@ -76,6 +74,7 @@
                                 <td>{{ $obj->location }}</td>
                                 <td>{{ $obj->receive_date }}</td>
                                 <td>{{ $obj->total_receive_duration }}</td>
+                                <td>{!! $obj->is_loan == '0' ? '<span style="color:red;">Loan</span>' : '<span style="color:green;">Cash</span>' !!}</td>
                                 <td>{{ $obj->reg_date }}</td>
                                 <td>{{ $obj->total_reg_duration }}</td>
                                 <td>{{ $obj->mc_status }}</td>
@@ -112,6 +111,12 @@
         text-transform: capitalize;
     }
 </style>
+
+<script type="text/javascript">
+    document.getElementById('product_id').addEventListener('change', function() {
+        document.getElementById('empForm').submit();
+    });
+</script>
 
 <script type="text/javascript">
     document.getElementById('download_pdf').addEventListener('click', function(e) {
