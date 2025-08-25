@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class Current extends Model
 {
@@ -148,23 +148,23 @@ class Current extends Model
             ]);
 
         foreach ($currents as $current) {
-                $receive_date = \Carbon\Carbon::parse($current->receive_date);
-                $registration_date = \Carbon\Carbon::parse($current->reg_date);
-                $end = now();
+            $receive_date = \Carbon\Carbon::parse($current->receive_date);
+            $registration_date = \Carbon\Carbon::parse($current->reg_date);
+            $end = now();
 
-                if ($end && $receive_date) {
-                    $diff = $receive_date->diff($end);
-                    $current->total_receive_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
-                } else {
-                    $current->total_receive_duration = null; 
-                }
+            if ($end && $receive_date) {
+                $diff = $receive_date->diff($end);
+                $current->total_receive_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
+            } else {
+                $current->total_receive_duration = null; 
+            }
 
-                if ($end && $registration_date) {
-                    $diff = $registration_date->diff($end);
-                    $current->total_reg_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
-                } else {
-                    $current->total_reg_duration = null; 
-                }
+            if ($end && $registration_date) {
+                $diff = $registration_date->diff($end);
+                $current->total_reg_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
+            } else {
+                $current->total_reg_duration = null; 
+            }
         }
 
         return $currents;
@@ -197,23 +197,23 @@ class Current extends Model
             ]);
 
         foreach ($currents as $current) {
-                $receive_date = \Carbon\Carbon::parse($current->receive_date);
-                $registration_date = \Carbon\Carbon::parse($current->reg_date);
-                $end = now();
+            $receive_date = \Carbon\Carbon::parse($current->receive_date);
+            $registration_date = \Carbon\Carbon::parse($current->reg_date);
+            $end = now();
 
-                if ($end && $receive_date) {
-                    $diff = $receive_date->diff($end);
-                    $current->total_receive_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
-                } else {
-                    $current->total_receive_duration = null; 
-                }
+            if ($end && $receive_date) {
+                $diff = $receive_date->diff($end);
+                $current->total_receive_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
+            } else {
+                $current->total_receive_duration = null; 
+            }
 
-                if ($end && $registration_date) {
-                    $diff = $registration_date->diff($end);
-                    $current->total_reg_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
-                } else {
-                    $current->total_reg_duration = null; 
-                }
+            if ($end && $registration_date) {
+                $diff = $registration_date->diff($end);
+                $current->total_reg_duration = $diff->y . ' years '.',' . $diff->m . ' months ' .','. $diff->d . ' days';
+            } else {
+                $current->total_reg_duration = null; 
+            }
         }
 
         return $currents;
@@ -221,28 +221,30 @@ class Current extends Model
 
     public static function getEligibleUserList($filter)
     {
-    $currents = Current::from('currents as C')
-        ->join('employees AS E', 'E.id', '=', 'C.emp_id')
-        ->join('products AS P', 'P.id', '=', 'C.product_id')
-        ->join('portfolios AS Port', 'Port.id', '=', 'C.portfolio_id')
-        ->where(function($query) use ($filter) {
-            $query->where('E.name', 'like', '%'.$filter.'%')
-                ->orWhere('P.brand', 'like', '%'.$filter.'%')
-                ->orWhere('P.model', 'like', '%'.$filter.'%')
-                ->orWhere('C.portfolio_id', 'like', '%'.$filter.'%')
-                ->orWhere('C.location', 'like', '%'.$filter.'%');
-        })
-        //->where('C.status', 0)            
-       ->where(function($query) { // loan duration count
-            $query->where(function($q) {
-                $q->where('C.is_loan', 1) // Cash
-                ->whereDate('C.receive_date', '<=', now()->subYears(6));
+        $currents = Current::from('currents as C')
+            ->join('employees AS E', 'E.id', '=', 'C.emp_id')
+            ->join('products AS P', 'P.id', '=', 'C.product_id')
+            ->join('portfolios AS Port', 'Port.id', '=', 'C.portfolio_id')
+            ->where(function($query) use ($filter) {
+                $query->where('E.name', 'like', '%'.$filter.'%')
+                    ->orWhere('P.brand', 'like', '%'.$filter.'%')
+                    ->orWhere('P.model', 'like', '%'.$filter.'%')
+                    ->orWhere('C.portfolio_id', 'like', '%'.$filter.'%')
+                    ->orWhere('C.location', 'like', '%'.$filter.'%');
             })
-            ->orWhere(function($q) {
-                $q->where('C.is_loan', 0) // Loan
-                ->whereDate('C.receive_date', '<=', now()->subYears(5));
-            });
-        })
+            //->where('C.status', 0)            
+        ->where(function($query) { // loan duration count
+                $query->where(function($q) {
+                    $q->where('C.is_loan', 1) // Cash
+                    ->whereRaw("C.receive_date <= DATE_SUB(C.transfer_at, INTERVAL 6 YEAR)");
+                    //->whereDate('C.receive_date', '<=', now()->subYears(6));
+                })
+                ->orWhere(function($q) {
+                    $q->where('C.is_loan', 0) // Loan
+                    ->whereRaw("C.receive_date <= DATE_SUB(C.transfer_at, INTERVAL 5 YEAR)");
+                    //->whereDate('C.receive_date', '<=', now()->subYears(5));
+                });
+            })
         ->orderBy('C.id', 'desc')
         ->paginate(5, [
             'C.*',
