@@ -248,12 +248,73 @@ class ReportController extends Controller
         return $pdf->download($fileName);
     }
 
+    public function assignVehicleDownloadPdf(Request $request)
+    {
+        $filter = $request->filter;
+
+        $vehicles = Current::getAssignVehicleList($filter);
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('sms.report.assignVehiclePdf', [
+            'vehicles' => $vehicles,
+        ])->setPaper('a4', 'landscape');
+
+        $fileName = $filter 
+            ? 'assign-vehicle-report-' . $filter . '.pdf'
+            : 'assign-vehicle-report.pdf';
+
+        return $pdf->download($fileName);
+    }
+
     public function eligibleUserDownloadExcel(Request $request)
     {
         $fileName = 'eligible-user.xls';  
 
         $filter = $request->filter;
         $vehicles = Current::getEligibleUserList($filter);
+
+        header('Content-Type: text/csv; charset=UTF-8');
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header('Cache-Control: max-age=0');
+
+        $file = fopen('php://output', 'w');
+
+        fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+        fputcsv($file, []);
+        fputcsv($file, [
+            'Employee Name', 'Brand Name','Model Name','Engine No','Chassis No',
+            'Registration No','Portfolio','Location','Receive Date','Usage Duration',
+            'Is Loan','Registration Date','Registration Duration','Motor Cycle Status'
+        ]);
+        
+        foreach ($vehicles as $vehicle) {
+            fputcsv($file, [
+                $vehicle->emp_name,
+                $vehicle->brand_name,
+                $vehicle->model_name,
+                $vehicle->eng_no,
+                $vehicle->chassis_no,
+                $vehicle->registration_number,
+                $vehicle->portfolio_name,
+                $vehicle->location,
+                $vehicle->receive_date,
+                $vehicle->total_receive_duration,
+                $vehicle->is_loan == 0 ? 'Loan' : 'Cash',
+                $vehicle->reg_date,
+                $vehicle->total_reg_duration,
+                $vehicle->mc_status,
+            ]);
+        }
+
+        fclose($file);
+        exit;
+    }
+
+    public function assignVehicleDownloadExcel(Request $request)
+    {
+        $fileName = 'assign-vehicle.xls';  
+
+        $filter = $request->filter;
+        $vehicles = Current::getAssignVehicleList($filter);
 
         header('Content-Type: text/csv; charset=UTF-8');
         header("Content-Disposition: attachment; filename=\"$fileName\"");

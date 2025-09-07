@@ -4,7 +4,7 @@
                 <a href="#" class="b-brand">
                     <!-- ========   change your logo hear   ============ -->
                     <img src="{{asset('backend/assets/images/logo.jpg')}}" alt="" class="logo logo-lg" />
-                    <img src="{{asset('backend/assets/images/logo-abbr.png')}}" alt="" class="logo logo-sm" />
+                    <img src="{{asset('backend/assets/images/logo.jpg')}}" alt="" class="logo logo-sm" />
                 </a>
             </div>
             <div class="navbar-content">
@@ -64,7 +64,7 @@
                             <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.eligible-user.list')}}">Eligible User</a></li>
                         </ul>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="">Assign Vehicle</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.assign-vehicle.list')}}">Assign Vehicle</a></li>
                         </ul>
                     </li>
                     

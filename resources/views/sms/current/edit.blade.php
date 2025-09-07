@@ -97,11 +97,9 @@
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label"> Receive Date </label>
                                 <input disabled class="form-control" type="text" name="receive_date"  value="{{ $vehicle->receive_date }}" id="edit_receive_date" placeholder="Receive Date">
-                                <div>
-                                    @error('receive_date')
-                                        <div style="color: red">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                @error('receive_date')
+                                    <div style="color: red">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label">Motor Cycle Status </label>

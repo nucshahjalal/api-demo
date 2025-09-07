@@ -14,10 +14,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('backend.dashboard');
-    //return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+// Route::get('/dashboard', function () {
+//     return view('backend.dashboard');
+//     //return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -75,7 +79,9 @@ Route::get('/transfer-vehicle/list', [VehicleController::class, 'transferVehicle
 Route::get('/employee-wise-vehicle/list', [VehicleController::class, 'empWiseVehicle'])->name('employee-wise-vehicle.list');
 Route::get('/chassis-wise-vehicle/list', [VehicleController::class, 'chassisWiseVehicle'])->name('chassis-wise-vehicle.list');
 Route::get('/vehicle/eligible-user/list', [VehicleController::class, 'eligibleUser'])->name('vehicle.eligible-user.list');
+Route::get('/vehicle/assign-vehicle/list', [VehicleController::class, 'assignVehicle'])->name('vehicle.assign-vehicle.list');
 Route::post('/vehicle/update-status', [VehicleController::class, 'updateStatus'])->name('vehicle.update-status');
+Route::post('/vehicle/hand-over', [VehicleController::class, 'handOver'])->name('vehicle.hand-over');
 
 // report print
 Route::get('/vehicle/export', [ReportController::class, 'ongoingDownloadExcel'])->name('vehicle.export');
@@ -87,4 +93,6 @@ Route::get('/employee-wise-vehicle/download-pdf', [ReportController::class, 'emp
 Route::get('/chassis-wise-vehicle/export', [ReportController::class, 'chassisWiseDownloadExcel'])->name('chassis-wise-vehicle.export');
 Route::get('/chassis-wise-vehicle/download-pdf', [ReportController::class, 'chassisWiseDownloadPdf'])->name('chassis-wise-vehicle.download-pdf');
 Route::get('/vehicle/eligible-user/export', [ReportController::class, 'eligibleUserDownloadExcel'])->name('vehicle.eligible-user.export');
+Route::get('/vehicle/assign-vehicle/export', [ReportController::class, 'assignVehicleDownloadExcel'])->name('vehicle.assign-vehicle.export');
 Route::get('/vehicle/eligible-user/download-pdf', [ReportController::class, 'eligibleUserDownloadPdf'])->name('vehicle.eligible-user.download-pdf');
+Route::get('/vehicle/assign-vehicle/download-pdf', [ReportController::class, 'assignVehicleDownloadPdf'])->name('vehicle.assign-vehicle.download-pdf');

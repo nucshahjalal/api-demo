@@ -7,14 +7,9 @@
         <!-- [ page-header ] start -->
     <div class="page-header d-flex align-items-center justify-content-between">
         <div class="page-header-left d-flex align-items-center gap-2">
-            <a href="{{ url('portfolio/list') }}" class="btn btn-sm btn-secondary">
-                <i class="bi bi-list"></i> List
-            </a>
-            <a href="{{ url('portfolio/create') }}" class="btn btn-sm btn-success">
-                <i class="bi bi-plus"></i> Add
-            </a>
         </div>
 
+        <div class="page-header-left d-flex align-items-center gap-2">
         <div class="page-header-right ms-auto">
             <form method="get" action="{{ url('portfolio/list') }}">
                 @csrf
@@ -27,8 +22,12 @@
                 </div>
             </form>
         </div>
-
+        <a href="{{ url('portfolio/create') }}" class="btn btn-sm  btn-success">
+            <i class="feather-plus me-2"></i>
+            <span>Add New</span>
+        </a>
     </div>
+</div>
 
 <div class="main-content">   
     <div class="row">

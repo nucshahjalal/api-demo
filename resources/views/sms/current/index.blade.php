@@ -126,28 +126,29 @@
 
 <script type="text/javascript">
     
-function updateStatus(id) {
-    $.ajax({
-        url: "/vehicle/update-status/",
-        type: "POST",
-        data: {
-            _token: $('meta[name="csrf-token"]').attr('content'),
-            id: id
-        },
-        success: function (response) {
-             window.location.href = "{{ url('vehicle/transfer') }}/" + id;
-           // window.location.href = "{{ url('vehicle/transfer') }}";
-        },
-        error: function (xhr) {
-            console.error(xhr.responseText);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Failed to update vehicle status.',
-            });
-        }
-    });
-}
+    function updateStatus(id) {
+        
+        $.ajax({
+            url: "/vehicle/update-status/",
+            type: "POST",
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id: id
+            },
+            success: function (response) {
+                window.location.href = "{{ url('vehicle/transfer') }}/" + id;
+            // window.location.href = "{{ url('vehicle/transfer') }}";
+            },
+            error: function (xhr) {
+                console.error(xhr.responseText);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Failed to update vehicle status.',
+                });
+            }
+        });
+    }
      
 </script>
 

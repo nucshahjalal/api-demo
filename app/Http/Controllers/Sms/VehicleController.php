@@ -47,6 +47,13 @@ class VehicleController extends Controller
         return view('sms.current.eligibleUser', $this->data);
     }
 
+    public function assignVehicle(Request $request){
+
+        $filter = $request->filter;
+        $this->data['vehicles'] = Current::getAssignVehicleList($filter);
+        return view('sms.current.assignVehicle', $this->data);
+    }
+
     public function createForm(){
 
         $this->data['employees'] = Employee::where(['status'=>1])->get();
@@ -159,6 +166,19 @@ class VehicleController extends Controller
 
         $current->status = 1;
         $current->transfer_at = now();
+        $current->save();
+    }
+
+    public function handOver(Request $request)
+    {
+        $current = Current::find($request->id);
+
+        if (!$current) {
+            return response()->json(['success' => 'Data not found'], 404);
+        }
+
+        $current->is_assign = 1;
+        $current->updated_at = now();
         $current->save();
     }
 }

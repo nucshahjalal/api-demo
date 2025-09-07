@@ -7,18 +7,18 @@
         <!-- [ page-header ] start -->
     <div class="page-header d-flex align-items-center justify-content-between">
     <div class="page-header-left d-flex align-items-center gap-2">
-        <a href="{{ url('vehicle/eligible-user/export') }}" class="btn btn-sm btn-info">
+        <a href="{{ url('vehicle/assign-vehicle/export') }}" class="btn btn-sm btn-info">
             <i class="bi bi-file-earmark-excel"></i> Export Excel
         </a>
 
-        <a href="{{ url('vehicle/eligible-user/download-pdf') }}" class="btn btn-sm btn-dark">
+        <a href="{{ url('vehicle/assign-vehicle/download-pdf') }}" class="btn btn-sm btn-dark">
             <i class="bi bi-file-earmark-pdf"></i> Download PDF
         </a>
     </div>
 
     <div class="page-header-left d-flex align-items-center gap-2">
         <div class="page-header-right ms-auto">
-            <form method="get" action="{{ url('vehicle/eligible-user/list') }}">
+            <form method="get" action="{{ url('vehicle/assign-vehicle/list') }}">
                 @csrf
                 <div class="d-flex align-items-center gap-2">
                     <input class="form-control" type="text" name="filter" 
@@ -58,7 +58,6 @@
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Date</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Registration Duration</th>
                                 <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Motor Cycle Status</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,9 +79,6 @@
                                 <td>{{ $obj->reg_date }}</td>
                                 <td>{{ $obj->total_reg_duration }}</td>
                                 <td>{{ $obj->mc_status }}</td>
-                                <td>
-                                    <a  href="javascript:void(0);" onclick="handOver({{ $obj->id }})" class="btn btn-sm btn-info"><i class="bi bi-arrow-left-right"></i> Hand Over</a>
-                                </td>
                             </tr>
                             @empty
                             <tr>
@@ -116,42 +112,6 @@
         text-transform: capitalize;
     }
 </style>
-
-<script type="text/javascript">
-    
-function handOver(id) {
-        $.ajax({
-            url: "/vehicle/hand-over/",
-            type: "POST",
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                id: id
-            },
-            success: function (response) {
-                // Show SweetAlert success popup
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Vehicel hand over',
-                    text: 'The vehicle has been successfully hand over.',
-                    timer: 2000,
-                    showConfirmButton: false
-                }).then(() => {
-                    // Reload after alert closes
-                    location.reload();
-                });
-            },
-            error: function (xhr) {
-                console.error(xhr.responseText);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Failed to vehicle hand over.',
-                });
-            }
-        });
-    }
-     
-</script>
 
 @endsection
 
