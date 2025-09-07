@@ -18,16 +18,16 @@
 
     <div class="page-header-right ms-auto">
         <form method="get" action="{{ url('employee-wise-vehicle/list') }}" id="empForm">
-    @csrf
-    <div class="d-flex align-items-center gap-2">
-        <select style="font-size:16px;" class="form-control form-control-lg" name="emp_id" id="emp_id" data-select2-selector="icon">
-            <option style="font-size:15px;" value="">&#128269; -- Select --</option> 
-            @foreach($employees as $obj) 
-                <option style="font-size:15px;" value="{{ $obj->id }}"{{ request('emp_id') == $obj->id ? 'selected' : '' }}>{{ $obj->name }} ({{ $obj->id }})</option>
-            @endforeach 
-        </select>
-    </div>
-</form>
+            @csrf
+            <div class="d-flex align-items-center gap-2">
+                <select style="font-size:16px;" class="form-control form-control-lg" name="emp_id" id="emp_id" data-select2-selector="icon">
+                    <option style="font-size:15px;" value="">&#128269; -- Select --</option> 
+                    @foreach($employees as $obj) 
+                        <option style="font-size:15px;" value="{{ $obj->id }}"{{ request('emp_id') == $obj->id ? 'selected' : '' }}>{{ $obj->name }} ({{ $obj->id }})</option>
+                    @endforeach 
+                </select>
+            </div>
+        </form>
     </div>
 
 </div>
