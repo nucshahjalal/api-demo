@@ -138,7 +138,7 @@ class VehicleController extends Controller
                 'portfolio_id.required' => 'Portfolio name is required.',
         ]);
 
-        $current  = Current::create($request->all());
+        $current = Current::create($request->all());
 
         if($current){
             return redirect('vehicle/list')->with('success','Vehicle create successfull');

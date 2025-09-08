@@ -18,11 +18,6 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-// Route::get('/dashboard', function () {
-//     return view('backend.dashboard');
-//     //return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -35,9 +30,6 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 require __DIR__.'/auth.php';
-
-// template dashboard
-//Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('dashboard');
 
 // emplyee
 Route::get('/employee/list', [EmployeeController::class, 'index'])->name('employee.list');

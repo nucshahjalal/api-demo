@@ -216,20 +216,19 @@
 
     </div>
     
-    <!-- [Payment Records] start -->
+    <!-- [Graph chart] start -->
     <div class="row">
-    <div class="col-xxl-12">
-        <div class="card stretch stretch-full">
-            <div class="card-header">
-                <h5 class="card-title">Month vs Active Motorcycle</h5>
+        <div class="col-xxl-12">
+            <div class="card stretch stretch-full">
+                <div class="card-header">
+                    <h5 class="card-title">Month vs Active Motorcycle</h5>
+                </div>
+                <div class="card-body custom-card-action p-0">
+                    <canvas id="vehicleBarChart" height="400"></canvas>
+                </div>
             </div>
-            <div class="card-body custom-card-action p-0">
-                <canvas id="vehicleBarChart" height="400"></canvas>
-            </div>
-            
         </div>
     </div>
-</div>
 </div>
         <!-- [ page-header ] end -->
         <!-- [ Main Content ] start -->
@@ -241,55 +240,57 @@
     <!-- [ Footer ] end -->
 </main>
  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script type="text/javascript">
     document.getElementById('vehicle_id').addEventListener('change', function() {
         document.getElementById('submitForm').submit();
     });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('vehicleBarChart').getContext('2d');
+<script type="text/javascript">
 
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: {!! json_encode($months) !!},
-                    datasets: [
-                        // {
-                        //     label: 'Total Vehicles',
-                        //     data: {!! json_encode($totalVehicleCount) !!},
-                        //     backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                        //     borderRadius: 6,
-                        //     maxBarThickness: 40
-                        // },
-                        {
-                            label: 'Active Vehicles',
-                            data: {!! json_encode($activeVehicles) !!},
-                            backgroundColor: 'rgba(75, 192, 192, 0.7)',
-                            borderRadius: 6,
-                            maxBarThickness: 40
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'top' },
-                        title: { display: true, text: 'Vehicle Activity Per Month' }
-                    },
-                    scales: {
-                        x: {
-                            ticks: { autoSkip: false, maxRotation: 0, minRotation: 0 },
-                            grid: { offset: true }
-                        },
-                        y: { beginAtZero: true, ticks: { stepSize: 1 } }
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('vehicleBarChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($months) !!},
+                datasets: [
+                    // {
+                    //     label: 'Total Vehicles',
+                    //     data: {!! json_encode($totalVehicleCount) !!},
+                    //     backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    //     borderRadius: 6,
+                    //     maxBarThickness: 40
+                    // },
+                    {
+                        label: 'Active Vehicles',
+                        data: {!! json_encode($activeVehicles) !!},
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                        borderRadius: 6,
+                        maxBarThickness: 40
                     }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Vehicle Activity Per Month' }
+                },
+                scales: {
+                    x: {
+                        ticks: { autoSkip: false, maxRotation: 0, minRotation: 0 },
+                        grid: { offset: true }
+                    },
+                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
                 }
-            });
+            }
         });
+    });
 </script>
 
 @endsection

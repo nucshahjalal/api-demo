@@ -37,6 +37,7 @@
                             <li class="nxl-item"><a class="nxl-link" href="{{route('product.list')}}">Product List</a></li>
                         </ul>
                     </li>
+                    
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">
                             <span class="nxl-micon"><i class="bi bi-truck"></i></span>
@@ -55,6 +56,7 @@
                             <li class="nxl-item"><a class="nxl-link" href="{{route('chassis-wise-vehicle.list')}}">Chassis Wise Vehicle List</a></li>
                         </ul>
                     </li>
+
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">
                             <span class="nxl-micon"><i class="fas fa-ship"></i></span>
@@ -78,8 +80,6 @@
                         </ul>
                     </li>
 
-                    
-
                     <li class="nxl-item nxl-hasmenu">
                         <li class="nxl-item"><a class="nxl-link" href="{{url('logout')}}"><span class="nxl-micon"><i class="feather-power"></i> </span><strong>Log Out</strong></a></li>
                     </li>                              
@@ -91,7 +91,8 @@
 
     <style>
         .nxl-micon i {
-        color: green; /* bright orange, for example */
-        font-size: 2rem;
+            color: green; /* bright orange, for example */
+            font-size: 2rem;
         }
     </style>
+
