@@ -15,7 +15,7 @@
 
                     <li class="nxl-item nxl-hasmenu">
                         <a href="{{url('/dashboard')}}" class="nxl-link">
-                            <span class="nxl-mtext">Dashboard</span>
+                             <span class="nxl-micon"><i class="feather-airplay"></i> </span> Dashboard
                         </a>                 
                     </li>
 
@@ -81,10 +81,17 @@
                     
 
                     <li class="nxl-item nxl-hasmenu">
-                        <li class="nxl-item"><a class="nxl-link" href="{{url('logout')}}"><i class="feather-power"></i> <strong>Logout</strong></a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="{{url('logout')}}"><span class="nxl-micon"><i class="feather-power"></i> </span><strong>Log Out</strong></a></li>
                     </li>                              
                 </ul>
                 
             </div>
         </div>
     </nav>
+
+    <style>
+        .nxl-micon i {
+        color: green; /* bright orange, for example */
+        font-size: 2rem;
+        }
+    </style>
