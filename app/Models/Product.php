@@ -18,7 +18,7 @@ class Product extends Model
                     ->orWhere('P.brand', 'like', '%'.$filter.'%')
                     ->orWhere('P.model', 'like', '%'.$filter.'%')
                     ->orderBy('P.id','desc')
-                    ->paginate(5, array('P.*'));
+                    ->paginate(10, array('P.*'));
         return $products;
     }
   

@@ -10,6 +10,12 @@ class VehicleController extends Controller
 {
     public $data = array();
 
+    /**---------index-----------
+    * display ongoing list data file = index page
+    * show data ongoing vehicle active data
+    * current table column status = 0, active data list
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function index(Request $request){
 
         $filter = $request->filter;
@@ -17,6 +23,12 @@ class VehicleController extends Controller
         return view('sms.current.index', $this->data);
     }
     
+    /**---------transferVehicle-----------
+    * display transfer vehicle page
+    * show data transfer vehicle  data
+    * current table column status = 1
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function transferVehicle(Request $request){
 
         $filter = $request->filter;
@@ -24,6 +36,12 @@ class VehicleController extends Controller
         return view('sms.current.transferVehicle', $this->data);
     }
 
+    /**---------empWiseVehicle-----------
+    * display employee vehicle page
+    * show data employee wise vehicle data
+    * table query current and empyloyee table
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function empWiseVehicle(Request $request){
 
         $emp_id = $request->emp_id;
@@ -32,6 +50,12 @@ class VehicleController extends Controller
         return view('sms.current.empWiseVehicle', $this->data);
     }
 
+    /**---------chassisWiseVehicle-----------
+    * display chassis vehicle page
+    * show data chassis wise vehicle data
+    * table query current and product table
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function chassisWiseVehicle(Request $request){
 
         $product = $request->product_id;
@@ -40,6 +64,13 @@ class VehicleController extends Controller
         return view('sms.current.ChassisWiseVehicle', $this->data);
     }
 
+    /**---------eligibleUser-----------
+    * display eligible vehicle page
+    * show data eligible vehicle data
+    * if is loan = loan, usage duration 5 years or more 
+    * if is loan = cash, usage duration 6 years or more 
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function eligibleUser(Request $request){
 
         $filter = $request->filter;
@@ -47,6 +78,12 @@ class VehicleController extends Controller
         return view('sms.current.eligibleUser', $this->data);
     }
 
+    /**---------assignVehicle-----------
+    * display assign vehicle page
+    * show data current table column is assing = 0
+    * if is assing column = 1 update method call
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function assignVehicle(Request $request){
 
         $filter = $request->filter;
@@ -54,6 +91,10 @@ class VehicleController extends Controller
         return view('sms.current.assignVehicle', $this->data);
     }
 
+    /**---------createForm-----------
+    * display current create page
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function createForm(){
 
         $this->data['employees'] = Employee::where(['status'=>1])->get();
@@ -62,6 +103,10 @@ class VehicleController extends Controller
         return view('sms.current.create', $this->data);
     }
 
+    /**---------transferForm-----------
+    * display current create transfer form page
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function transferForm(string $id){
 
         $this->data['employees'] = Current::getEmployeeList();
@@ -71,6 +116,11 @@ class VehicleController extends Controller
         return view('sms.current.transfer', $this->data);
     }
 
+    /**---------store-----------
+    * display current create  page
+    * submit form and store data current table
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function store(Request $request)
     {
         $request->validate([
@@ -92,6 +142,11 @@ class VehicleController extends Controller
         }
     }
 
+    /**---------editForm-----------
+    * display current edit  page
+    * edit page display data
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function editForm(string $id)
     { 
        $this->data['employees'] = Employee::where(['status'=>1])->get();
@@ -101,6 +156,11 @@ class VehicleController extends Controller
        return view('sms.current.edit', $this->data);
     }
 
+    /**---------update-----------
+    * display current  edit  page
+    * submit form and update data current table
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function update(Request $request)
     {
     
@@ -125,6 +185,11 @@ class VehicleController extends Controller
       }
     }
 
+    /**---------vehicleTransfer-----------
+    * click transfer button display create page
+    * submit form and update and store data current table
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function vehicleTransfer(Request $request)
     {
     
@@ -147,6 +212,11 @@ class VehicleController extends Controller
         }
     }
 
+    /**---------view-----------
+    * display current table view page
+    * show display data
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function view(string $id)
     { 
        $this->data['employees'] = Employee::where(['status'=>1])->get();
@@ -156,6 +226,11 @@ class VehicleController extends Controller
        return view('sms.current.view', $this->data);
     }
 
+    /**---------updateStatus-----------
+    * display ongoing page = index page 
+    * submit transfer button update current table data
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function updateStatus(Request $request)
     {
         $current = Current::find($request->id);
@@ -169,6 +244,11 @@ class VehicleController extends Controller
         $current->save();
     }
 
+    /**---------handOver-----------
+    * display eligable page 
+    * submit handover button update current table data
+    * @throws \Illuminate\Validation\ValidationException
+    */
     public function handOver(Request $request)
     {
         $current = Current::find($request->id);

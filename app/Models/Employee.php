@@ -18,7 +18,7 @@ class Employee extends Model
                     ->orWhere('E.designation', 'like', '%'.$filter.'%')
                     ->orWhere('E.phone', 'like', '%'.$filter.'%')
                     ->orderBy('E.id','desc')
-                    ->paginate(5, array('E.*'));
+                    ->paginate(10, array('E.*'));
         return $employees;
     }
   

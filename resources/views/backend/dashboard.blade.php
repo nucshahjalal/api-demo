@@ -2,7 +2,7 @@
 @section('page_title','SMS')
 @section('content')
 <main  class="nxl-container">
-    <div  class="nxl-content">
+<div  class="nxl-content">
     <!-- [ page-header ] start -->
     <div  class="page-header">
         <div class="page-header-left d-flex align-items-center">
@@ -11,7 +11,6 @@
             </div>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item">Dashboard</li>
             </ul>
         </div>
         <div class="page-header-right ms-auto">
@@ -26,7 +25,7 @@
                     <!-- <div id="reportrange" class="reportrange-picker d-flex align-items-center">
                         <span class="reportrange-picker-field"></span>
                     </div> -->
-                    <div class="dropdown filter-dropdown">
+                    <!-- <div class="dropdown filter-dropdown">
                         <div class="page-header-right ms-auto">
                             <form method="get" action="{{ url('/dashboard') }}" id="submitForm">
                                 @csrf
@@ -40,7 +39,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="d-md-none d-flex align-items-center">
@@ -141,7 +140,7 @@
                     <div class="d-flex align-items-start justify-content-between mb-4">
                         <div class="d-flex gap-4 align-items-center">
                             <div class="avatar-text avatar-lg bg-gray-200">
-                                <a href="{{ url('product/list')}}" target="_blank" class="">
+                                <a href="{{ url('vehicle/list')}}" target="_blank" class="">
                                     <i class="bi bi-box-seam"></i>
                                 </a>
                             </div>
@@ -214,11 +213,14 @@
             </div>
         </div>
 
+        
+        
+        
     </div>
-    
+</div> 
     <!-- [Graph chart] start -->
     <div class="row">
-        <div class="col-xxl-12">
+        <div class="col-xxl-12 col-md-12">
             <div class="card stretch stretch-full">
                 <div class="card-header">
                     <h5 class="card-title">Month vs Active Motorcycle</h5>
@@ -230,6 +232,7 @@
         </div>
     </div>
 </div>
+
         <!-- [ page-header ] end -->
         <!-- [ Main Content ] start -->
         <!-- dashboardMainContent -->

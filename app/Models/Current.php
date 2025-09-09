@@ -26,7 +26,7 @@ class Current extends Model
             })
             ->orderBy('C.id', 'desc')
             ->where('C.status', 0)
-            ->paginate(5, [
+            ->paginate(10, [
                 'C.*',
                 'E.name as emp_name',
                 'P.brand as brand_name',
@@ -78,7 +78,7 @@ class Current extends Model
             })
             ->orderBy('C.id', 'desc')
             ->where('C.status', 1)
-            ->paginate(5, [
+            ->paginate(10, [
                 'C.*',
                 'E.name as emp_name',
                 'P.brand as brand_name',
@@ -118,9 +118,9 @@ class Current extends Model
     public static function getEmployeeList(){
         
          $currents = Current::from('currents as C')
-                    ->join('employees AS E', 'E.id', '=', 'C.emp_id')
-                    ->where('C.status', 0)
-                    ->get(['E.*']);
+                ->join('employees AS E', 'E.id', '=', 'C.emp_id')
+                ->where('C.status', 0)
+                ->get(['E.*']);
         return $currents;
     }
 
@@ -134,7 +134,7 @@ class Current extends Model
                 return $query->where('C.emp_id', $empName); 
             })
             ->where('C.emp_id', $empName)
-            ->paginate(5, [
+            ->paginate(10, [
                 'C.*',
                 'E.name as emp_name',
                 'P.brand as brand_name',
@@ -183,7 +183,7 @@ class Current extends Model
                 return $query->where('E.name', 'like', '%' . $product . '%');
             })
             ->where('C.product_id', $product)
-            ->paginate(5, [
+            ->paginate(10, [
                 'C.*',
                 'E.name as emp_name',
                 'P.brand as brand_name',
@@ -244,7 +244,7 @@ class Current extends Model
                 });
             })
         ->orderBy('C.id', 'desc')
-        ->paginate(5, [
+        ->paginate(10, [
             'C.*',
             'E.name as emp_name',
             'P.brand as brand_name',
@@ -280,6 +280,7 @@ class Current extends Model
 
         return $currents;
     }
+
     public static function getAssignVehicleList($filter)
     {
         $currents = Current::from('currents as C')
@@ -305,7 +306,7 @@ class Current extends Model
                 });
             })
         ->orderBy('C.id', 'desc')
-        ->paginate(5, [
+        ->paginate(10, [
             'C.*',
             'E.name as emp_name',
             'P.brand as brand_name',
