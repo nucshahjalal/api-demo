@@ -39,6 +39,9 @@ Route::get('/employee/edit/{id}', [EmployeeController::class, 'editForm'])->name
 Route::get('/employee/view/{id}', [EmployeeController::class, 'view'])->name('employee.view');
 Route::post('/employee/update', [EmployeeController::class, 'update'])->name('employee.update');
 Route::get('/employee/delete/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+Route::get('/vehicle/employee-history/{id}', [EmployeeController::class, 'empHistory'])->name('vehicle.employee-history');
+Route::get('vehicle/employee-history/download-pdf/{emp_id}', [EmployeeController::class, 'empHistoryDownloadPdf']);
+
 
 // product
 Route::get('/product/list', [ProductController::class, 'index'])->name('product.list');

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Sms;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\Employee;
+use App\Models\{Employee, Current};
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EmployeeController extends Controller
 {
@@ -16,6 +17,23 @@ class EmployeeController extends Controller
         $filter = $request->filter;
         $this->data['employees'] = Employee::getEmployeeList($filter);
         return view('sms.employee.index', $this->data);
+    }
+
+     public function empHistory(Request $request, $emp_id){
+
+        $this->data['employee'] = Employee::where('id', $emp_id)->first();
+        $this->data['vehicles'] = Current::getEmpWiseVehicleList($emp_id);
+        return view('sms.employee.employeeHistory', $this->data);
+    }
+
+    public function empHistoryDownloadPdf($emp_id)
+    {
+        $employee = Employee::findOrFail($emp_id);
+        $vehicles = Current::getEmpWiseVehicleList($emp_id);
+
+        $pdf = Pdf::loadView('sms.employee.employeeHistory', compact('vehicles', 'employee'))
+                ->setPaper('a4', 'landscape');
+        return $pdf->download('employee-history-report.pdf');
     }
 
     public function createForm(){

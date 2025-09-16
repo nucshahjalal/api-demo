@@ -60,6 +60,8 @@
                                 <td>{{ $obj->portfolio }}</td>
                                 <td>{{ $obj->status ? 'Active' : 'InActive' }}</td>
                                 <td>
+                                    <input type="hidden" name="emp_id" id="emp_id" value="{{$obj->id}}"/>
+                                    <a class="btn btn-sm btn-success" href="{{ url('vehicle/employee-history', $obj->id) }}"> <i class="bi bi-eye"></i> View History</a>
                                     <a class="btn btn-sm btn-primary" href="{{ url('employee/view', $obj->id) }}"> <i class="bi bi-eye"></i> View</a>
                                     <a class="btn btn-sm btn-info" href="{{ url('employee/edit', $obj->id) }}"><i class="bi bi-pencil-square"></i> Edit</a>
                                     <a class="btn btn-sm btn-danger" href="{{ url('employee/delete', $obj->id) }}" onclick="javascript: return confirm('are you sure delete?')"><i class="bi bi-trash"></i> Delete</a>

@@ -33,7 +33,7 @@
                                     <select style="font-size:16px;" class="form-control form-control-lg" name="vehicle_id" id="vehicle_id" data-select2-selector="icon">
                                         <option style="font-size:15px;" value="">&#128269; -- Select --</option> 
                                         @foreach($vehicles as $obj) 
-                                            <option style="font-size:15px;" value="{{ $obj->id }}"{{ request('vehicle_id') == $obj->id ? 'selected' : '' }}>{{ date('d-M-Y', strtotime($obj->created_at)) }}</option>
+                                            <option style="font-size:15px;" value="{{ $obj->id }}"{{ request('vehicle_id') == $obj->id ? 'selected' : '' }}>{{ date('m-d-Y', strtotime($obj->created_at)) }}</option>
                                         @endforeach 
                                     </select>
                                 </div>

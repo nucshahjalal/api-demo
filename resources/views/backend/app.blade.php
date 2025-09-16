@@ -97,6 +97,9 @@
     <!--! End: Table   !-->
     <!--! BEGIN: Date js   !-->
     <script src="{{asset('backend/assets/vendors/js/datepicker.min.js')}}"></script>
+     <!--! print invoice   !-->
+    <script src="{{asset('backend/assets/vendors/js/jquery.print.min.js')}}"></script>
+    <script src="{{asset('backend/assets/js/invoice-view-init.min.js')}}"></script>
 
 </body>
 </html>
