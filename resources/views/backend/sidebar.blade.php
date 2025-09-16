@@ -47,7 +47,7 @@
                             <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.list')}}">Ongoing Vehicle List</a></li>
                         </ul>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('transfer-vehicle.list')}}">Transfered Vehicle List</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="{{route('transfer-vehicle.list')}}">Transferred Vehicle List</a></li>
                         </ul>
                         <ul class="nxl-submenu">
                             <li class="nxl-item"><a class="nxl-link" href="{{route('employee-wise-vehicle.list')}}">Employee Wise Vehicle List</a></li>

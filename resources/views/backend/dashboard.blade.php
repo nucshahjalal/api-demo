@@ -15,33 +15,29 @@
         </div>
         <div class="page-header-right ms-auto">
             <div class="page-header-right-items">
-                <div class="d-flex d-md-none">
-                    <a href="javascript:void(0)" class="page-header-right-close-toggle">
-                        <i class="feather-arrow-left me-2"></i>
-                        <span>Back</span>
-                    </a>
-                </div>
-                <div class="d-flex align-items-center gap-2 page-header-right-items-wrapper">
-                    <!-- <div id="reportrange" class="reportrange-picker d-flex align-items-center">
-                        <span class="reportrange-picker-field"></span>
-                    </div> -->
-                    <!-- <div class="dropdown filter-dropdown">
-                        <div class="page-header-right ms-auto">
-                            <form method="get" action="{{ url('/dashboard') }}" id="submitForm">
-                                @csrf
-                                <div class="d-flex align-items-center gap-2">
-                                    <select style="font-size:16px;" class="form-control form-control-lg" name="vehicle_id" id="vehicle_id" data-select2-selector="icon">
-                                        <option style="font-size:15px;" value="">&#128269; -- Select --</option> 
-                                        @foreach($vehicles as $obj) 
-                                            <option style="font-size:15px;" value="{{ $obj->id }}"{{ request('vehicle_id') == $obj->id ? 'selected' : '' }}>{{ date('m-d-Y', strtotime($obj->created_at)) }}</option>
-                                        @endforeach 
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                    </div> -->
-                </div>
+        <div class="d-flex d-md-none">
+            <a href="javascript:void(0)" class="page-header-right-close-toggle">
+                <i class="feather-arrow-left me-2"></i>
+                <span>Back</span>
+            </a>
+        </div>
+            <div class="d-flex align-items-center gap-2 page-header-right-items-wrapper">
+                <div class="dropdown filter-dropdown">
+                    <div class="page-header-right ms-auto">
+                        <form method="get" action="{{ url('/dashboard') }}" id="submitForm" class="d-flex align-items-center gap-2">
+                            @csrf
+                            <label class="form-label" style="white-space: nowrap;"> From Date</label>
+                            <input type="text" name="from_date" id="add_from_date" class="form-control form-control-sm" style="max-width: 160px;" value="{{ request('from_date') }}" placeholder="From Date">
+                            <label class="form-label" style="white-space: nowrap;">To Date </label>
+                            <input type="text" name="to_date" id="add_to_date" class="form-control form-control-sm" style="max-width: 160px;" value="{{ request('to_date') }}" placeholder="To Date">
+                            <div class="col-auto">
+                                <button class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div> 
             </div>
+        </div>
             <div class="d-md-none d-flex align-items-center">
                 <a href="javascript:void(0)" class="page-header-right-open-toggle">
                     <i class="feather-align-right fs-20"></i>
@@ -212,9 +208,6 @@
                 </div>
             </div>
         </div>
-
-        
-        
         
     </div>
 </div> 
@@ -245,10 +238,25 @@
  
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<!-- Date calender -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <script type="text/javascript">
-    document.getElementById('vehicle_id').addEventListener('change', function() {
-        document.getElementById('submitForm').submit();
+
+    document.addEventListener('DOMContentLoaded', function () {
+        flatpickr("#add_from_date", {
+            dateFormat: "Y-m-d", 
+            altInput: true,
+            altFormat: "F j, Y",
+        });
+        flatpickr("#add_to_date", {
+            dateFormat: "Y-m-d", 
+            altInput: true,
+            altFormat: "F j, Y",
+        });
     });
+
 </script>
 
 <script type="text/javascript">

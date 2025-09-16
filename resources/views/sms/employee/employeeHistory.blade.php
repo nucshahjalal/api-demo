@@ -29,58 +29,86 @@
         </div>
 
         <!-- Main Content -->
-        <div class="main-content">
+        <div class="main-content p-4">
             <div class="row">
                 <div class="col-xl-12" id="printableArea">
                     <div class="card invoice-container">
                         <div class="card-body p-0" >
-                           <div class="px-4 pt-4">
-                                    <div class="d-sm-flex align-items-center justify-content-between">
+                            <div class="px-4 pt-4">
+                                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;" class="d-sm-flex">
+                                    
+                                    <div>
+                                        <address class="text-muted" style="margin-left: 10px;">
+                                            <span class="fs-4 fw-bold text-primary">Employee History: {{ ucfirst($employee->name)}}</span><br>
+                                            Designation: {{$employee->designation}}<br>
+                                            Phone: {{$employee->phone}}
+                                        </address>
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                       <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('backend/assets/images/logo.jpg'))) }}" style="height: 80px;">
+                                    </div>
+
+                                    <div class="lh-lg pt-3 pt-sm-0 text-end" style="margin-right: 10px;">
+                                        <h2 class="fs-4 fw-bold text-primary"></h2>
                                         <div>
-                                            <div class="fs-4 fw-bold text-primary">Employee History</div>
-                                            <address class="text-muted">
-                                                Name: {{$employee->name}}<br>
-                                                Designation: {{$employee->designation}}<br>
-                                                Phone: {{$employee->phone}}
-                                            </address>
+                                            <span class="fw-bold text-dark">Report No:</span>
+                                            <span class="fw-bold text-primary">#{{$employee->emp_id}}</span>
                                         </div>
-                                        <div class="lh-lg pt-3 pt-sm-0">
-                                            <h2 class="fs-4 fw-bold text-primary">Invoice</h2>
-                                            <div>
-                                                <span class="fw-bold text-dark">Invoice No:</span>
-                                                <span class="fw-bold text-primary">#{{$employee->emp_id}}</span>
-                                            </div>
+                                        <div>
+                                            <span class="fw-bold text-dark">Date:</span>
+                                            <span class="fw-bold text-primary">{{ date('d-m-Y', strtotime(now())) }}</span>
                                         </div>
                                     </div>
+                                    
                                 </div>
+                            </div>
 
                             <!-- Vehicle Table -->
-                            <hr class="border-dashed mb-0">
+                             <br>
+                            <!-- <hr class="border-dashed mb-0"> -->
                             <div class="table-responsive">
+                                @php
+                                 $hasOngoing = $vehicles->contains(function($v) {
+                                    return empty($v->transfer_at); 
+                                });
+                                $ongoingIndex = 1;
+                                $transferredIndex = $hasOngoing ? 2 : 1; 
+                                    
+                                @endphp
                                 @forelse($vehicles as $obj)
-                                    <div style="margin-bottom: 1rem; padding: 10px; border: 1px solid #ccc;">
-                                        <p><strong>SL No:</strong> {{ $loop->index + $vehicles->firstItem() }}</p>
-                                        <p><strong>Model Name:</strong> {{ $obj->model_name }}</p>
-                                        <p><strong>Brand Name:</strong> {{ $obj->brand_name }}</p>
-                                        <p><strong>Engine No:</strong> {{ $obj->eng_no }}</p>
-                                        <p><strong>Chassis No:</strong> {{ $obj->chassis_no }}</p>
-                                        <p><strong>Registration No:</strong> {{ $obj->registration_number }}</p>
-                                        <p><strong>Portfolio:</strong> {{ $obj->portfolio_name }}</p>
-                                        <p><strong>Location:</strong> {{ $obj->location }}</p>
-                                        <p><strong>Receive Date:</strong> {{ date('m-d-Y', strtotime($obj->receive_date)) }}</p>
-                                        <p><strong>Usage Duration:</strong> {{ $obj->total_receive_duration }}</p>
-                                        <p><strong>Is Loan?:</strong> 
-                                            {!! $obj->is_loan == 0 
-                                                ? '<span style="color:red;">Loan</span>' 
-                                                : '<span style="color:green;">Cash</span>' !!}
-                                        </p>
-                                        <p><strong>Registration Date:</strong> {{ $obj->reg_date }}</p>
-                                        <p><strong>Registration Duration:</strong> {{ $obj->total_reg_duration }}</p>
-                                        <p><strong>Motor Cycle Status:</strong> {{ $obj->mc_status }}</p>
-                                        <p><strong>Transfer Date:</strong> {{ date('m-d-Y', strtotime($obj->transfer_at)) }}</p>
-                                    </div>
-                                @empty
-                                    <p>There are no data found.</p>
+                                    <div style="margin-bottom: 1rem; padding: 10px; border: 1px solid #ccc;"> 
+                                        <div style="display: flex; flex-wrap: wrap; gap: 10px; width:58rem;pading:10px;"> 
+                                            
+                                            <div style="flex: 1 1 100%;">
+                                                <strong>
+                                                    @if (empty($obj->transfer_at))
+                                                        {{ $ongoingIndex++ . '. Ongoing' }}
+                                                    @else
+                                                        {{ $transferredIndex++ . '. Transferred Date:' }}
+                                                    @endif
+                                                </strong>
+                                                {{ !empty($obj->transfer_at) ? date('d-m-Y', strtotime($obj->transfer_at)) : '' }}
+                                            </div>
+                                            
+                                            <div style="flex: 1 1 45%;"><strong>Model Name:</strong> {{ $obj->model_name }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Brand Name:</strong> {{ $obj->brand_name }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Engine No:</strong> {{ $obj->eng_no }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Chassis No:</strong> {{ $obj->chassis_no }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Registration No:</strong> {{ $obj->registration_number }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Portfolio:</strong> {{ $obj->portfolio_name }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Location:</strong> {{ $obj->location }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Receive Date:</strong> {{ date('m-d-Y', strtotime($obj->receive_date)) }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Usage Duration:</strong> {{ $obj->total_receive_duration }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Is Loan?:</strong> {!! $obj->is_loan == 0 ? '<span style="color:red;">Loan</span>' : '<span style="color:green;">Cash</span>' !!} </div> 
+                                            <div style="flex: 1 1 45%;"><strong>Registration Date:</strong> {{ $obj->reg_date }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Registration Duration:</strong> {{ $obj->total_reg_duration }}</div> 
+                                            <div style="flex: 1 1 45%;"><strong>Motor Cycle Status:</strong> {{ $obj->mc_status }}</div>
+
+                                        </div> 
+                                    </div> 
+                                @empty 
+                                    <p>There are no data found.</p> 
                                 @endforelse
                             </div>
                         </div>

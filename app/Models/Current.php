@@ -134,6 +134,7 @@ class Current extends Model
                 return $query->where('C.emp_id', $empName); 
             })
             ->where('C.emp_id', $empName)
+            ->where('C.status', 0)
             ->orderBy('C.id', 'desc')
             ->paginate(10, [
                 'C.*',
