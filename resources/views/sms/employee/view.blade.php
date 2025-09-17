@@ -5,33 +5,33 @@
 <main class="nxl-container">
     <div class="nxl-content">
         <!-- [ page-header ] start -->
-       <div class="page-header">
-            <div class="page-header-left d-flex align-items-center">                    
-                <ul class="breadcrumb">
-                        <h3 style="text-align: center !important;"> Manage Employee View</h3>
-                </ul>
-            </div>
-            <div class="page-header-right ms-auto">
-                <div class="page-header-right-items">
-                    <div class="d-flex d-md-none">
-                        <a href="javascript:void(0)" class="page-header-right-close-toggle">
-                            <i class="feather-arrow-left me-2"></i>
-                            <span>Back</span>
-                        </a>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 page-header-right-items-wrapper">
-                        <a href="{{ url('employee/list') }}" class="btn btn-sm  btn-primary w-100 text-white fw-bold" style="font-size: 20px;">
-                            ← Back
-                        </a>
-                    </div>
+    <div class="page-header">
+        <div class="page-header-left d-flex align-items-center">                    
+            <ul class="breadcrumb">
+                    <h3 style="text-align: center !important;"> Manage Employee View</h3>
+            </ul>
+        </div>
+        <div class="page-header-right ms-auto">
+            <div class="page-header-right-items">
+                <div class="d-flex d-md-none">
+                    <a href="javascript:void(0)" class="page-header-right-close-toggle">
+                        <i class="feather-arrow-left me-2"></i>
+                        <span>Back</span>
+                    </a>
                 </div>
-                <div class="d-md-none d-flex align-items-center">
-                    <a href="javascript:void(0)" class="page-header-right-open-toggle">
-                        <i class="feather-align-right fs-20"></i>
+                <div class="d-flex align-items-center gap-2 page-header-right-items-wrapper">
+                    <a href="{{ url('employee/list') }}" class="btn btn-sm  btn-primary w-100 text-white fw-bold" style="font-size: 20px;">
+                        ← Back
                     </a>
                 </div>
             </div>
+            <div class="d-md-none d-flex align-items-center">
+                <a href="javascript:void(0)" class="page-header-right-open-toggle">
+                    <i class="feather-align-right fs-20"></i>
+                </a>
+            </div>
         </div>
+    </div>
     <div class="main-content">
         <div class="row">
             <div class="col-xl-12">

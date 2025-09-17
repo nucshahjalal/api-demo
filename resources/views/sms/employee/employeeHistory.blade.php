@@ -12,12 +12,6 @@
                 <!-- <a id="download_pdf" href="#" class="btn btn-sm btn-dark">
                     <i class="bi bi-file-earmark-pdf"></i> Download PDF
                 </a> -->
-
-                <!-- <a href="javascript:void(0)" class="d-flex me-1 printBTN">
-                    <div class="avatar-text avatar-md" data-bs-toggle="tooltip" title="Print Invoice">
-                        <i class="feather feather-printer"></i>
-                    </div>
-                </a> -->
                 <button class="btn btn-sm btn-info printBTN"><i class="feather feather-printer"></i> Print</button>
             </div>
 
@@ -38,8 +32,8 @@
                                 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;" class="d-sm-flex">
                                     
                                     <div>
-                                        <address class="text-muted" style="margin-left: 10px;">
-                                            <span class="fs-4 fw-bold text-primary">Employee History: {{ ucfirst($employee->name)}}</span><br>
+                                        <address class="text-muted" style="margin-left: 0px; font-style: normal;">
+                                            <span class="fs-4 fw-bold text-primary">Employee History: {{ ucfirst($employee->name) }}</span><br>
                                             Designation: {{$employee->designation}}<br>
                                             Phone: {{$employee->phone}}
                                         </address>
@@ -108,7 +102,7 @@
                                         </div> 
                                     </div> 
                                 @empty 
-                                    <p>There are no data found.</p> 
+                                    <p colspan="8" class="text-center">There are no data found.</p>
                                 @endforelse
                             </div>
                         </div>

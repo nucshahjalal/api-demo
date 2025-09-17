@@ -52,7 +52,7 @@ class VehicleController extends Controller
 
     /**---------chassisWiseVehicle-----------
     * display chassis vehicle page
-    * show data chassis wise vehicle data
+    * show data product table chassis wise data
     * table query current and product table
     * @throws \Illuminate\Validation\ValidationException
     */

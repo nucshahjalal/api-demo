@@ -19,8 +19,6 @@ class dashboardController extends Controller
         $this->data['vehicles'] = Current::where('status', 0)->get();
 
         $this->data['totalVehicleCount'] = [Current::all()->count()];
-        $year_id = $request->year_id;
-
         $from_date = $request->input('from_date');
         $to_date = $request->input('to_date');
 
