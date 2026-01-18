@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -38,7 +39,7 @@ class AuthController extends Controller
     }
 
     //receive api data show route web.php file
-    public function userlist(){
+    public function userlist(Request $request){
        
         return view('api.index');
     }
@@ -50,8 +51,15 @@ class AuthController extends Controller
     }
 
     //api data handover another user route api.php file
-    public function apiUserList()
+    public function apiUserList(Request $request)
     {
+        $token = $request->bearerToken();
+
+        if (!$token) {
+            return response()->json([
+                "message" => "Unauthorized: API token not found"
+            ], 401);
+        }  
         $users = User::all(); 
         return response()->json([
             'status' => 'success',
