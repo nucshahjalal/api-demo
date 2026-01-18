@@ -10,7 +10,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
@@ -27,7 +26,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-//only api use integration link
+//only api link use  
 Route::get('/user-list', [AuthController::class, 'userlist']);
 Route::get('/school-api', [AuthController::class, 'schoolApi']);
 
