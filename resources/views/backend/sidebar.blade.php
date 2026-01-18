@@ -13,6 +13,7 @@
                         <label></label>
                     </li>
 
+                @if(Auth::user()->name === 'admin')
                     <li class="nxl-item nxl-hasmenu">
                         <a href="{{url('/dashboard')}}" class="nxl-link">
                              <span class="nxl-micon"><i class="feather-airplay"></i> </span> Dashboard
@@ -21,68 +22,39 @@
 
                     <li class="nxl-item nxl-hasmenu">
                         <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="bi bi-person-badge"></i></span>
-                            <span class="nxl-mtext">Employee</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
-                        </a>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('employee.list')}}">Employee List</a></li>
-                        </ul>
-                    </li>
-                    <li class="nxl-item nxl-hasmenu">
-                        <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="bi bi-box-seam"></i></span>
-                            <span class="nxl-mtext">Product</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
-                        </a>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('product.list')}}">Product List</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="nxl-item nxl-hasmenu">
-                        <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="bi bi-truck"></i></span>
-                            <span class="nxl-mtext">Vehicle</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
-                        </a>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.list')}}">Ongoing Vehicle List</a></li>
-                        </ul>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('transfer-vehicle.list')}}">Transferred Vehicle List</a></li>
-                        </ul>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('employee-wise-vehicle.list')}}">Employee Wise Vehicle List</a></li>
-                        </ul>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('chassis-wise-vehicle.list')}}">Chassis Wise Vehicle List</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nxl-item nxl-hasmenu">
-                        <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="fas fa-ship"></i></span>
-                            <span class="nxl-mtext">Ownership</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
-                        </a>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.eligible-user.list')}}">Eligible User</a></li>
-                        </ul>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('vehicle.assign-vehicle.list')}}">Assign Vehicle</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="nxl-item nxl-hasmenu">
-                        <a href="javascript:void(0);" class="nxl-link">
                             <span class="nxl-micon"><i class="bi bi-briefcase"></i></span>
-                            <span class="nxl-mtext">Portfolio</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                            <span class="nxl-mtext">Api User</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                         </a>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{route('portfolio.list')}}">Portfolio List</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="{{url('user-list')}}">User List</a></li>
+                        </ul>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{url('school-api')}}">School Api</a></li>
                         </ul>
                     </li>
 
                     <li class="nxl-item nxl-hasmenu">
                         <li class="nxl-item"><a class="nxl-link" href="{{url('logout')}}"><span class="nxl-micon"><i class="feather-power"></i> </span><strong>Log Out</strong></a></li>
-                    </li>                              
+                    </li> 
+                    
+                @else
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="bi bi-briefcase"></i></span>
+                            <span class="nxl-mtext">Api User</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{url('user-list')}}">User List</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nxl-item nxl-hasmenu">
+                        <li class="nxl-item"><a class="nxl-link" href="{{url('logout')}}"><span class="nxl-micon"><i class="feather-power"></i> </span><strong>Log Out</strong></a></li>
+                    </li>
+
+                @endif
+
+                                                
                 </ul>
                 
             </div>

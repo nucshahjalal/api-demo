@@ -31,7 +31,11 @@ class LoginController extends Controller
         if ($user && Hash::check($request->password, $user->password)) {
             Auth::login($user);
 
-            return redirect()->intended('/dashboard');
+            if ($user->name === 'admin') {
+                return redirect()->intended('/dashboard');
+            } else {
+                return redirect()->intended('/user-list');
+            }
         }
 
         return back()->withErrors([

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="keyword" content="">
     <meta name="author" content="theme_ocean">
-    <title>SMS</title>
+    <title>API</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('backend/assets/images/favicon.ico')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/vendors/css/vendors.min.css')}}">
@@ -28,7 +28,7 @@
                         <img src="{{asset('backend/assets/images/logo.jpg')}}" alt="" class="img-fluid">
                     </div>
                     <div class="card-body p-sm-5">
-                        <h2 class="fs-20 fw-bolder mb-4 text-center">ACI Motors</h2>
+                        <h2 class="fs-20 fw-bolder mb-4 text-center">API Project</h2>
                         <form method="POST" action="{{ route('login') }}" class="w-100 mt-4 pt-2">
                             @csrf   
 

@@ -81,7 +81,13 @@
                         <a class="d-flex align-items-center nxl-head-link me-3" data-bs-toggle="dropdown" href="#" role="button" data-bs-auto-close="outside">
                             <i class="feather-user me-1"></i>
                             <span class="badge bg-info text-dark me-1">Username:</span>
-                            <span class="fw-semibold text-dark">{{ Auth::user()->name }}</span>
+                            <span class="fw-semibold text-dark">
+                                @if(Auth::check())
+                                    {{ Auth::user()->name }}
+                                @else
+                                     window.location.href = "{{ url('/') }}";
+                                @endif
+                            </span>
                         </a> 
                         <!-- <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-notifications-menu">
                             <div class="d-flex justify-content-between align-items-center notifications-head">

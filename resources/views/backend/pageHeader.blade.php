@@ -13,7 +13,7 @@
                     <span>Back</span>
                 </a>
             </div>
-            <form method="get" action="{{ url('tractor/create/list') }}">
+            <form method="get" action="">
                 @csrf
                 <div class="d-flex align-items-center gap-2 page-header-right-items-wrapper">  
                     <div class="col-auto">
