@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
    
-    //api receive data increment project and api create
+    //api show data 
     public function index(Request $request)
     {
 
@@ -37,15 +37,13 @@ class AuthController extends Controller
         ], 404);
     }
 
-
     //receive api data show route web.php file
     public function userlist(){
        
         return view('api.index');
     }
 
-    
-    //receive api school data show route web.php file
+    //receive another api data show route web.php file
     public function schoolApi(){
        
         return view('api.school_api');

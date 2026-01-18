@@ -29,7 +29,7 @@
                             <li class="nxl-item"><a class="nxl-link" href="{{url('user-list')}}">User List</a></li>
                         </ul>
                         <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="{{url('school-api')}}">School Api</a></li>
+                            <li class="nxl-item"><a class="nxl-link" href="{{url('school-api')}}">Receive Another Api Data</a></li>
                         </ul>
                     </li>
 
