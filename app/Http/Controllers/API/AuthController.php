@@ -37,12 +37,14 @@ class AuthController extends Controller
         ], 404);
     }
 
+
     //receive api data show route web.php file
     public function userlist(){
        
         return view('api.index');
     }
 
+    
     //receive api school data show route web.php file
     public function schoolApi(){
        
