@@ -16,7 +16,8 @@ class AuthController extends Controller
     public function index(Request $request)
     {
 
-        $token = $request->bearerToken();
+       // $token = $request->bearerToken();
+        $token = $request->header('Authorization');
 
         if (!$token) {
             return response()->json([
@@ -53,7 +54,7 @@ class AuthController extends Controller
     //api data handover another user route api.php file
     public function apiUserList(Request $request)
     {
-        $token = $request->bearerToken();
+        $token = $request->header('Authorization');
 
         if (!$token) {
             return response()->json([
