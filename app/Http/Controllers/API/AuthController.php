@@ -11,11 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-   
     //api show data 
     public function index(Request $request)
     {
-
        // $token = $request->bearerToken();
         $token = $request->header('Authorization');
 
