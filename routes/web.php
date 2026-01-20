@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\BlogController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -28,6 +29,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 //only api link use  
 Route::get('/user-list', [AuthController::class, 'userlist']);
 Route::get('/school-api', [AuthController::class, 'schoolApi']);
+Route::get('/blog', [BlogController::class, 'index']);
 
 require __DIR__.'/auth.php';
 
