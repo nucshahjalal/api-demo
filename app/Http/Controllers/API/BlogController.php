@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Blog;
+use App\Models\EncodeFile;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -108,5 +111,84 @@ class BlogController extends Controller
             'data'    => $blog
         ], 201);
     }
+
+    public function encode(Request $request)
+    {
+        $request->validate([
+            'file_name' => 'required|file'
+        ]);
+
+        $file = $request->file('file_name');
+
+        // Convert file to base64
+        $base64 = base64_encode(file_get_contents($file));
+
+        $storedFile = EncodeFile::create([
+            'file_name' => $base64,
+        ]);
+
+        return response()->json([
+            'message' => 'File stored successfully',
+            'data' => $storedFile
+        ]);
+    }
+
+    public function decode($id)
+    {
+        
+        $encodeFile = EncodeFile::findOrFail($id);
+
+        $base64 = $encodeFile->file_name;
+
+        $base64 = preg_replace('/^data:\w+\/\w+;base64,/', '', $base64);
+
+        $fileData = base64_decode($base64);
+
+        if ($fileData === false) {
+            return response()->json([
+                'message' => 'Invalid base64 data'
+            ], 400);
+        }
+
+        $fileName = Str::random(10) . '.file';
+        $filePath = 'uploads/' . $fileName;
+
+        Storage::disk('public')->put($filePath, $fileData);
+
+        return response()->json([
+            'message' => 'File decoded successfully',
+            'path' => $filePath,
+            'url' => asset('storage/' . $filePath)
+        ]);
+    }
+
+    public function decodePost(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        $encodeFile = EncodeFile::findOrFail($request->id);
+
+        $base64 = $encodeFile->file_name; 
+        // Remove base64 prefix if exists
+        $base64 = preg_replace('/^data:\w+\/\w+;base64,/', '', $base64);
+
+        // Decode base64
+        $fileData = base64_decode($base64);
+
+        // Generate file name
+        $fileName = Str::random(10) . '.file';
+        $filePath = 'uploads/' . $fileName;
+
+        Storage::disk('public')->put($filePath, $fileData);
+
+        return response()->json([
+            'message' => 'File decoded successfully',
+            'path' => $filePath,
+            'url' => asset('storage/' . $filePath)
+        ]);
+    }
+
 
 }
