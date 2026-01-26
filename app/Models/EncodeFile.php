@@ -12,7 +12,4 @@ class EncodeFile extends Model
 
     protected $fillable = ['file_name'];
     
-    //  protected $casts = [
-    //     'file' => 'array'
-    // ];
 }

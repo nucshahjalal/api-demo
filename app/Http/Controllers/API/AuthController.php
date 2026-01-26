@@ -37,36 +37,58 @@ class AuthController extends Controller
         ], 404);
     }
 
-    //receive api data show route web.php file
-    public function userlist(Request $request){
-       
-        return view('api.index');
-    }
-
-    //receive another api data show route web.php file
-    public function schoolApi(){
-       
-        return view('api.school_api');
-    }
-
-    //api data handover another user route api.php file
-    public function apiUserList(Request $request)
-    {
-        $token = $request->header('Authorization');
-
-        if (!$token) {
-            return response()->json([
-                "message" => "Unauthorized: API token not found"
-            ], 401);
-        }  
-        $users = User::all(); 
-        return response()->json([
-            'status' => 'success',
-            'data' => $users
-        ]);
-    }
-
     public function register(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'     => 'required|string|max:255',
+                'email'    => 'required|email',
+                'password' => 'required|min:6',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors'  => $validator->errors(),
+            ], 422);
+        }
+
+        //  if user exists
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            $user->update([
+                'name'     => $request->name,
+                'password' => Hash::make($request->password),
+            ]);
+
+            $message = 'User updated successfully';
+        } else {
+            $user = User::create([
+                'name'     => $request->name,
+                'email'    => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            $message = 'User registered successfully';
+        }
+
+        $token = $user->createToken('api-token')->plainTextToken;
+
+        $user->api_token = $token;
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'user'    => $user,
+            'token'   => $token,
+        ], 200);
+    }
+
+    public function register2(Request $request)
     {
         $validator = Validator::make(
             $request->all(),
@@ -180,6 +202,35 @@ class AuthController extends Controller
         return response()->json(['message' => 'User deleted']);
     }
 
+     //receive api data show route web.php file
+    public function userlist(Request $request){
+       
+        return view('api.index');
+    }
+
+    //receive another api data show route web.php file
+    public function schoolApi(){
+       
+        return view('api.school_api');
+    }
+
+    //api data handover another user route api.php file
+    public function apiUserList(Request $request)
+    {
+        $token = $request->header('Authorization');
+
+        if (!$token) {
+            return response()->json([
+                "message" => "Unauthorized: API token not found"
+            ], 401);
+        }  
+        $users = User::all(); 
+        return response()->json([
+            'status' => 'success',
+            'data' => $users
+        ]);
+    }
+    
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();

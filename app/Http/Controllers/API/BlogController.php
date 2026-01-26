@@ -32,13 +32,13 @@ class BlogController extends Controller
     {
         $token = $request->bearerToken();
 
-        if (!$token) {
-            return response()->json([
-                'message' => 'Unauthorized. Bearer token missing.'
-            ], 401);
-        }
+        // if (!$token) {
+        //     return response()->json([
+        //         'message' => 'Unauthorized. Bearer token missing.'
+        //     ], 401);
+        // }
 
-        $user = $request->user();
+        //$user = $request->user();
 
         $request->validate([
             'name'    => 'nullable|string|max:255',
@@ -64,7 +64,7 @@ class BlogController extends Controller
         }
 
         $blog = Blog::create([
-            'user_id' => $user ? $user->id : null, 
+           // 'user_id' => $user ? $user->id : null, 
             'name'    => $request->name,
             'image'   => $imagePaths
         ]);
@@ -133,9 +133,15 @@ class BlogController extends Controller
         ]);
     }
 
-    public function decode($id)
+    public function decode(Request $request, $id)
     {
-        
+        $token = $request->bearerToken();
+
+        if (!$token) {
+            return response()->json([
+                'message' => 'Unauthorized. Token missing.'
+            ], 401);
+        }
         $encodeFile = EncodeFile::findOrFail($id);
 
         $base64 = $encodeFile->file_name;
@@ -190,5 +196,15 @@ class BlogController extends Controller
         ]);
     }
 
+    public function blogList(){
+
+        $this->data['blogs'] = Blog::orderBy('id', 'desc')->get();
+        return view('blog.index', $this->data);
+    }
+
+    public function blogCreate(){
+
+        return view('blog.create');
+    }
 
 }

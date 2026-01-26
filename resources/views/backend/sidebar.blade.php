@@ -32,6 +32,15 @@
                             <li class="nxl-item"><a class="nxl-link" href="{{url('school-api')}}">Receive Another Api Data</a></li>
                         </ul>
                     </li>
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="bi bi-briefcase"></i></span>
+                            <span class="nxl-mtext">Blog List</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{url('blog-list')}}">Blog List</a></li>
+                        </ul>
+                    </li>
 
                     <li class="nxl-item nxl-hasmenu">
                         <li class="nxl-item"><a class="nxl-link" href="{{url('logout')}}"><span class="nxl-micon"><i class="feather-power"></i> </span><strong>Log Out</strong></a></li>
@@ -45,6 +54,15 @@
                         </a>
                         <ul class="nxl-submenu">
                             <li class="nxl-item"><a class="nxl-link" href="{{url('user-list')}}">User List</a></li>
+                        </ul>
+                    </li>
+                    <li class="nxl-item nxl-hasmenu">
+                        <a href="javascript:void(0);" class="nxl-link">
+                            <span class="nxl-micon"><i class="bi bi-briefcase"></i></span>
+                            <span class="nxl-mtext">Blog List</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                        </a>
+                        <ul class="nxl-submenu">
+                            <li class="nxl-item"><a class="nxl-link" href="{{url('blog-list')}}">Blog List</a></li>
                         </ul>
                     </li>
 

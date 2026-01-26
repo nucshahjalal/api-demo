@@ -31,5 +31,8 @@ Route::get('/user-list', [AuthController::class, 'userlist']);
 Route::get('/school-api', [AuthController::class, 'schoolApi']);
 Route::get('/blog', [BlogController::class, 'index']);
 
+//blog list
+Route::get('/blog-list', [BlogController::class, 'blogList']);
+Route::get('/blog/create', [BlogController::class, 'blogCreate'])->name('blog.create');
 require __DIR__.'/auth.php';
 
