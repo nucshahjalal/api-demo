@@ -9,7 +9,6 @@
         <div class="page-header-left d-flex align-items-center gap-2">
              <button class="btn btn-sm btn-success" onclick="getUsers()">Fetch Users</button>
              <button class="btn btn-sm btn-primary" onclick="downloadExcel()">Download Excel</button>
-
         </div>
 
         <div class="page-header-left d-flex align-items-center gap-2">
@@ -35,30 +34,30 @@
 <div class="main-content">   
     <div class="row">
         <div class="col-xl-12">
-        <div class="card stretch stretch-full">
-            <div class="card-body">
-            <div class="card-body custom-card-action p-0">
-               
-                <div class="table-responsive">
-                    <table id="userTable" class="table table-hover mb-0">
-                        <thead>
-                            <tr class="border-b">
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col" >SL No</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Name</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Email</th>
-                                <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Created Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                    </tbody>
-                </table>
-            </div>
+            <div class="card stretch stretch-full">
+                <div class="card-body">
+                    <div class="card-body custom-card-action p-0">
+                        <div class="table-responsive">
+                            <table id="userTable" class="table table-hover mb-0">
+                                <thead>
+                                    <tr class="border-b">
+                                        <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col" >SL No</th>
+                                        <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Image</th>
+                                        <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Name</th>
+                                        <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Email</th>
+                                        <th style="font-size:14px; width:5%; white-space: nowrap; text-transform: capitalize;" scope="col">Created Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-</div>
         <!-- [ page-header ] end -->
         <!-- [ Main Content ] start -->
         <!-- dashboardMainContent -->
@@ -162,12 +161,17 @@
 
         paginatedUsers.forEach((user, index) => {
             const row = `
-                <tr>
-                    <td>${startIndex + index + 1}</td> <!-- SL No -->
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${formatDate(user.created_at)}</td>
-                </tr>
+               <tr>
+                <td>${startIndex + index + 1}</td> 
+                <td>
+                    <img  src="${user.image ? '/' + user.image : '/images/default-user.png'}"
+                     width="40"  height="40"  style="border-radius:50%; object-fit:cover;" alt="User Image"  >
+                </td>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${formatDate(user.created_at)}</td>
+            </tr>
+
             `;
             tbody.insertAdjacentHTML('beforeend', row);
         });

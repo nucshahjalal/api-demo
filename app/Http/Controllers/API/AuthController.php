@@ -45,6 +45,7 @@ class AuthController extends Controller
                 'name'     => 'required|string|max:255',
                 'email'    => 'required|email',
                 'password' => 'required|min:6',
+                'image'    => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             ]
         );
 
@@ -58,10 +59,36 @@ class AuthController extends Controller
         //  if user exists
         $user = User::where('email', $request->email)->first();
 
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+            $uploadPath = public_path('images/users');
+
+            // if exists
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0777, true);
+            }
+
+            // If old image, delete it
+            if (!empty($user->image) && file_exists(public_path($user->image))) {
+                unlink(public_path($user->image));
+            }
+
+            // Move new image 
+            $image->move($uploadPath, $imageName);
+            $imagePath = 'images/users/' . $imageName;
+        } else {
+            // Keep the old image if no new image is uploaded
+            $imagePath = $user->image ?? null;
+        }
+
         if ($user) {
             $user->update([
                 'name'     => $request->name,
                 'password' => Hash::make($request->password),
+                'image'    => $imagePath ?? $user->image,
             ]);
 
             $message = 'User updated successfully';
@@ -70,6 +97,7 @@ class AuthController extends Controller
                 'name'     => $request->name,
                 'email'    => $request->email,
                 'password' => Hash::make($request->password),
+                'image'    => $imagePath,
             ]);
 
             $message = 'User registered successfully';
