@@ -71,16 +71,14 @@ class AuthController extends Controller
                 mkdir($uploadPath, 0777, true);
             }
 
-            // If old image, delete it
+            // If old image delete 
             if (!empty($user->image) && file_exists(public_path($user->image))) {
                 unlink(public_path($user->image));
             }
 
-            // Move new image 
             $image->move($uploadPath, $imageName);
             $imagePath = 'images/users/' . $imageName;
         } else {
-            // Keep the old image if no new image is uploaded
             $imagePath = $user->image ?? null;
         }
 

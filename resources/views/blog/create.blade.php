@@ -43,7 +43,7 @@
                             <div class="row">
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Name <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="name"  value="{{ old('name') }}" id="name" placeholder="Name">
+                                    <input class="form-control" type="text" name="name"  value="{{ old('name') }}" id="name" required placeholder="Name">
                                 </div>
                                 @error('name')
                                     <div style="color: red">{{ $message }}</div>
@@ -90,8 +90,39 @@
 </style>
 
 <script>
-
     function uploadFile() {
+
+        const form = document.getElementById('uploadForm');
+        const formData = new FormData(form);
+
+        fetch('http://127.0.0.1:8000/api/file-upload', {
+            method: 'POST',
+            body: formData,
+            headers: {
+               // 'Authorization': 'Bearer YOUR_TOKEN_HERE',
+                'Accept': 'application/json'
+            }
+        })
+        .then(async res => {
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data.message ?? 'Validation error');
+                return;
+            }
+
+            window.location.href = '/blog-list';
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Upload failed');
+        });
+    }
+</script>
+
+<script>
+
+    function uploadFile2() {
     
         const form = document.getElementById('uploadForm');
         const formData = new FormData(form);

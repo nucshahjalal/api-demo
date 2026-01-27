@@ -28,20 +28,18 @@ class BlogController extends Controller
     }
 
     //token use
-    public function store(Request $request)
+    public function store(Request $request) // validation create file add
     {
         $token = $request->bearerToken();
 
-        // if (!$token) {
-        //     return response()->json([
-        //         'message' => 'Unauthorized. Bearer token missing.'
-        //     ], 401);
-        // }
-
-        //$user = $request->user();
+        if (!$token) {
+            return response()->json([
+                'message' => 'Unauthorized. Bearer token missing.'
+            ], 401);
+        }
 
         $request->validate([
-            'name'    => 'nullable|string|max:255',
+            'name'    => 'required|string|max:255',
             'image'   => 'nullable',          
             'image.*' => 'image|mimes:jpg,jpeg,png|max:2048'
         ]);
@@ -64,7 +62,6 @@ class BlogController extends Controller
         }
 
         $blog = Blog::create([
-           // 'user_id' => $user ? $user->id : null, 
             'name'    => $request->name,
             'image'   => $imagePaths
         ]);
