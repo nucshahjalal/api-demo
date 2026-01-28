@@ -17,7 +17,7 @@
                 @csrf
                 <div class="d-flex align-items-center gap-2">
                     <input class="form-control" type="text" name="filter" 
-                        value="{{ request('filter') }}" id="filter" placeholder="Search...">
+                        value="{{ request('filter') }}" id="tableSearch" placeholder="Search...">
                     <div class="col-auto">
                         <button class="btn btn-sm btn-primary"><i class="bi bi-search"></i> Search</button>
                     </div>
@@ -218,6 +218,19 @@
 
         return `${day}-${month}-${year}`;
     }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#tableSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#userTable tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 </script>
 
 @endsection

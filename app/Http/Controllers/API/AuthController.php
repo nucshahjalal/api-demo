@@ -257,6 +257,20 @@ class AuthController extends Controller
         ]);
     }
     
+    public function searchUser(Request $request)
+    {
+        $query = $request->query('s'); // search keyword
+
+        $users = User::where('name', 'like', "%$query%")
+            ->orWhere('email', 'like', "%$query%")
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $users
+        ]);
+    }
+
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
